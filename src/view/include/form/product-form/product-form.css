@@ -1,0 +1,30 @@
+.product-form .form-group {
+  padding-bottom: 20px;
+}
+.product-form .form-group:last-child {
+  padding-bottom: 0;
+}
+.product-form .form-group textarea {
+  resize: none;
+}
+
+.product-form .form-group .image-preview-container {
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+.product-form .form-group .image-preview-container img {
+  width: 100%;
+}
+
+.product-form .product-form-action-block {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 20px;
+}
+.product-form .product-form-action-block .btn {
+  min-width: 100px;
+}
+
+/*# sourceMappingURL=product-form.css.map */

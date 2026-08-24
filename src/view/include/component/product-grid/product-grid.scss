@@ -1,0 +1,118 @@
+@use "src/view/variables" as *;
+@use "src/view/mixins" as *;
+
+.product-grid-container {
+  .product-grid-header,
+  .product-grid {
+  }
+}
+
+// --------------------------------------------------- HEADER BLOCK
+
+.product-grid-container {
+  .product-grid-header {
+    padding-bottom: $padding-sm;
+
+    span {
+      font-family: $ff-serif;
+      font-weight: $fw-medium;
+      font-size: $fs-lg;
+    }
+  }
+}
+
+// --------------------------------------------------- GRID BLOCK
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+  width: 100%;
+
+  .product-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $padding-md;
+    background-color: $color-bg-light;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    width: 100%;
+
+    img {
+      align-self: start;
+    }
+
+    .product-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: $radius-md;
+      flex-shrink: 0;
+    }
+
+    .product-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: $spacing-xs;
+
+      .product-title {
+        font-family: $ff-sans;
+        font-weight: $fw-bold;
+        font-size: $fs-base;
+        color: $color-txt-main;
+        margin: 0;
+      }
+
+      .product-qty {
+        font-size: $fs-sm;
+        color: $color-txt-muted;
+        margin: 0;
+      }
+
+      .product-description {
+        font-size: $fs-sm;
+        color: $color-txt-muted;
+        margin: 0;
+        @include text-truncate(2);
+      }
+
+      .product-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: $spacing-xs;
+
+        .product-price {
+          font-weight: $fw-bold;
+          font-size: $fs-base;
+          color: $color-txt-main;
+        }
+
+        .remove-btn {
+          background: none;
+          border: none;
+          color: $color-danger;
+          font-size: $fs-sm;
+          font-weight: $fw-medium;
+          cursor: pointer;
+          padding: 0;
+
+          &:hover {
+            color: $color-danger-hover;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive breakpoint for mobile screens
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}

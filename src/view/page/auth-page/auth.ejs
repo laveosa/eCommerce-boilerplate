@@ -1,0 +1,46 @@
+<%- include("../../layout/head.ejs") %>
+    <link rel="stylesheet" href="/view/page/auth-page/auth.css" />
+    <link rel="stylesheet" href="/view/include/form/sign-in-form/sign-in-form.css" />
+    <link rel="stylesheet" href="/view/include/form/register-form/register-form.css" />
+</head>
+<body class="page-wrapper">
+    <main id="AuthPage">
+        <div class="hero-side">
+            <div class="hero-side-info-block">
+                <h1>Thoughtfully crafted goods.</h1>
+                <span>Objects worth keeping. Curated for everyday life.</span>
+            </div>
+            <div class="hero-side-curtain"></div>
+        </div>
+        <div class="form-side">
+            <div class="title-block">
+                <% if (condition === "signin") { %>
+                    <h2>Welcome back</h2>
+                    <span>Sign in to your account to continue.</span>
+                <% } else { %>
+                    <h2>Create account</h2>
+                    <span>Join us — it only takes a moment.</span>
+                <% } %>
+            </div>
+            <div class="select-condition-block">
+                <div class="select-condition-container">
+                    <div class="btn full-with sign-in-check <%= condition === "signin" ? "btn-dark" : ""%>">Sign In</div>
+                    <div class="btn full-with register-check <%= condition === "register" ? "btn-dark" : ""%>">Register</div>
+                </div>
+            </div>
+            <div class="form-block">
+                <% if (condition === "signin") { %>
+                    <%- include("../../include/form/sign-in-form/sign-in-form.ejs")%>
+                <% } else { %>
+                    <%- include("../../include/form/register-form/register-form.ejs")%>
+                <% } %>
+                <div class="tips-block">
+                    <span>use email with "admin" to see admin options</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <script type="module" src="/view/page/auth-page/auth.js"></script>
+<%- include("../../layout/bottom.ejs") %>
+

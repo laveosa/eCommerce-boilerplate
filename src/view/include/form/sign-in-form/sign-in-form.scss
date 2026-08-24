@@ -1,0 +1,8 @@
+@use "src/view/variables" as *;
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: $padding-lg;
+  transition: all ease-in-out 160ms;
+}

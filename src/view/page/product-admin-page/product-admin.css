@@ -1,0 +1,11 @@
+#ProductAdminPage {
+  padding-bottom: 40px;
+}
+#ProductAdminPage .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+/*# sourceMappingURL=product-admin.css.map */

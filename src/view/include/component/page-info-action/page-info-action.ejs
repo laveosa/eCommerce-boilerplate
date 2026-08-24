@@ -1,0 +1,36 @@
+<%
+    const _label = pageInfo.label || "no label";
+    const _title = pageInfo.title || "no title";
+    const _showSearch = pageInfo.showSearch;
+    const _showCreateBtn = pageInfo.showCreateBtn;
+%>
+
+<div class="page-info-action-container">
+    <div class="page-info-block">
+        <span><%= _label %></span>
+        <h1><%= _title %></h1>
+    </div>
+    <% if(_showSearch || _showCreateBtn) { %>
+        <div class="page-action-block">
+            <% if(_showSearch) { %>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            <img src="/media/icons/search.svg" alt="search icon">
+                        </span>
+                    </div>
+                    <input id="PageInfoActionSearch"
+                           class="form-control"
+                           type="text"
+                           name="search"
+                           placeholder="search product..."
+                           aria-label="search"
+                           aria-describedby="basic-addon1">
+                </div>
+            <% } %>
+            <% if(_showCreateBtn) { %>
+                <a href="/add-product" class="btn btn-dark">+ New Product</a>
+            <% } %>
+        </div>
+    <% } %>
+</div>

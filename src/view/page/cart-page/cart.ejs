@@ -1,0 +1,79 @@
+<%- include("../../layout/head.ejs") %>
+    <link rel="stylesheet" href="/view/page/cart-page/cart.css" />
+    <link rel="stylesheet" href="/view/include/component/product-grid/product-grid.css" />
+</head>
+<body class="page-wrapper">
+    <%- include("../../include/component/navigation/navigation.ejs") %>
+    <main id="CartPage" class="container" data-user-id="<%= user.id %>" data-cart-id="<%= cart.id %>">
+        <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
+        <div class="cart-page-container">
+            <% if(cart.products && cart.products.length > 0) { %>
+                <div class="order-summary-block">
+                    <div class="order-summary-card-container">
+                        <div class="order-summary-card-header">
+                            <div class="card-title-block">
+                                <span>Order summary</span>
+                            </div>
+                            <div class="card-delete-block">
+                                <span>Delete cart</span>
+                            </div>
+                        </div>
+                        <div class="order-summary-card-user-info">
+                            <div class="user-card-container">
+                                <div class="user-card-avatar-block">
+                                    <div class="user-card-avatar">
+                                        <span><%= user.name[0] %></span>
+                                    </div>
+                                </div>
+                                <div class="user-card-info-block">
+                                    <span><%= user.name %></span>
+                                    <span><%= user.email %></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-summary-card-items-info">
+                            <div class="card-item-info">
+                                <span>Items</span>
+                                <span><%= cart.totalItems%></span>
+                            </div>
+                            <div class="card-item-info">
+                                <span>Shipment</span>
+                                <span>Free</span>
+                            </div>
+                        </div>
+                        <div class="order-summary-card-total-price">
+                            <div class="card-total-price">
+                                <span>Total</span>
+                                <span>$<%= cart.totalPrice %></span>
+                            </div>
+                        </div>
+                        <div class="order-summary-card-address">
+                            <label for="OrderAddress">Delivery address</label>
+                            <textarea name="orderAddress"
+                                      id="OrderAddress"
+                                      rows="5"
+                                      placeholder="Enter delivery address..."></textarea>
+                        </div>
+                        <div class="order-summary-card-action">
+                            <button class="btn btn-primary full-with place-order-btn">Place order</button>
+                            <button class="btn btn-light full-with cancel-order-btn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="items-in-cart-block">
+                    <%- include("../../include/component/product-grid/product-grid.ejs", { title: "Items in cart", products: cart.products }) %>
+                </div>
+            <% } else { %>
+                <%- include("../../include/component/no-data-placeholder/no-data-placeholder.ejs", {
+                    icon: "/media/icons/product.svg",
+                    title: "Your cart is empty",
+                    description: "Add some products to get started",
+                    btnText: "Browse products",
+                    link: "/product-list"
+                })%>
+            <% } %>
+        </div>
+    </main>
+    <script type="module" src="/view/page/cart-page/cart.js"></script>
+<%- include("../../layout/bottom.ejs") %>
+

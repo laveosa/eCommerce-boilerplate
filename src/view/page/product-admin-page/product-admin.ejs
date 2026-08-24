@@ -1,0 +1,30 @@
+<%- include("../../layout/head.ejs") %>
+    <link rel="stylesheet" href="/view/page/product-admin-page/product-admin.css" />
+</head>
+<body class="page-wrapper">
+    <%- include("../../include/component/navigation/navigation.ejs") %>
+    <main id="ProductAdminPage" class="container">
+        <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
+        <div class="product-list-container">
+            <% if(products && products.length > 0) { %>
+                <div class="grid">
+                    <% for(let product of products) { %>
+                        <%- include("../../include/component/product-card/product-card.ejs", {
+                        ...product,
+                            isAdmin: true
+                        })%>
+                    <% } %>
+                </div>
+            <% } else { %>
+                <%- include("../../include/component/no-data-placeholder/no-data-placeholder.ejs", {
+                icon: "/media/icons/product.svg",
+                title: "No Product yet",
+                description: "Add your first product or generate a sample catalogue to get started.",
+                btnText: "Generate products"
+                })%>
+            <% } %>
+        </div>
+    </main>
+    <script type="module" src="/view/page/product-admin-page/product-admin.js"></script>
+<%- include("../../layout/bottom.ejs") %>
+

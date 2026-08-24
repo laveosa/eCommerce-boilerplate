@@ -1,0 +1,96 @@
+.product-grid-container .product-grid-header {
+  padding-bottom: 10px;
+}
+.product-grid-container .product-grid-header span {
+  font-family: "DM Serif Display", serif;
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+.product-grid .product-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  width: 100%;
+}
+.product-grid .product-card img {
+  align-self: start;
+}
+.product-grid .product-card .product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.product-grid .product-card .product-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 4px;
+}
+.product-grid .product-card .product-content .product-title {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1c1917;
+  margin: 0;
+}
+.product-grid .product-card .product-content .product-qty {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0;
+}
+.product-grid .product-card .product-content .product-description {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+}
+.product-grid .product-card .product-content .product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+.product-grid .product-card .product-content .product-footer .product-price {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1c1917;
+}
+.product-grid .product-card .product-content .product-footer .remove-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+.product-grid .product-card .product-content .product-footer .remove-btn:hover {
+  color: #cb3535;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*# sourceMappingURL=product-grid.css.map */

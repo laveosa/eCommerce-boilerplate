@@ -1,0 +1,49 @@
+<header class="navigation-component">
+    <div class="header-container container">
+        <div class="logo-container">
+            <a href="/">
+                <img src="/media/icons/favicon.svg" alt="logo"/>
+            </a>
+        </div>
+        <div class="navigation-container">
+            <% if(navList && navList.length > 0) { %>
+                <nav class="navigation">
+                    <ul class="navigation-items-container">
+                        <% for(let item of navList) { %>
+                            <li class="navigation-item">
+                                <a href="<%= item.path %>"
+                                   class="<%= item.isActive ? "active" : ""%>"><%= item.title%></a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            <% } else { %>
+                <span>no navigation</span>
+            <% } %>
+        </div>
+        <div class="user-action-container">
+            <div class="user-info-block">
+                <% if(user && user.name?.length > 0) { %>
+                    <a href="/user"><%= user.name %></a>
+                <% } else { %>
+                    <a href="/user">user name</a>
+                <% } %>
+            </div>
+            <div class="cart-info-block">
+                <a href="/cart" >
+                    <img src="/media/icons/shopping-bag.svg" alt="Cart Icon" class="icon-cart" />
+                    <% if(cart && cart.totalItems && cart.totalItems > 0) { %>
+                        <div class="cart-product-amount-block">
+                        <span>
+                            <%= cart.totalItems %>
+                        </span>
+                        </div>
+                    <% } %>
+                </a>
+            </div>
+            <div class="sign-out-block">
+                <span>Sign out</span>
+            </div>
+        </div>
+    </div>
+</header>

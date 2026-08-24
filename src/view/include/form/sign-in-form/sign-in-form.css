@@ -1,0 +1,8 @@
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  transition: all ease-in-out 160ms;
+}
+
+/*# sourceMappingURL=sign-in-form.css.map */

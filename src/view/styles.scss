@@ -1,0 +1,201 @@
+@use "src/view/variables" as *;
+@use "src/view/mixins" as *;
+
+// =================================================== GLOBAL
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  min-height: 100vh;
+  font-family: $ff-roboto;
+  font-weight: $fw-regular;
+
+  * {
+    font-family: inherit;
+  }
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  overflow-y: auto;
+  background-color: $color-bg-main;
+  box-sizing: border-box;
+}
+
+.full-with {
+  width: 100%;
+  flex-grow: 1;
+}
+
+.hide {
+  display: none !important;
+}
+
+.dont-touch {
+  pointer-events: none;
+}
+
+.no-mp {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// =================================================== TYPOGRAPHY
+
+@for $i from 1 through 4 {
+  .text-truncate-#{$i} {
+    @include text-truncate($i);
+  }
+}
+
+// =================================================== TAG
+
+label {
+  font-family: $ff-outfit;
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: $color-txt-main;
+  font-style: normal;
+  line-height: 24px;
+}
+
+textarea,
+input {
+  border-color: $color-border !important;
+  box-shadow: none !important;
+
+  &::placeholder {
+    color: $color-txt-light;
+    font-weight: $fw-light;
+    font-size: $fs-base;
+    opacity: 1;
+  }
+}
+
+// =================================================== BUTTON
+
+.btn {
+  @include btnType(
+    $color-bg-light,
+    $color-bg-light,
+    $color-border,
+    $color-txt-muted,
+    $color-txt-main,
+    $color-txt-main
+  );
+
+  border: $brd;
+  border-radius: $radius-md;
+  font-weight: $fw-medium;
+  cursor: pointer;
+  transition: all ease-in-out 160ms;
+
+  &.btn-small {
+    font-size: $fs-xs;
+    padding: 2px 6px;
+    border-radius: $radius-sm;
+  }
+
+  &.btn-light {
+    @include btnType(
+      $color-bg-light,
+      $color-bg-light-hover,
+      $color-dark,
+      $color-dark-hover,
+      $color-dark,
+      $color-dark-hover
+    );
+  }
+
+  &.btn-dark {
+    @include btnType(
+      $color-dark,
+      $color-dark-hover,
+      $color-dark,
+      $color-dark-hover,
+      $color-bg-light,
+      $color-bg-light
+    );
+  }
+
+  &.btn-primary {
+    @include btnType(
+      $color-primary,
+      $color-primary-hover,
+      $color-primary,
+      $color-primary-hover,
+      $color-bg-light,
+      $color-bg-light
+    );
+  }
+
+  .btn_nik {
+    @include btnType(
+      $color-primary,
+      $color-primary-hover,
+      $color-primary,
+      $color-primary-hover,
+      $color-bg-light,
+      $color-bg-light
+    );
+  }
+
+  &.btn-success {
+    @include btnType(
+      $color-success,
+      $color-success-hover,
+      $color-success,
+      $color-success-hover,
+      $color-bg-light,
+      $color-bg-light
+    );
+  }
+
+  &.btn-warning {
+    @include btnType(
+      $color-warning,
+      $color-warning-hover,
+      $color-warning,
+      $color-warning-hover,
+      $color-bg-light,
+      $color-bg-light
+    );
+  }
+
+  &.btn-danger {
+    @include btnType(
+      $color-danger,
+      $color-danger-hover,
+      $color-danger,
+      $color-danger-hover,
+      $color-bg-light,
+      $color-bg-light
+    );
+  }
+}
+
+// =================================================== FORM
+
+.form-container {
+  background-color: $color-bg-light;
+  display: flex;
+  flex-direction: column;
+  padding: $padding-lg;
+  border: $brd;
+  border-radius: $radius-md;
+}
+
+.form-control {
+  &::placeholder {
+    color: $color-txt-light;
+    font-weight: $fw-light;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,12 @@
+@use "src/view/variables" as *;
+
+#ProductListPage {
+  padding-bottom: $padding-xl;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $padding-md;
+    align-items: stretch;
+  }
+}

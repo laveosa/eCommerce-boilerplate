@@ -1,0 +1,42 @@
+<%
+    const cartId = locals.cart.id;
+    const id = locals.id || "";
+    const title = locals.title || "title";
+    const imageUrl = locals.imageUrl || "/media/images/no-image-white.png";
+    const description = locals.description || "description placeholder...";
+    const price = locals.price ?? 0;
+    const inCart = locals.inCart;
+    const isAdmin = locals.isAdmin;
+%>
+
+<div id="Cart_<%= id %>" class="product-card-container" data-cart-id="<%= cartId %>">
+    <div class="product-card">
+        <div class="card-image">
+            <img src="<%= imageUrl %>" alt="<%= title %>">
+        </div>
+        <div class="card-title">
+            <span class="text-truncate-2"><%= title %></span>
+        </div>
+        <div class="card-description">
+            <span class="text-truncate-2"><%= description %></span>
+        </div>
+        <footer>
+            <div class="cart-price">
+                <span>$<%= price %></span>
+            </div>
+            <div class="card-actions">
+                <% if(isAdmin) { %>
+                    <button class="btn btn-light edit-btn">Edit</button>
+                    <button class="btn btn-danger delete-btn">Details</button>
+                <% } else { %>
+                    <button class="btn btn-light view-btn">View</button>
+                    <% if(inCart) { %>
+                        <button class="btn btn-warning remove-btn">Remove from cart</button>
+                    <% } else { %>
+                        <button class="btn btn-dark add-btn">Add to cart</button>
+                    <% } %>
+                <% } %>
+            </div>
+        </footer>
+    </div>
+</div>

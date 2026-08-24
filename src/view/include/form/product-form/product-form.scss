@@ -1,0 +1,46 @@
+@use "src/view/variables" as *;
+
+.product-form {
+  .form-group {
+    padding-bottom: $padding-md;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    textarea {
+      resize: none;
+    }
+  }
+}
+
+// --------------------------------------------------- IMAGE PREVIEW BLOCK
+
+.product-form {
+  .form-group {
+    .image-preview-container {
+      overflow: hidden;
+      border: $brd;
+      border-radius: $radius-md;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- ACTION BLOCK
+
+.product-form {
+  .product-form-action-block {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: $padding-md;
+
+    .btn {
+      min-width: 100px;
+    }
+  }
+}

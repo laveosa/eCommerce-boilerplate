@@ -1,0 +1,21 @@
+@use "src/view/variables" as *;
+
+@mixin text-truncate($lines: 1) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+}
+
+@mixin btnType($bgColor, $bgHover, $brdColor, $brdHover, $text, $textHover) {
+  background-color: $bgColor;
+  border-color: $brdColor;
+  color: $text;
+
+  &:hover {
+    background-color: $bgHover !important;
+    border-color: $brdHover !important;
+    color: $textHover !important;
+  }
+}

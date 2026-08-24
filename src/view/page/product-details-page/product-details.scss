@@ -1,0 +1,95 @@
+@use "src/view/variables" as *;
+
+#ProductDetailsPage {
+  padding-bottom: $padding-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $padding-md;
+  max-width: 800px;
+
+  .go-back-action-block,
+  .product-details-container {
+  }
+}
+
+// --------------------------------------------------- GO BACK BLOCK
+
+#ProductDetailsPage {
+  .go-back-action-block {
+    padding-top: $padding-md;
+
+    a {
+      text-decoration: none;
+      color: $color-txt-muted;
+      font-weight: $fw-bold;
+
+      &:hover {
+        text-decoration: underline;
+        color: $color-txt-main;
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- IMAGE BLOCK
+
+#ProductDetailsPage {
+  .product-details-container {
+    display: flex;
+    gap: $padding-md;
+
+    .product-image-block {
+      display: flex;
+      flex-direction: column;
+
+      .product-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 200px;
+        max-width: 400px;
+        border-radius: $radius-md;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- INFO BLOCK
+
+#ProductDetailsPage {
+  .product-details-container {
+    .product-info-block {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      width: 100%;
+
+      .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: $padding-sm;
+
+        > h1 {
+          font-family: $ff-serif;
+        }
+
+        > p {
+          color: $color-primary;
+          font-size: $fs-lg;
+        }
+
+        > span {
+        }
+      }
+
+      .product-details-action {
+        padding-top: $padding-lg;
+      }
+    }
+  }
+}

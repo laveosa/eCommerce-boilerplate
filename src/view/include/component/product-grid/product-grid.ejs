@@ -1,0 +1,29 @@
+<%
+    const _title = locals.title;
+    const _products = locals.products;
+    const _cartId = locals.cart.id;
+%>
+
+<div class="product-grid-container">
+    <% if(_title && _title.length > 0) { %>
+        <div class="product-grid-header">
+            <span><%= _title %></span>
+        </div>
+    <% } %>
+    <div class="product-grid">
+        <% _products.forEach(product => { %>
+            <div id="Cart_<%= product.id %>" class="product-card" data-cart-id="<%= _cartId %>">
+                <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="product-image" />
+                <div class="product-content">
+                    <h4 class="product-title"><%= product.title %></h4>
+                    <span class="product-qty">Qty: <%= product.quantity || 1 %></span>
+                    <p class="product-description"><%= product.description %></p>
+                    <div class="product-footer">
+                        <span class="product-price">$<%= (Number(product.price) || 0).toFixed(2) %></span>
+                        <button class="btn remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>

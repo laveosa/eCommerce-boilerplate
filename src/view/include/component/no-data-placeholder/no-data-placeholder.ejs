@@ -1,0 +1,28 @@
+<%
+    const _icon = locals.icon || "/media/icons/no-image.svg";
+    const _title = locals.title || "No data";
+    const _description = locals.description || "There is no data to display";
+    const _btnText = locals.btnText || "button";
+    const _link = locals.link;
+%>
+
+<div class="no-data-placeholder-container">
+    <div class="no-data-placeholder-block">
+        <div class="no-data-placeholder-icon">
+            <img src="<%= _icon %>" alt="no-data-placeholder-icon">
+        </div>
+        <div class="no-data-placeholder-info">
+            <p><%= _title %></p>
+            <span><%= _description %></span>
+        </div>
+        <div class="no-data-placeholder-action">
+            <% if(_link && _link.length > 0) { %>
+                <a href="<%= _link %>" class="btn btn-dark"><%= _btnText %></a>
+            <% } else { %>
+                <form action="/product/generate-products" method="POST">
+                    <button type="submit" class="btn btn-dark"><%= _btnText %></button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+</div>

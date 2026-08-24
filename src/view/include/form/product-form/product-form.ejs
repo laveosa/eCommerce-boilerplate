@@ -1,0 +1,68 @@
+<%
+    const _id = locals.product ? locals.product.id : null;
+    const _title = locals.product ? locals.product.title : "";
+    const _imageUrl = locals.product ? locals.product.imageUrl : "";
+    const _description = locals.product ? locals.product.description : "";
+    const _price = locals.product ? locals.product.price : 0.00;
+%>
+
+<div class="form-container">
+    <form class="product-form">
+        <% if (_id) { %>
+            <input type="hidden" name="id" value="<%= _id %>" />
+        <% } %>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title"
+                   class="form-control"
+                   value="<%= _title %>"
+                   type="text"
+                   name="title"
+                   placeholder="enter product title..."
+                   autofocus />
+        </div>
+        <div class="form-group">
+            <label for="imageUrl">Image URL</label>
+            <input id="imageUrl"
+                   class="form-control"
+                   value="<%= _imageUrl %>"
+                   type="text"
+                   placeholder="enter product image url..."
+                   name="imageUrl"  />
+        </div>
+        <% if (_imageUrl) { %>
+            <div class="form-group">
+                <div class="image-preview-container">
+                    <img src="<%= _imageUrl %>" alt="product-image">
+                </div>
+            </div>
+        <% } %>
+        <div class="form-group">
+            <label for="price">Price ($)</label>
+            <input id="price"
+                   class="form-control"
+                   value="<%= _price %>"
+                   type="number"
+                   name="price"
+                   placeholder="0:00"
+                   step="0.01" />
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description"
+                      class="form-control"
+                      name="description"
+                      placeholder="enter product description..."
+                      rows="5"><%= _description %></textarea>
+        </div>
+        <div class="product-form-action-block">
+            <% if(!isNaN(_id) && _id > 0) { %>
+                <div class="btn btn-light cancel-btn">Cancel</div>
+                <div class="btn btn-dark save-product-btn">Save</div>
+            <% } else { %>
+                <div class="btn btn-light cancel-btn">Cancel</div>
+                <div class="btn btn-primary create-product-btn">Create</div>
+            <% } %>
+        </div>
+    </form>
+</div>

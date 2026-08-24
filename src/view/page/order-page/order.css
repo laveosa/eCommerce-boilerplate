@@ -1,0 +1,151 @@
+#OrderPage {
+  padding-bottom: 40px;
+}
+
+.order-page-container {
+  width: 100%;
+}
+
+.order-confirmation-block {
+  width: 100%;
+}
+
+.order-card-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.order-card-header .order-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.order-card-header .order-info-block .order-id {
+  font-size: 0.875rem;
+  color: #a0aec0;
+}
+.order-card-header .order-info-block .order-date {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1c1917;
+}
+.order-card-header .order-action-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.order-card-header .order-action-block .order-total-price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1c1917;
+}
+.order-card-header .order-action-block .order-status-badge {
+  background-color: #e6f4ea;
+  color: #10b981;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 16px;
+}
+
+.order-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 24px;
+}
+.order-card-body .order-detail-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.order-card-body .order-detail-column .column-title {
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #a0aec0;
+}
+@media (max-width: 992px) {
+  .order-card-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.customer-info-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.customer-info-container .customer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #f3e8df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.customer-info-container .customer-avatar span {
+  font-weight: 700;
+  color: #d97706;
+  text-transform: uppercase;
+}
+.customer-info-container .customer-details {
+  display: flex;
+  flex-direction: column;
+}
+.customer-info-container .customer-details .customer-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1c1917;
+}
+.customer-info-container .customer-details .customer-email {
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+.delivery-address-text {
+  font-size: 0.875rem;
+  color: #1c1917;
+  line-height: 1.5;
+}
+
+.ordered-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ordered-items-list .ordered-item-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ordered-items-list .ordered-item-card .item-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.ordered-items-list .ordered-item-card .item-details {
+  display: flex;
+  flex-direction: column;
+}
+.ordered-items-list .ordered-item-card .item-details .item-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1c1917;
+}
+.ordered-items-list .ordered-item-card .item-details .item-meta {
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+/*# sourceMappingURL=order.css.map */

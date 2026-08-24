@@ -1,0 +1,47 @@
+{
+  "name": "max_tutor",
+  "version": "1.0.0",
+  "description": "mongo_db code",
+  "license": "ISC",
+  "author": "Nik",
+  "type": "module",
+  "main": "app.ts",
+  "imports": {
+    "#src/*": {
+      "type": "./src/*",
+      "default": "./dist/src/*"
+    },
+    "#db/*": {
+      "type": "./db/*",
+      "default": "./dist/db/*"
+    },
+    "#public/*": {
+      "type": "./public/*",
+      "default": "./dist/public/*"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts:watch": "tsc --watch --project tsconfig.json",
+    "sass:watch": "sass --load-path=. --watch src/view/styles.scss:src/view/styles.css src/view/include/component:src/view/include/component src/view/include/form:src/view/include/form src/view/page:src/view/page",
+    "dev": "tsx --watch --env-file=.env app.ts",
+    "clear": "rimraf dist",
+    "build": "npm run clear && tsc",
+    "start": "node dist/app.js"
+  },
+  "dependencies": {
+    "axios": "^1.19.0",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.2.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-ejs": "^1.0.3",
+    "sass": "^1.102.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2",
+    "zod": "^4.4.3"
+  }
+}

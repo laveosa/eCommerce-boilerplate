@@ -1,0 +1,34 @@
+<%- include("../../layout/head.ejs") %>
+    <link rel="stylesheet" href="/view/page/product-details-page/product-details.css" />
+</head>
+<body>
+    <%- include("../../include/component/navigation/navigation.ejs") %>
+    <main id="ProductDetailsPage" class="container" data-cart-id="<%= cart.id %>" data-product-id="<%= product.id %>">
+        <div class="go-back-action-block">
+            <a href="/product-list">Back</a>
+        </div>
+        <div class="product-details-container">
+            <div class="product-image-block">
+                <div class="product-image">
+                    <img src="<%= product.imageUrl%>" alt="product-image">
+                </div>
+            </div>
+            <div class="product-info-block">
+                <div class="product-info">
+                    <h1><%= product.title %></h1>
+                    <p>$<%= product.price %></p>
+                    <span><%= product.description %></span>
+                </div>
+                <div class="product-details-action">
+                    <% if(product.inCart) { %>
+                        <div class="btn btn-primary full-with remove-from-cart">Remove from cart</div>
+                    <% } else { %>
+                        <div class="btn btn-dark full-with add-to-cart">Add to cart</div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="/view/page/product-details-page/product-details.js"></script>
+<%- include("../../layout/bottom.ejs") %>
+

@@ -1,0 +1,136 @@
+@use "src/view/variables" as *;
+
+#AuthPage {
+  display: flex;
+  min-height: 100vh;
+
+  .hero-side,
+  .form-side {
+    width: 100%;
+    flex-grow: 1;
+    min-height: 100vh;
+  }
+
+  .hero-side {
+    position: relative;
+  }
+
+  .form-side {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    gap: $padding-lg;
+    background-color: $color-bg-main;
+    padding: 14% 80px 80px;
+    max-width: 620px;
+    max-height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+}
+
+// --------------------------------------------------- HERO SIDE
+
+#AuthPage {
+  .hero-side {
+    background-image: url("https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&h=1200&fit=crop&auto=format");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    .hero-side-info-block {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      padding: 60px;
+      color: $color-txt-white;
+      z-index: 1;
+      bottom: 0;
+      max-width: 428px;
+
+      h1 {
+        font-family: $ff-serif;
+        font-weight: $fw-regular;
+        font-style: normal;
+        font-size: 48px;
+      }
+
+      span {
+        opacity: 0.8;
+      }
+    }
+
+    .hero-side-curtain {
+      position: absolute;
+      background-color: black;
+      opacity: 0.6;
+      width: 100%;
+      min-height: 100vh;
+    }
+  }
+}
+
+// --------------------------------------------------- TITLE BLOCK
+
+#AuthPage {
+  .form-side {
+    .title-block {
+      h2 {
+        font-family: $ff-serif;
+        font-weight: $fw-regular;
+        font-style: normal;
+        font-size: $padding-lg;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      span {
+        font-size: $fs-sm;
+        color: $color-txt-muted;
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- SELECT CONDITION BLOCK
+
+#AuthPage {
+  .form-side {
+    .select-condition-block {
+      width: 100%;
+
+      .select-condition-container {
+        display: flex;
+        flex-grow: 1;
+        width: 100%;
+        border: $brd;
+        border-radius: $radius-md;
+        gap: 4px;
+        padding: 4px;
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- FORM BLOCK
+
+#AuthPage {
+  .form-side {
+    .form-block {
+      .tips-block {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        margin-top: $margin-sm;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+
+        span {
+          color: $color-txt-muted;
+          font-size: $fs-sm;
+        }
+      }
+    }
+  }
+}

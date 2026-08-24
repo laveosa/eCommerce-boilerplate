@@ -1,0 +1,74 @@
+@use "src/view/variables" as *;
+
+.page-info-action-container {
+  padding-top: $padding-xl;
+  padding-bottom: $padding-md;
+  display: flex;
+  gap: $padding-md;
+  align-items: end;
+
+  .page-info-block,
+  .page-action-block {
+    width: 100%;
+    flex-grow: 1;
+  }
+}
+
+// --------------------------------------------------- INFO BLOCK
+
+.page-info-action-container {
+  .page-info-block {
+    span {
+      text-transform: uppercase;
+      font-size: $fs-xs;
+      color: $color-primary;
+    }
+
+    h1 {
+      text-transform: capitalize;
+      font-family: $ff-serif;
+      font-weight: $fw-regular;
+      font-style: normal;
+      color: $color-dark;
+      margin: 0;
+    }
+  }
+}
+
+// --------------------------------------------------- ACTION BLOCK
+
+.page-info-action-container {
+  .page-action-block {
+    display: flex;
+    gap: $padding-sm;
+    justify-content: end;
+    align-items: center;
+    padding-bottom: $padding-sm;
+
+    .input-group {
+      max-height: 34px;
+      min-height: 34px;
+      max-width: 200px;
+
+      .input-group-prepend {
+        .input-group-text {
+          border-radius: 6px 0 0 6px;
+          max-width: 38px;
+          min-width: 38px;
+          padding: 8px;
+          box-sizing: border-box;
+
+          img {
+            opacity: 0.6;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .btn {
+      min-width: 140px;
+      max-height: 34px;
+    }
+  }
+}

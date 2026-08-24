@@ -1,0 +1,122 @@
+@use "src/view/variables" as *;
+
+.product-card-container {
+  border: $brd;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background-color: $color-bg-light;
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
+  display: flex;
+
+  span {
+    color: $color-txt-main;
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .card-title,
+    .card-description,
+    footer {
+      padding: $padding-sm $padding-md;
+    }
+
+    .card-title {
+      padding-bottom: 0;
+    }
+
+    .card-description {
+      padding-bottom: 0;
+    }
+
+    footer {
+      padding-bottom: $padding-md;
+    }
+  }
+}
+
+// --------------------------------------------------- IMAGE BLOCK
+
+.product-card-container {
+  .product-card {
+    .card-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+      background-color: $color-dark-hover;
+
+      img {
+        transition: width ease-in-out 200ms;
+        width: 100%;
+      }
+
+      &:hover {
+        img {
+          width: 130%;
+        }
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- TITLE BLOCK
+
+.product-card-container {
+  .product-card {
+    .card-title {
+      span {
+        text-transform: capitalize;
+        font-family: $ff-serif;
+        font-weight: $fw-regular;
+        font-style: normal;
+        font-size: $fs-lg;
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- DESCRIPTION BLOCK
+
+.product-card-container {
+  .product-card {
+    .card-description {
+      flex-grow: 1;
+
+      span {
+      }
+    }
+  }
+}
+
+// --------------------------------------------------- FOOTER BLOCK
+
+.product-card-container {
+  .product-card {
+    footer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: $padding-md;
+
+      .cart-price {
+        span {
+          font-weight: $fw-bold;
+        }
+      }
+
+      .card-actions {
+        display: flex;
+        justify-content: end;
+        gap: $padding-sm;
+      }
+    }
+  }
+}

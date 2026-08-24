@@ -1,0 +1,39 @@
+@use "src/view/variables" as *;
+
+#PageNotFound {
+  padding-bottom: $padding-xl;
+  min-height: 100vh;
+
+  .page-not-found-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .page-not-found-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $padding-md;
+      margin-top: 20%;
+
+      h1,
+      span {
+        font-weight: $fw-bold;
+        color: $color-txt-muted;
+        opacity: 0.6;
+      }
+
+      h1 {
+        font-family: $ff-serif;
+        font-size: 160px;
+        letter-spacing: 10px;
+      }
+
+      span {
+        font-family: $ff-outfit;
+        font-size: 30px;
+        letter-spacing: 2px;
+      }
+    }
+  }
+}

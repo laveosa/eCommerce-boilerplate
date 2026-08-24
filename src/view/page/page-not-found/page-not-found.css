@@ -1,0 +1,34 @@
+#PageNotFound {
+  padding-bottom: 40px;
+  min-height: 100vh;
+}
+#PageNotFound .page-not-found-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#PageNotFound .page-not-found-container .page-not-found-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20%;
+}
+#PageNotFound .page-not-found-container .page-not-found-info h1,
+#PageNotFound .page-not-found-container .page-not-found-info span {
+  font-weight: 700;
+  color: #718096;
+  opacity: 0.6;
+}
+#PageNotFound .page-not-found-container .page-not-found-info h1 {
+  font-family: "DM Serif Display", serif;
+  font-size: 160px;
+  letter-spacing: 10px;
+}
+#PageNotFound .page-not-found-container .page-not-found-info span {
+  font-family: "Outfit", sans-serif;
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+
+/*# sourceMappingURL=page-not-found.css.map */

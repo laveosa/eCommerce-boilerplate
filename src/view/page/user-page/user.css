@@ -1,0 +1,125 @@
+#UserPage {
+  padding-bottom: 40px;
+  max-width: 600px;
+}
+
+.user-page-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.user-profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.user-profile-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.user-profile-card .user-avatar-block {
+  width: 52px;
+  height: 52px;
+  border-radius: 100%;
+  background-color: #f0ebe3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.user-profile-card .user-avatar-block span {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #d97706;
+  text-transform: uppercase;
+}
+.user-profile-card .user-info-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.user-profile-card .user-info-block .user-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1c1917;
+}
+.user-profile-card .user-info-block .user-email {
+  font-size: 0.875rem;
+  color: #718096;
+}
+.user-profile-card .user-info-block .user-role-badge {
+  font-size: 0.75rem;
+  color: #d97706;
+  background-color: #f0ebe3;
+  padding: 2px 10px;
+  border-radius: 16px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.user-profile-form {
+  border-radius: 16px;
+  gap: 16px;
+}
+.user-profile-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.user-profile-form .form-group label .label-note {
+  font-weight: 400;
+  color: #a0aec0;
+  font-size: 0.75rem;
+}
+.user-profile-form .form-control {
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #1c1917;
+  background-color: #ffffff;
+  outline: none;
+}
+.user-profile-form .form-control.disabled-input {
+  background-color: #faf8f5;
+  color: #718096;
+  cursor: not-allowed;
+}
+.user-profile-form .form-control:focus:not(.disabled-input) {
+  border-color: #d97706 !important;
+}
+.user-profile-form .input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.user-profile-form .input-with-icon .form-control {
+  padding-right: 40px;
+}
+.user-profile-form .form-section-title {
+  margin-top: 4px;
+}
+.user-profile-form .form-section-title span {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1c1917;
+}
+.user-profile-form .form-action-block {
+  margin-top: 4px;
+}
+.user-profile-form .form-action-block .btn {
+  padding: 12px;
+  font-size: 0.875rem;
+}
+
+/*# sourceMappingURL=user.css.map */

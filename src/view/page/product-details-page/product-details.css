@@ -1,0 +1,64 @@
+#ProductDetailsPage {
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+}
+#ProductDetailsPage .go-back-action-block {
+  padding-top: 20px;
+}
+#ProductDetailsPage .go-back-action-block a {
+  text-decoration: none;
+  color: #718096;
+  font-weight: 700;
+}
+#ProductDetailsPage .go-back-action-block a:hover {
+  text-decoration: underline;
+  color: #1c1917;
+}
+
+#ProductDetailsPage .product-details-container {
+  display: flex;
+  gap: 20px;
+}
+#ProductDetailsPage .product-details-container .product-image-block {
+  display: flex;
+  flex-direction: column;
+}
+#ProductDetailsPage .product-details-container .product-image-block .product-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  max-width: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+#ProductDetailsPage .product-details-container .product-image-block .product-image img {
+  width: 100%;
+}
+
+#ProductDetailsPage .product-details-container .product-info-block {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+}
+#ProductDetailsPage .product-details-container .product-info-block .product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#ProductDetailsPage .product-details-container .product-info-block .product-info > h1 {
+  font-family: "DM Serif Display", serif;
+}
+#ProductDetailsPage .product-details-container .product-info-block .product-info > p {
+  color: #d97706;
+  font-size: 1.125rem;
+}
+#ProductDetailsPage .product-details-container .product-info-block .product-details-action {
+  padding-top: 30px;
+}
+
+/*# sourceMappingURL=product-details.css.map */
