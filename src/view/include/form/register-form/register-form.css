@@ -3,18 +3,6 @@
   flex-direction: column;
   gap: 30px;
   transition: all ease-in-out 160ms;
-  /*.form-group {
-    label {
-      margin-bottom: 6px;
-    }
-
-    input {
-      box-shadow: none;
-    }
-
-    small {
-    }
-  }*/
 }
 
 /*# sourceMappingURL=register-form.css.map */

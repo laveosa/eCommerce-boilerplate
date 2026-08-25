@@ -3,6 +3,9 @@ import express from "express";
 import apiMasterRoute from "#src/route/api/api-master-route.js";
 import webMasterRoute from "#src/route/web/web-master-route.js";
 import { pathResolve } from "#src/util/helper/path-helper.js";
+import { connectDB } from "#src/util/config/mongo-db-config.js";
+
+// dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -28,6 +31,12 @@ app.use("/src", express.static(pathResolve("./dist/src"), { maxAge: "1d" }));
 app.use("/api", apiMasterRoute);
 app.use("/", webMasterRoute);
 
-app.listen(PORT, () =>
-  console.log(`[SERVER]: server running on port: ${PORT}`),
-);
+const startServer = async (): Promise<void> => {
+  await connectDB();
+
+  app.listen(PORT, () =>
+    console.log(`[SERVER]: server running on port: ${PORT}`),
+  );
+};
+
+await startServer();
