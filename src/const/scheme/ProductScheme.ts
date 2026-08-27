@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const ProductScheme = z.object({
-  id: z.number({ error: "Invalid product 'id' value!" }),
+  id: z.string({ error: "Invalid product 'id' value!" }).optional(),
   title: z
     .string({ error: "Invalid product 'title' value!" })
     .min(2, "Product 'title' length muse be more then 2 symbols!")

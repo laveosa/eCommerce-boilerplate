@@ -33,7 +33,7 @@ class ApiProductController {
   }
 
   static async getProduct(req: Request, res: Response) {
-    const productId = Number(req.params.id);
+    const productId = req.params.id.toString();
 
     try {
       const product: ProductModel =
@@ -73,7 +73,7 @@ class ApiProductController {
   }
 
   static async deleteProduct(req: Request, res: Response) {
-    const productId = Number(req.params.id);
+    const productId = req.params.id.toString();
 
     try {
       const product: ProductModel =

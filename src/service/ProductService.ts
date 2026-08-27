@@ -1,20 +1,17 @@
+import { Product } from "#src/const/model/ProductModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IProductService } from "#src/const/interface/IProductService.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 
 export default class ProductService implements IProductService {
-  tableName: string = "products";
-
   async set(data: ProductModel[]): Promise<ProductModel[]> {
     if (!data || !Array.isArray(data)) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid data payload`);
     }
 
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
-
+      await Product.deleteMany({});
+      await Product.insertMany(data);
       return this.get();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to set all");
@@ -22,27 +19,27 @@ export default class ProductService implements IProductService {
   }
 
   async get(): Promise<ProductModel[]> {
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
-
-      return null;
+      const products = await Product.find();
+      return products.map((p) => p.toObject<ProductModel>());
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get all");
     }
   }
 
-  async getProduct(id: number): Promise<ProductModel> {
-    if (isNaN(id))
+  async getProduct(id: string): Promise<ProductModel> {
+    if (!id || id.length === 0) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
-
-    await this.tableInitCheck();
+    }
 
     try {
-      // TODO place db logic
+      const product = await Product.findById(id);
 
-      return null;
+      if (!product) {
+        throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
+      }
+
+      return product.toObject<ProductModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get");
     }
@@ -53,63 +50,58 @@ export default class ProductService implements IProductService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid data: "${data}"`);
     }
 
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
+      const created = await Product.create(data);
+      return created.toObject<ProductModel>();
 
-      return null;
+      // step by step approach to create new entity
+      /*const newProduct = new Product(data);
+      const savedProduct = await newProduct.save();
+      return savedProduct.toObject<ProductModel>();*/
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to add");
     }
   }
 
   async updateProduct(data: ProductModel): Promise<ProductModel> {
-    if (!data || isNaN(data.id)) {
+    if (!data || data.id.length === 0) {
       throw getErrorModel(
         400,
         `[SERVER_ERROR]: invalid data or id: "${data?.id}"`,
       );
     }
 
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
+      const updated = await Product.findByIdAndUpdate(data.id, data, {
+        returnDocument: "after",
+        runValidators: true,
+      });
 
-      return null;
+      if (!updated) {
+        throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
+      }
+
+      return updated.toObject<ProductModel>();
     } catch (err) {
-      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update!");
     }
   }
 
-  async deleteProduct(id: number): Promise<ProductModel> {
-    if (isNaN(id)) {
-      throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
+  async deleteProduct(id: string): Promise<ProductModel> {
+    if (!id || id.length === 0) {
+      throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"!`);
     }
 
-    const deleted = await this.getProduct(id);
-
     try {
-      // TODO place db logic
+      const deleted = await Product.findByIdAndDelete(id);
 
-      return deleted;
+      if (!deleted) {
+        throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
+      }
+
+      return deleted.toObject<ProductModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
-    }
-  }
-
-  // ======================================== PRIVATE
-
-  private async tableInitCheck() {
-    try {
-      // TODO place db logic
-    } catch (err) {
-      throw getErrorModel(
-        500,
-        err,
-        `[SERVER_ERROR]: failed to initialize ${this.tableName} table`,
-      );
     }
   }
 }
