@@ -5,12 +5,7 @@ import ProductService from "#src/service/ProductService.js";
 import CartService from "#src/service/CartService.js";
 import OrderService from "#src/service/OrderService.js";
 import layoutService from "#src/util/service/layout-service.js";
-import {
-  getStubCart,
-  getStubOrder,
-  getStubProducts,
-  getStubUser,
-} from "#src/util/service/stub-data-provider-service.js";
+import { getStubUser } from "#src/util/service/stub-data-provider-service.js";
 import { pathResolve } from "#src/util/helper/path-helper.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import { WebUrlEnum, WebUrlEnum as wu } from "#src/const/enum/WebUrlEnum.js";
@@ -46,12 +41,16 @@ export default class WebPageController {
   }
 
   static async cartPage(req: Request, res: Response) {
+    const cartId = req.params.id?.toString();
+
     try {
-      /*const cart: CartModel = await this.cartService.getCart(1);*/
+      const cart: CartModel = cartId
+        ? await this.cartService.getCart(cartId)
+        : null;
 
       res.render(
         pathResolve([rootPath, "/cart-page/cart.ejs"]),
-        await this.generatePageData("Cart", wu.CART),
+        await this.generatePageData("Cart", wu.CART, { cart }),
       );
     } catch (error: any) {
       return isApiError(error)
@@ -61,11 +60,12 @@ export default class WebPageController {
   }
 
   static async orderPage(req: Request, res: Response) {
-    try {
-      // TODO replace with valid db data
-      const order: OrderModel = await getStubOrder();
+    const orderId = req.params.id?.toString();
 
-      // const order: OrderModel = await this.orderService.getOrder(1);
+    try {
+      const order: OrderModel = orderId
+        ? await this.orderService.getOrder(orderId)
+        : null;
 
       res.render(
         pathResolve([rootPath, "/order-page/order.ejs"]),
@@ -80,10 +80,7 @@ export default class WebPageController {
 
   static async productListPage(req: Request, res: Response) {
     try {
-      // TODO replace with valid db data
-      const products: ProductModel[] = await getStubProducts();
-
-      // const products: ProductModel[] = await this.productService.get();
+      const products: ProductModel[] = await this.productService.get();
 
       res.render(
         pathResolve([rootPath, "/product-list-page/product-list.ejs"]),
@@ -100,10 +97,7 @@ export default class WebPageController {
 
   static async productAdminPage(req: Request, res: Response) {
     try {
-      // TODO replace with valid db data
-      const products: ProductModel[] = await getStubProducts();
-
-      // const products: ProductModel[] = await this.productService.get();
+      const products: ProductModel[] = await this.productService.get();
 
       res.render(
         pathResolve([rootPath, "/product-admin-page/product-admin.ejs"]),
@@ -132,15 +126,11 @@ export default class WebPageController {
   }
 
   static async editProductPage(req: Request, res: Response) {
-    const productId = Number(req.params.id);
+    const productId = req.params.id.toString();
 
     try {
-      // TODO replace with valid db data
-      const products: ProductModel[] = await getStubProducts();
-      const product: ProductModel = products[0];
-
-      /*const product: ProductModel =
-        await this.productService.getProduct(productId);*/
+      const product: ProductModel =
+        await this.productService.getProduct(productId);
 
       res.render(
         pathResolve([rootPath, "/edit-product-page/edit-product.ejs"]),
@@ -154,15 +144,11 @@ export default class WebPageController {
   }
 
   static async productDetailsPage(req: Request, res: Response) {
-    const productId = Number(req.params.id);
+    const productId = req.params.id.toString();
 
     try {
-      // TODO replace with valid db data
-      const products: ProductModel[] = await getStubProducts();
-      const product: ProductModel = products[0];
-
-      /*const product: ProductModel =
-        await this.productService.getProduct(productId);*/
+      const product: ProductModel =
+        await this.productService.getProduct(productId);
 
       res.render(
         pathResolve([rootPath, "/product-details-page/product-details.ejs"]),
@@ -178,14 +164,10 @@ export default class WebPageController {
   }
 
   static async userPage(req: Request, res: Response) {
-    const userId = Number(req.params.id);
+    const userId = req.params.id?.toString();
 
     try {
-      // TODO replace with valid db data
-      const user: UserModel = await getStubUser();
-
-      /*const user: UserModel = await this.userService.getUser(userId);*/
-
+      const user: UserModel = await this.userService.getUser(userId);
       res.render(
         pathResolve([rootPath, "/user-page/user.ejs"]),
         await this.generatePageData("User", wu.USER, { user }),
@@ -221,16 +203,16 @@ export default class WebPageController {
   ) {
     // TODO replace with valid db data
     const user: UserModel = await getStubUser();
-    const cart: CartModel = await getStubCart();
+    const cart: CartModel = (await this.cartService.get())[0];
 
     return {
-      ...extraData,
       user,
       cart,
       pageTitle: title,
       pagePath: path,
       navList: path ? layoutService.getNavigationList(path) : null,
       pageInfo: this.getPageInfoData(path),
+      ...extraData,
     };
   }
 

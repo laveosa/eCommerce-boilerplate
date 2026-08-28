@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector<HTMLElement>(".cancel-order-btn");
 
   let order: OrderModel = {
-    userId: Number(_userId),
-    cartId: Number(_cartId),
+    userId: _userId,
+    cartId: _cartId,
     registerDate: new Date(),
     address: "",
   };

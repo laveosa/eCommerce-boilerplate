@@ -19,9 +19,7 @@
             <% if(_link && _link.length > 0) { %>
                 <a href="<%= _link %>" class="btn btn-dark"><%= _btnText %></a>
             <% } else { %>
-                <form action="/product/generate-products" method="POST">
-                    <button type="submit" class="btn btn-dark"><%= _btnText %></button>
-                </form>
+                <button type="button" class="btn btn-dark generate-products-btn"><%= _btnText %></button>
             <% } %>
         </div>
     </div>

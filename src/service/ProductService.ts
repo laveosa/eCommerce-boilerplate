@@ -64,7 +64,7 @@ export default class ProductService implements IProductService {
   }
 
   async updateProduct(data: ProductModel): Promise<ProductModel> {
-    if (!data || data.id.length === 0) {
+    if (!data || typeof data !== "object" || !data.id || data.id.length === 0) {
       throw getErrorModel(
         400,
         `[SERVER_ERROR]: invalid data or id: "${data?.id}"`,
@@ -93,7 +93,9 @@ export default class ProductService implements IProductService {
     }
 
     try {
-      const deleted = await Product.findByIdAndDelete(id);
+      const deleted = await Product.findByIdAndDelete(id, {
+        returnDocument: "after",
+      });
 
       if (!deleted) {
         throw getErrorModel(404, "[SERVER_ERROR]: product not found!");

@@ -33,7 +33,7 @@ class ApiUserController {
   }
 
   static async getUser(req: Request, res: Response) {
-    const userId = Number(req.params.id);
+    const userId = req.params.id.toString();
 
     try {
       const user: UserModel = await this.userService.getUser(userId);
@@ -68,7 +68,7 @@ class ApiUserController {
   }
 
   static async deleteUser(req: Request, res: Response) {
-    const userId = Number(req.params.id);
+    const userId = req.params.id.toString();
 
     try {
       const user: UserModel = await this.userService.deleteUser(userId);

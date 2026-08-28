@@ -1,22 +1,17 @@
+import { Order } from "#src/const/model/OrderModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IOrderService } from "#src/const/interface/IOrderService.js";
 import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
 
 export default class OrderService implements IOrderService {
-  tableName: string = "orders";
-
-  // --------------------------------------------- CRUD
-
   async set(data: OrderModel[]): Promise<OrderModel[]> {
     if (!data || !Array.isArray(data)) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid data payload`);
     }
 
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
-
+      await Order.deleteMany({});
+      await Order.insertMany(data);
       return this.get();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to set all");
@@ -24,27 +19,27 @@ export default class OrderService implements IOrderService {
   }
 
   async get(): Promise<OrderModel[]> {
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
-
-      return null;
+      const order = await Order.find();
+      return order.map((o) => o.toObject<OrderModel>());
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get all");
     }
   }
 
-  async getOrder(id: number): Promise<OrderModel> {
-    if (isNaN(id))
+  async getOrder(id: string): Promise<OrderModel> {
+    if (!id || id.length === 0) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
-
-    await this.tableInitCheck();
+    }
 
     try {
-      // TODO place db logic
+      const order = await Order.findById(id);
 
-      return null;
+      if (!order) {
+        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+      }
+
+      return order.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get");
     }
@@ -55,47 +50,51 @@ export default class OrderService implements IOrderService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid data: "${data}"`);
     }
 
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
-
-      return null;
+      const order = await Order.create(data);
+      return order.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to add");
     }
   }
 
   async updateOrder(data: OrderModel): Promise<OrderModel> {
-    if (!data || isNaN(data.id)) {
+    if (!data || typeof data !== "object" || !data.id || data.id.length === 0) {
       throw getErrorModel(
         400,
         `[SERVER_ERROR]: invalid data or id: "${data?.id}"`,
       );
     }
 
-    await this.tableInitCheck();
-
     try {
-      // TODO place db logic
+      const updated = await Order.findByIdAndUpdate(data.id, data, {
+        returnDocument: "after",
+        runValidators: true,
+      });
 
-      return null;
+      if (!updated) {
+        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+      }
+
+      return updated.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
     }
   }
 
-  async deleteOrder(id: number): Promise<OrderModel> {
-    if (isNaN(id)) {
+  async deleteOrder(id: string): Promise<OrderModel> {
+    if (!id || id.length === 0) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
     }
 
-    const deleted: OrderModel = await this.getOrder(id);
-
     try {
-      // TODO place db logic
+      const deleted = await Order.findByIdAndDelete(id);
 
-      return deleted;
+      if (!deleted) {
+        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+      }
+
+      return deleted.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
     }
@@ -103,62 +102,73 @@ export default class OrderService implements IOrderService {
 
   // --------------------------------------------- EXTRA
 
-  async addCartToOrder(cartId: number, orderId: number): Promise<OrderModel> {
-    if (isNaN(cartId)) {
-      throw getErrorModel(400, `[SERVER_ERROR]: invalid cart id: "${cartId}"`);
-    }
-
-    if (isNaN(orderId)) {
-      throw getErrorModel(
-        400,
-        `[SERVER_ERROR]: invalid order id: "${orderId}"`,
-      );
+  async addCartToOrder(
+    cartId: string,
+    orderId: string,
+    userId: string,
+  ): Promise<OrderModel> {
+    if (!userId || !cartId) {
+      throw getErrorModel(400, "[SERVER_ERROR]: invalid userId or cartId");
     }
 
     try {
-      // TODO place db logic
+      const order = await Order.findOneAndUpdate(
+        { orderId },
+        {
+          $setOnInsert: {
+            cartId,
+            userId,
+            registerDate: new Date(),
+          },
+        },
+        {
+          returnDocument: "after",
+          runValidators: true,
+          upsert: true,
+        },
+      );
 
-      return null;
+      return order.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
     }
   }
 
   async removeCartFromOrder(
-    cartId: number,
-    orderId: number,
+    _cartId: string,
+    orderId: string,
   ): Promise<OrderModel> {
-    if (isNaN(cartId)) {
-      throw getErrorModel(400, `[SERVER_ERROR]: invalid cart id: "${cartId}"`);
-    }
-
-    if (isNaN(orderId)) {
-      throw getErrorModel(
-        400,
-        `[SERVER_ERROR]: invalid order id: "${orderId}"`,
-      );
+    if (!orderId || !_cartId) {
+      throw getErrorModel(400, "[SERVER_ERROR]: invalid orderId or cartId");
     }
 
     try {
-      // TODO place db logic
+      const updateOrder = await Order.findByIdAndUpdate(
+        orderId,
+        {
+          $set: {
+            cartId: {
+              $cond: {
+                if: { $eq: ["$cartId", _cartId] },
+                then: null,
+                else: "$cartId",
+              },
+            },
+          },
+        },
+        {
+          returnDocument: "after",
+          runValidators: true,
+        },
+      );
 
-      return null;
+      if (!updateOrder) {
+        throw getErrorModel(404, "[SERVER_ERROR]: order not found");
+      }
+
+      return updateOrder.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
-    }
-  }
-
-  // ======================================== PRIVATE
-
-  private async tableInitCheck() {
-    try {
-      // TODO place db logic
-    } catch (err) {
-      throw getErrorModel(
-        500,
-        err,
-        `[SERVER_ERROR]: failed to initialize ${this.tableName} table`,
-      );
     }
   }
 }

@@ -33,7 +33,7 @@ class ApiCartController {
   }
 
   static async getCart(req: Request, res: Response) {
-    const cartId = Number(req.params.id);
+    const cartId = req.params.id.toString();
 
     try {
       const cart: CartModel = await this.cartService.getCart(cartId);
@@ -68,7 +68,7 @@ class ApiCartController {
   }
 
   static async deleteCart(req: Request, res: Response) {
-    const cartId = Number(req.params.id);
+    const cartId = req.params.id.toString();
 
     try {
       const cart: CartModel = await this.cartService.deleteCart(cartId);
@@ -83,7 +83,7 @@ class ApiCartController {
   // --------------------------------------------- EXTRA
 
   static async getCartByUserId(req: Request, res: Response) {
-    const userId = Number(req.params.id);
+    const userId = req.params.id.toString();
 
     try {
       const cart: CartModel = await this.cartService.getCartByUserId(userId);
@@ -96,13 +96,15 @@ class ApiCartController {
   }
 
   static async addProductToCart(req: Request, res: Response) {
-    const productId = Number(req.params.productId);
-    const cartId = Number(req.params.cartId);
+    const productId = req.params.productId.toString();
+    const cartId = req.params.cartId.toString();
+    const userId = req.params.userId.toString();
 
     try {
       const cart: CartModel = await this.cartService.addProductToCart(
         productId,
         cartId,
+        userId,
       );
       return res.status(200).send(cart);
     } catch (error) {
@@ -113,8 +115,8 @@ class ApiCartController {
   }
 
   static async removeProductFromCart(req: Request, res: Response) {
-    const productId = Number(req.params.productId);
-    const cartId = Number(req.params.cartId);
+    const productId = req.params.productId.toString();
+    const cartId = req.params.cartId.toString();
 
     try {
       const cart: CartModel = await this.cartService.removeProductFromCart(

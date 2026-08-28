@@ -33,7 +33,7 @@ class ApiOrderController {
   }
 
   static async getOrder(req: Request, res: Response) {
-    const orderId = Number(req.params.orderId);
+    const orderId = req.params.orderId.toString();
 
     try {
       const order: OrderModel = await this.orderService.getOrder(orderId);
@@ -68,7 +68,7 @@ class ApiOrderController {
   }
 
   static async deleteOrder(req: Request, res: Response) {
-    const orderId = Number(req.params.orderId);
+    const orderId = req.params.orderId.toString();
 
     try {
       const order: OrderModel = await this.orderService.deleteOrder(orderId);
@@ -83,13 +83,15 @@ class ApiOrderController {
   // --------------------------------------------- EXTRA
 
   static async addCartToOrder(req: Request, res: Response) {
-    const cartId = Number(req.params.cartId);
-    const orderId = Number(req.params.orderId);
+    const cartId = req.params.cartId.toString();
+    const orderId = req.params.orderId.toString();
+    const userId = req.params.userId.toString();
 
     try {
       const order: OrderModel = await this.orderService.addCartToOrder(
         cartId,
         orderId,
+        userId,
       );
       return res.status(200).send(order);
     } catch (error) {
@@ -100,8 +102,8 @@ class ApiOrderController {
   }
 
   static async removeCartFromOrder(req: Request, res: Response) {
-    const cartId = Number(req.params.cartId);
-    const orderId = Number(req.params.orderId);
+    const cartId = req.params.cartId.toString();
+    const orderId = req.params.orderId.toString();
 
     try {
       const order: OrderModel = await this.orderService.removeCartFromOrder(

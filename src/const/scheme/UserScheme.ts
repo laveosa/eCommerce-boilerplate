@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const UserScheme = z.object({
-  id: z.number({ error: "Invalid user 'id' value!" }),
+  id: z.string({ error: "Invalid user 'id' value!" }),
   name: z
     .string({ error: "Invalid user 'name' value!" })
     .min(2, "User 'name' length muse be more then 2 symbols!")

@@ -1,7 +1,7 @@
 import mongoose, { Schema, Model } from "mongoose";
 
 import { defaultSchemaOptions } from "#src/util/config/mongoose-options.js";
-import type { InferSchemaType } from "mongoose";
+import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 
 export const ProductDbSchema = new Schema(
   {
@@ -28,9 +28,9 @@ export const ProductDbSchema = new Schema(
   defaultSchemaOptions,
 );
 
-export type IProduct = InferSchemaType<typeof ProductDbSchema>;
+/*export type IProduct = InferSchemaType<typeof ProductDbSchema>;*/
 
-export const Product: Model<IProduct> = mongoose.model<IProduct>(
+export const Product: Model<ProductModel> = mongoose.model<ProductModel>(
   "Product",
   ProductDbSchema,
 );

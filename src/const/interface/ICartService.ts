@@ -4,12 +4,16 @@ export interface ICartService {
   // --------------------------------------------- CRUD
   set(data: CartModel[]): Promise<CartModel[]>;
   get(): Promise<CartModel[]>;
-  getCart(id: number): Promise<CartModel>;
+  getCart(id: string): Promise<CartModel>;
   addCart(data: CartModel): Promise<CartModel>;
   updateCart(data: CartModel): Promise<CartModel>;
-  deleteCart(id: number): Promise<CartModel>;
+  deleteCart(id: string): Promise<CartModel>;
   // --------------------------------------------- EXTRA
-  getCartByUserId(userId: number): Promise<CartModel>;
-  addProductToCart(cartId: number, orderId: number): Promise<CartModel>;
-  removeProductFromCart(cartId: number, orderId: number): Promise<CartModel>;
+  getCartByUserId(userId: string): Promise<CartModel>;
+  addProductToCart(
+    cartId: string,
+    orderId: string,
+    userId: string,
+  ): Promise<CartModel>;
+  removeProductFromCart(cartId: string, orderId: string): Promise<CartModel>;
 }

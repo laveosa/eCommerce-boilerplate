@@ -5,8 +5,6 @@ import type { AuthModel } from "#src/const/scheme/AuthScheme.js";
 import type { UserModel } from "#src/const/scheme/UserScheme.js";
 
 export default class AuthService implements IAuthService {
-  tableName: string = "auth";
-
   async register(data: AuthModel): Promise<UserModel> {
     try {
       // ---------------------  LOGIC

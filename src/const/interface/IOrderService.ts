@@ -4,11 +4,15 @@ export interface IOrderService {
   // --------------------------------------------- CRUD
   set(data: OrderModel[]): Promise<OrderModel[]>;
   get(): Promise<OrderModel[]>;
-  getOrder(id: number): Promise<OrderModel>;
+  getOrder(id: string): Promise<OrderModel>;
   addOrder(data: OrderModel): Promise<OrderModel>;
   updateOrder(data: OrderModel): Promise<OrderModel>;
-  deleteOrder(id: number): Promise<OrderModel>;
+  deleteOrder(id: string): Promise<OrderModel>;
   // --------------------------------------------- EXTRA
-  addCartToOrder(cartId: number, orderId: number): Promise<OrderModel>;
-  removeCartFromOrder(cartId: number, orderId: number): Promise<OrderModel>;
+  addCartToOrder(
+    cartId: string,
+    orderId: string,
+    userId: string,
+  ): Promise<OrderModel>;
+  removeCartFromOrder(cartId: string, orderId: string): Promise<OrderModel>;
 }

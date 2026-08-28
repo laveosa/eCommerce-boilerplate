@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const OrderScheme = z.object({
-  id: z.number().optional(),
-  userId: z.number({ error: "Invalid order 'userId' value!" }),
-  cartId: z.number().optional(),
+  id: z.string().optional(),
+  userId: z.string({ error: "Invalid order 'userId' value!" }),
+  cartId: z.string().optional(),
   registerDate: z.date().optional(),
   address: z
     .string({ error: "Invalid order 'address' value!" })
