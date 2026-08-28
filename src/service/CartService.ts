@@ -120,7 +120,9 @@ export default class CartService implements ICartService {
       });
 
       if (!cart) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+        // throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+        console.log("[SERVER_ERROR]: cart not found!");
+        return null;
       }
 
       return cart.toObject<CartModel>();

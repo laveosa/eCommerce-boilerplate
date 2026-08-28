@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const _userId = document.getElementById("CartPage").dataset.userId;
   const _cartId = document.getElementById("CartPage").dataset.cartId;
-  const deleteOrderBtnElem =
+  const deleteCartBtnElem =
     document.querySelector<HTMLElement>(".card-delete-block");
   const addressElem = document.getElementById("OrderAddress");
   const placeOrderBtnElem =
@@ -20,12 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
     userId: _userId,
     cartId: _cartId,
     registerDate: new Date(),
-    address: "",
+    address: "United States, St. Charles, MO 63301", // TODO this is temporary stub of order address
   };
 
-  if (_cartId && deleteOrderBtnElem) {
-    deleteOrderBtnElem.addEventListener("click", async (event) => {
-      await CartApiService.deleteCart(Number(_cartId));
+  if (_cartId && deleteCartBtnElem) {
+    deleteCartBtnElem.addEventListener("click", async (event) => {
+      await CartApiService.deleteCart(_cartId);
+      location.replace("/product-list");
     });
   }
 
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new ProductCard(el, {
       onRemoveFromCart: async (productId, cartId) => {
         await CartApiService.removeProductFromCart(productId, cartId);
+        location.reload();
       },
     });
   });

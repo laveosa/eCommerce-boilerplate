@@ -4,8 +4,7 @@ import apiMasterRoute from "#src/route/api/api-master-route.js";
 import webMasterRoute from "#src/route/web/web-master-route.js";
 import { pathResolve } from "#src/util/helper/path-helper.js";
 import { connectDB } from "#src/util/config/mongo-db-config.js";
-
-// dotenv.config();
+import { attachUserMiddleware } from "#src/util/middleware/attach-user-middleware.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -27,6 +26,8 @@ app.use(
 
 app.use("/src", express.static(pathResolve("./src"), { maxAge: "1d" }));
 app.use("/src", express.static(pathResolve("./dist/src"), { maxAge: "1d" }));
+
+app.use(attachUserMiddleware);
 
 app.use("/api", apiMasterRoute);
 app.use("/", webMasterRoute);

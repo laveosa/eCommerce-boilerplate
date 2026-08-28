@@ -30,6 +30,7 @@ export default class WebPageController {
       res.render(
         pathResolve([rootPath, "/auth-page/auth.ejs"]),
         await this.generatePageData("Auth", wu.AUTH, {
+          user: req.user,
           condition: condition ? condition : "signin",
         }),
       );
@@ -41,16 +42,18 @@ export default class WebPageController {
   }
 
   static async cartPage(req: Request, res: Response) {
-    const cartId = req.params.id?.toString();
-
     try {
-      const cart: CartModel = cartId
-        ? await this.cartService.getCart(cartId)
-        : null;
+      const cart: CartModel = await this.cartService.getCartByUserId(
+        req.user.id,
+      );
 
       res.render(
         pathResolve([rootPath, "/cart-page/cart.ejs"]),
-        await this.generatePageData("Cart", wu.CART, { cart }),
+        await this.generatePageData("Cart", wu.CART, {
+          user: req.user,
+          cart,
+          address: "United States, St. Charles, MO 63301", // TODO this is stub address
+        }),
       );
     } catch (error: any) {
       return isApiError(error)
@@ -60,16 +63,17 @@ export default class WebPageController {
   }
 
   static async orderPage(req: Request, res: Response) {
-    const orderId = req.params.id?.toString();
-
     try {
-      const order: OrderModel = orderId
-        ? await this.orderService.getOrder(orderId)
-        : null;
+      const order: OrderModel = await this.orderService.getOrderByUserId(
+        req.user.id,
+      );
 
       res.render(
         pathResolve([rootPath, "/order-page/order.ejs"]),
-        await this.generatePageData("Order", wu.ORDER, { order }),
+        await this.generatePageData("Order", wu.ORDER, {
+          user: req.user,
+          order,
+        }),
       );
     } catch (error: any) {
       return isApiError(error)
@@ -85,6 +89,7 @@ export default class WebPageController {
       res.render(
         pathResolve([rootPath, "/product-list-page/product-list.ejs"]),
         await this.generatePageData("Product List", wu.PRODUCT_LIST, {
+          user: req.user,
           products,
         }),
       );
@@ -102,6 +107,7 @@ export default class WebPageController {
       res.render(
         pathResolve([rootPath, "/product-admin-page/product-admin.ejs"]),
         await this.generatePageData("Product Admin", wu.PRODUCT_ADMIN, {
+          user: req.user,
           products,
         }),
       );
@@ -116,7 +122,9 @@ export default class WebPageController {
     try {
       res.render(
         pathResolve([rootPath, "/add-product-page/add-product.ejs"]),
-        await this.generatePageData("Add Product", wu.ADD_PRODUCT),
+        await this.generatePageData("Add Product", wu.ADD_PRODUCT, {
+          user: req.user,
+        }),
       );
     } catch (error: any) {
       return isApiError(error)
@@ -134,7 +142,10 @@ export default class WebPageController {
 
       res.render(
         pathResolve([rootPath, "/edit-product-page/edit-product.ejs"]),
-        await this.generatePageData("Edit Page", wu.EDIT_PRODUCT, { product }),
+        await this.generatePageData("Edit Page", wu.EDIT_PRODUCT, {
+          user: req.user,
+          product,
+        }),
       );
     } catch (error: any) {
       return isApiError(error)
@@ -153,6 +164,7 @@ export default class WebPageController {
       res.render(
         pathResolve([rootPath, "/product-details-page/product-details.ejs"]),
         await this.generatePageData("Product Details", wu.PRODUCT_DETAILS, {
+          user: req.user,
           product,
         }),
       );
@@ -164,10 +176,8 @@ export default class WebPageController {
   }
 
   static async userPage(req: Request, res: Response) {
-    const userId = req.params.id?.toString();
-
     try {
-      const user: UserModel = await this.userService.getUser(userId);
+      const user: UserModel = await this.userService.getUser(req.user.id);
       res.render(
         pathResolve([rootPath, "/user-page/user.ejs"]),
         await this.generatePageData("User", wu.USER, { user }),
@@ -184,6 +194,7 @@ export default class WebPageController {
       res.render(
         pathResolve([rootPath, "/page-not-found/page-not-found.ejs"]),
         await this.generatePageData("404", wu.NOT_FOUND, {
+          user: req.user,
           author: "Nik",
         }),
       );
@@ -199,11 +210,14 @@ export default class WebPageController {
   private static async generatePageData(
     title: string,
     path: WebUrlEnum,
-    extraData?: any,
+    extraData: any,
   ) {
-    // TODO replace with valid db data
-    const user: UserModel = await getStubUser();
-    const cart: CartModel = (await this.cartService.get())[0];
+    const user: UserModel = extraData.user;
+    let cart: CartModel = null;
+
+    if (user) {
+      cart = await this.cartService.getCartByUserId(user.id);
+    }
 
     return {
       user,

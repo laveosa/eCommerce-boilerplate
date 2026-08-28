@@ -52,6 +52,9 @@ export default class OrderService implements IOrderService {
 
     try {
       const order = await Order.create(data);
+
+      console.log("ORDER: ", order);
+
       return order.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to add");
@@ -101,6 +104,28 @@ export default class OrderService implements IOrderService {
   }
 
   // --------------------------------------------- EXTRA
+
+  async getOrderByUserId(userId: string): Promise<OrderModel> {
+    if (!userId || userId.length === 0) {
+      throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${userId}"`);
+    }
+
+    try {
+      const order = await Order.findOne({
+        userId,
+      });
+
+      if (!order) {
+        // throw getErrorModel(404, "[SERVER_ERROR]: order not found!");
+        console.log("[SERVER_ERROR]: order not found!");
+        return null;
+      }
+
+      return order.toObject<OrderModel>();
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
+    }
+  }
 
   async addCartToOrder(
     cartId: string,
