@@ -44,7 +44,7 @@ apiCartRoute.get("/by-user-id/:id", (req: Request, res: Response) =>
 );
 
 apiCartRoute.post(
-  "/add-product/:productId/:cartId",
+  "/add-product/:productId/:cartId/:userId",
   (req: Request, res: Response) => ApiCartController.addProductToCart(req, res),
 );
 

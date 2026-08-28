@@ -5,6 +5,7 @@ import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 
 export const ProductDbSchema = new Schema(
   {
+    _id: { type: Schema.Types.ObjectId, auto: false },
     title: {
       type: String,
       required: true,
@@ -23,6 +24,14 @@ export const ProductDbSchema = new Schema(
       type: Number,
       required: true,
       min: 0,
+    },
+    quantity: {
+      type: Number,
+      default: 1,
+    },
+    inCart: {
+      type: Boolean,
+      default: false,
     },
   },
   defaultSchemaOptions,

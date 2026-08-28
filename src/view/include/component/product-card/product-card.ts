@@ -2,17 +2,21 @@ import type { IProductCardActions } from "#src/const/interface/IProductCardActio
 
 export class ProductCard {
   private element: HTMLElement;
-  private productId: string | number;
-  private cartId: string | number;
+  private productId: string;
+  private cartId: string;
+  private userId: string;
   private actions: IProductCardActions;
 
   constructor(cardElement: HTMLElement, actions: IProductCardActions) {
     this.element = cardElement;
     this.actions = actions;
-    const rawId = this.element.id.replace("Cart_", "");
-    this.productId = isNaN(Number(rawId)) ? rawId : Number(rawId);
+    const rawProductId = this.element.id.replace("Cart_", "");
+    this.productId =
+      rawProductId && rawProductId.length > 0 ? rawProductId : null;
     const rawCartId = this.element.dataset.cartId || "";
-    this.cartId = isNaN(Number(rawCartId)) ? rawCartId : Number(rawCartId);
+    this.cartId = rawCartId && rawCartId.length > 0 ? rawCartId : null;
+    const rawUserId = this.element.dataset.userId || "";
+    this.userId = rawUserId && rawUserId.length > 0 ? rawUserId : null;
     this.initEventListeners();
   }
 
@@ -50,7 +54,7 @@ export class ProductCard {
   }
 
   private onAddToCartHandler() {
-    this.actions.onAddToCart?.(this.productId, this.cartId);
+    this.actions.onAddToCart?.(this.productId, this.cartId, this.userId);
   }
 
   private onRemoveFromCartHandler() {

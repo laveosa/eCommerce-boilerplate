@@ -13,11 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
       onView: (id) => {
         location.replace(`/product-details/${id}`);
       },
-      onAddToCart: async (productId, cartId) => {
-        await CartApiService.addProductToCart(productId, cartId);
+      onAddToCart: async (productId, cartId, userId) => {
+        await CartApiService.addProductToCart(productId, cartId, userId);
+        location.reload();
       },
       onRemoveFromCart: async (productId, cartId) => {
         await CartApiService.removeProductFromCart(productId, cartId);
+        location.reload();
       },
     });
   });

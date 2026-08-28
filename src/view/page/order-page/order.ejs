@@ -6,7 +6,7 @@
     <main id="OrderPage" class="container" data-order-id="<%= order?.id %>">
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
         <div class="order-page-container">
-            <% if(cart && cart.products && cart.products.length > 0) { %>
+            <% if(order && cart && cart.products && cart.products.length > 0) { %>
                 <div class="order-confirmation-block">
                     <div class="order-card-container form-container">
                         <div class="order-card-header">

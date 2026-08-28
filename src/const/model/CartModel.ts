@@ -7,7 +7,9 @@ import type { CartModel } from "#src/const/scheme/CartScheme.js";
 export const CartDbSchema = new Schema(
   {
     userId: {
-      type: Schema.Types.ObjectId,
+      // TODO bring this back when user will be a record in database instead of stub data
+      // type: Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },

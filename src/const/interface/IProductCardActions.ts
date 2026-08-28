@@ -1,10 +1,7 @@
 export interface IProductCardActions {
-  onEdit?: (productId: string | number, cartId: string | number) => void;
-  onDelete?: (productId: string | number, cartId: string | number) => void;
-  onView?: (productId: string | number, cartId: string | number) => void;
-  onAddToCart?: (productId: string | number, cartId: string | number) => void;
-  onRemoveFromCart?: (
-    productId: string | number,
-    cartId: string | number,
-  ) => void;
+  onEdit?: (productId: string, cartId: string) => void;
+  onDelete?: (productId: string, cartId: string) => void;
+  onView?: (productId: string, cartId: string) => void;
+  onAddToCart?: (productId: string, cartId: string, userId: string) => void;
+  onRemoveFromCart?: (productId: string, cartId: string) => void;
 }

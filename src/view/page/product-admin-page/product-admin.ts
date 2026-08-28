@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       onDelete: async (productId) => {
         await ProductApiService.deleteProduct(Number(productId));
+        location.reload();
       },
     });
   });

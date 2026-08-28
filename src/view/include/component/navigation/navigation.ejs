@@ -30,7 +30,7 @@
                 <% } %>
             </div>
             <div class="cart-info-block">
-                <a href="/cart" >
+                <a href="<%= cart ? "/cart/" + cart.id : "/cart"%>" >
                     <img src="/media/icons/shopping-bag.svg" alt="Cart Icon" class="icon-cart" />
                     <% if(cart && cart.totalItems && cart.totalItems > 0) { %>
                         <div class="cart-product-amount-block">

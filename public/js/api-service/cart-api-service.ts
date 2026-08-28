@@ -100,12 +100,13 @@ export class CartApiService {
   }
 
   static async addProductToCart(
-    productId: string | number,
-    cartId: string | number,
+    productId: string,
+    cartId: string,
+    userId: string,
   ): Promise<CartModel> {
     try {
       const response = await axios.post(
-        `${BASE_URL}/add-product/${productId}/${cartId}`,
+        `${BASE_URL}/add-product/${productId}/${cartId}/${userId}`,
       );
       return response.data as CartModel;
     } catch (error: any) {

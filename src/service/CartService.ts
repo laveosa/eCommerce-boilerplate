@@ -2,10 +2,14 @@ import mongoose from "mongoose";
 
 import { Cart } from "#src/const/model/CartModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
+import ProductService from "#src/service/ProductService.js";
 import type { ICartService } from "#src/const/interface/ICartService.js";
 import type { CartModel } from "#src/const/scheme/CartScheme.js";
+import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 
 export default class CartService implements ICartService {
+  private productService = new ProductService();
+
   async set(data: CartModel[]): Promise<CartModel[]> {
     if (!data || !Array.isArray(data)) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid data payload`);
@@ -134,9 +138,19 @@ export default class CartService implements ICartService {
       throw getErrorModel(400, "[SERVER_ERROR]: invalid productId or userId");
     }
 
+    const product: ProductModel =
+      await this.productService.getProduct(productId);
+
+    if (!product) {
+      throw getErrorModel(
+        404,
+        `[SERVER_ERROR]: product not found ID: "${productId}"`,
+      );
+    }
+
     try {
       const cart = await Cart.findOneAndUpdate(
-        { cartId },
+        { userId },
         {
           $setOnInsert: {
             userId,
@@ -153,9 +167,27 @@ export default class CartService implements ICartService {
         },
       );
 
-      return cart.toObject<CartModel>();
+      const updateProduct: ProductModel =
+        await this.productService.updateProduct({
+          ...product,
+          inCart: true,
+        });
+
+      const productForCart = {
+        ...updateProduct,
+        _id: new mongoose.Types.ObjectId(updateProduct.id || productId),
+      };
+
+      cart.products.push(productForCart as any);
+      cart.totalItems = cart.products.length;
+      cart.totalPrice = Number(
+        cart.products.reduce((acc, item) => acc + item.price, 0).toFixed(2),
+      );
+
+      const savedCart = await cart.save();
+      return savedCart.toObject<CartModel>();
     } catch (err) {
-      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to add product");
     }
   }
 
@@ -167,40 +199,41 @@ export default class CartService implements ICartService {
       throw getErrorModel(400, "[SERVER_ERROR]: invalid productId or cartId");
     }
 
-    try {
-      const updatedCart = await Cart.findByIdAndUpdate(
-        cartId,
-        [
-          {
-            $set: {
-              products: {
-                $filter: {
-                  input: "$products",
-                  as: "item",
-                  cond: {
-                    $ne: ["$$item._id", new mongoose.Types.ObjectId(productId)],
-                  },
-                },
-              },
-            },
-          },
-          {
-            $set: {
-              totalItems: { $size: "$products" },
-              totalPrice: { $sum: "$products.price" },
-            },
-          },
-        ],
-        { returnDocument: "after", runValidators: true },
-      );
+    const product: ProductModel =
+      await this.productService.getProduct(productId);
 
-      if (!updatedCart) {
+    if (!product) {
+      throw getErrorModel(
+        404,
+        `[SERVER_ERROR]: product not found ID: "${productId}"`,
+      );
+    }
+
+    try {
+      const cart = await Cart.findById(cartId);
+
+      if (!cart) {
         throw getErrorModel(404, "[SERVER_ERROR]: cart not found");
       }
 
-      return updatedCart.toObject<CartModel>();
+      cart.products = cart.products.filter(
+        (item: any) =>
+          item._id?.toString() !== productId && item.id !== productId,
+      );
+      cart.totalItems = cart.products.length;
+      cart.totalPrice = Number(
+        cart.products.reduce((acc, item) => acc + item.price, 0).toFixed(2),
+      );
+
+      const savedCart = await cart.save();
+      await this.productService.updateProduct({
+        ...product,
+        inCart: false,
+      });
+
+      return savedCart.toObject<CartModel>();
     } catch (err) {
-      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to remove product");
     }
   }
 }
