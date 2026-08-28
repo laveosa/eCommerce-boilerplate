@@ -4,6 +4,7 @@ import ProductService from "#src/service/ProductService.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import type { IApiProductController } from "#src/const/interface/IApiProductController.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
+import { getStubProducts } from "#src/util/service/stub-data-provider-service.js";
 
 class ApiProductController {
   private static productService = new ProductService();
@@ -87,6 +88,18 @@ class ApiProductController {
   }
 
   // --------------------------------------------- EXTRA
+
+  static async generateProducts(req: Request, res: Response) {
+    try {
+      const products: ProductModel[] = await getStubProducts();
+      const response: ProductModel[] = await this.productService.set(products);
+      return res.status(200).send(response);
+    } catch (error) {
+      isApiError(error)
+        ? res.status(error.status).send(error.message)
+        : res.status(500).send("Internal Server Error");
+    }
+  }
 }
 
 export default ApiProductController satisfies IApiProductController;

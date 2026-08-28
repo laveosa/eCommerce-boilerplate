@@ -42,4 +42,8 @@ apiProductRoute.delete("/", (req: Request, res: Response) =>
 
 // --------------------------------------------- EXTRA
 
+apiProductRoute.post("/generate-products", (req: Request, res: Response) =>
+  ApiProductController.generateProducts(req, res),
+);
+
 export default apiProductRoute;

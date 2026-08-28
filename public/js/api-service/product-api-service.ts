@@ -85,4 +85,17 @@ export class ProductApiService {
   }
 
   // --------------------------------------------- EXTRA
+
+  static async generateProducts(): Promise<ProductModel> {
+    try {
+      const response = await axios.post(`${BASE_URL}/generate-products`);
+      return response.data as ProductModel;
+    } catch (error: any) {
+      console.error(
+        "[API ERROR]: Failed to register",
+        error.response?.data || error.message,
+      );
+      throw error;
+    }
+  }
 }
