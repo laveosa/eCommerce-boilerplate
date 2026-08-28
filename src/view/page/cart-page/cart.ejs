@@ -4,10 +4,10 @@
 </head>
 <body class="page-wrapper">
     <%- include("../../include/component/navigation/navigation.ejs") %>
-    <main id="CartPage" class="container" data-user-id="<%= user.id %>" data-cart-id="<%= cart.id %>">
+    <main id="CartPage" class="container" data-user-id="<%= user.id %>" data-cart-id="<%= cart?.id %>">
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
         <div class="cart-page-container">
-            <% if(cart.products && cart.products.length > 0) { %>
+            <% if(cart && cart.products && cart.products.length > 0) { %>
                 <div class="order-summary-block">
                     <div class="order-summary-card-container">
                         <div class="order-summary-card-header">

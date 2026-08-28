@@ -3,7 +3,7 @@
 </head>
 <body class="page-wrapper">
     <%- include("../../include/component/navigation/navigation.ejs") %>
-    <main id="OrderPage" class="container" data-order-id="<%= order.id %>">
+    <main id="OrderPage" class="container" data-order-id="<%= order?.id %>">
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
         <div class="order-page-container">
             <% if(cart && cart.products && cart.products.length > 0) { %>
