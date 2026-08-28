@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } as unknown as ProductModel;
 
       await ProductApiService.updateProduct(product);
-      // location.replace("/product-admin");
+      location.replace("/product-admin");
     });
   }
 

@@ -19,7 +19,7 @@ export class ProductApiService {
     }
   }
 
-  static async getProduct(id: number): Promise<ProductModel> {
+  static async getProduct(id: string): Promise<ProductModel> {
     try {
       const response = await axios.get(`${BASE_URL}/${id}`);
       return response.data as ProductModel;
@@ -71,7 +71,7 @@ export class ProductApiService {
     }
   }
 
-  static async deleteProduct(id: number): Promise<ProductModel> {
+  static async deleteProduct(id: string): Promise<ProductModel> {
     try {
       const response = await axios.delete(`${BASE_URL}/${id}`);
       return response.data as ProductModel;

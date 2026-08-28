@@ -12,7 +12,7 @@ export const ProductScheme = z.object({
   description: z
     .string({ error: "Invalid product 'description' value!" })
     .min(2, "Product 'description' length muse be more then 2 symbols!")
-    .max(600, "Product 'description' length muse be less then 600 symbols!"),
+    .max(1200, "Product 'description' length muse be less then 600 symbols!"),
   price: z
     .number({ error: "Invalid product 'price' value!" })
     .nonnegative("Price cannot be negative!")

@@ -27,14 +27,14 @@
             </div>
             <div class="card-actions">
                 <% if(isAdmin) { %>
-                    <button class="btn btn-light edit-btn">Edit</button>
-                    <button class="btn btn-danger delete-btn">Details</button>
+                    <button type="button" class="btn btn-light edit-btn">Edit</button>
+                    <button type="button" class="btn btn-danger delete-btn">Details</button>
                 <% } else { %>
-                    <button class="btn btn-light view-btn">View</button>
+                    <button type="button" class="btn btn-light view-btn">View</button>
                     <% if(inCart) { %>
-                        <button class="btn btn-warning remove-btn">Remove from cart</button>
+                        <button type="button" class="btn btn-warning remove-btn">Remove from cart</button>
                     <% } else { %>
-                        <button class="btn btn-dark add-btn">Add to cart</button>
+                        <button type="button" class="btn btn-dark add-btn">Add to cart</button>
                     <% } %>
                 <% } %>
             </div>

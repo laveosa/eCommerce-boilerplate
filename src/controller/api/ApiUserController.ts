@@ -39,7 +39,7 @@ class ApiUserController {
       const user: UserModel = await this.userService.getUser(userId);
       return res.status(200).send(user);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -50,7 +50,7 @@ class ApiUserController {
       const user: UserModel = await this.userService.addUser(req.body);
       return res.status(200).send(user);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -61,7 +61,7 @@ class ApiUserController {
       const user: UserModel = await this.userService.addUser(req.body);
       return res.status(200).send(user);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -74,7 +74,7 @@ class ApiUserController {
       const user: UserModel = await this.userService.deleteUser(userId);
       return res.status(200).send(user);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -87,7 +87,7 @@ class ApiUserController {
       const updated: boolean = await this.userService.updatePassword(req.body);
       return res.status(200).send(updated);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }

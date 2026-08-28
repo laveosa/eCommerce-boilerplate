@@ -19,7 +19,7 @@ export class OrderApiService {
     }
   }
 
-  static async deleteOrder(id: number): Promise<OrderModel> {
+  static async deleteOrder(id: string): Promise<OrderModel> {
     try {
       const response = await axios.delete(`${BASE_URL}/:${id}`);
       return response.data as OrderModel;

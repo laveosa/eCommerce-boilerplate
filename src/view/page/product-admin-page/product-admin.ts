@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
       onEdit: (productId) => {
         location.replace(`/edit-product/${productId}`);
       },
-      onDelete: async (productId) => {
-        await ProductApiService.deleteProduct(Number(productId));
+      onDelete: async (productId: string) => {
+        await ProductApiService.deleteProduct(productId);
         location.reload();
       },
     });

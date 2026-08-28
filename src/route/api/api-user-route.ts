@@ -34,7 +34,7 @@ apiUserRoute.put("/", validateBody(UserScheme), (req: Request, res: Response) =>
   ApiUserController.updateUser(req, res),
 );
 
-apiUserRoute.delete("/", (req: Request, res: Response) =>
+apiUserRoute.delete("/:id", (req: Request, res: Response) =>
   ApiUserController.deleteUser(req, res),
 );
 

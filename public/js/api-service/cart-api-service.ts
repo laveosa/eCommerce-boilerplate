@@ -19,7 +19,7 @@ export class CartApiService {
     }
   }
 
-  static async getCart(id: number): Promise<CartModel> {
+  static async getCart(id: string): Promise<CartModel> {
     try {
       const response = await axios.get(`${BASE_URL}/${id}`);
       return response.data as CartModel;
@@ -71,7 +71,7 @@ export class CartApiService {
     }
   }
 
-  static async deleteCart(id: number): Promise<CartModel> {
+  static async deleteCart(id: string): Promise<CartModel> {
     try {
       const response = await axios.delete(`${BASE_URL}/${id}`);
       return response.data as CartModel;
@@ -86,7 +86,7 @@ export class CartApiService {
 
   // --------------------------------------------- EXTRA
 
-  static async getCartByUserId(userId: string | number): Promise<CartModel> {
+  static async getCartByUserId(userId: string): Promise<CartModel> {
     try {
       const response = await axios.get(`${BASE_URL}/by-user-id/${userId}`);
       return response.data as CartModel;
@@ -119,8 +119,8 @@ export class CartApiService {
   }
 
   static async removeProductFromCart(
-    productId: string | number,
-    cartId: string | number,
+    productId: string,
+    cartId: string,
   ): Promise<CartModel> {
     try {
       const response = await axios.delete(
