@@ -36,7 +36,7 @@ apiProductRoute.put(
   (req: Request, res: Response) => ApiProductController.updateProduct(req, res),
 );
 
-apiProductRoute.delete("/", (req: Request, res: Response) =>
+apiProductRoute.delete("/:id", (req: Request, res: Response) =>
   ApiProductController.deleteProduct(req, res),
 );
 

@@ -35,7 +35,7 @@ apiOrderRoute.put(
   (req: Request, res: Response) => ApiOrderController.updateOrder(req, res),
 );
 
-apiOrderRoute.delete("/", (req: Request, res: Response) =>
+apiOrderRoute.delete("/:id", (req: Request, res: Response) =>
   ApiOrderController.deleteOrder(req, res),
 );
 

@@ -16,7 +16,7 @@ class ApiProductController {
       const products: ProductModel[] = await this.productService.set(req.body);
       return res.status(200).send(products);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -27,7 +27,7 @@ class ApiProductController {
       const products: ProductModel[] = await this.productService.get();
       return res.status(200).send(products);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -41,7 +41,7 @@ class ApiProductController {
         await this.productService.getProduct(productId);
       return res.status(200).send(product);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -54,7 +54,7 @@ class ApiProductController {
       );
       return res.status(200).send(product);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -67,7 +67,7 @@ class ApiProductController {
       );
       return res.status(200).send(product);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -81,7 +81,7 @@ class ApiProductController {
         await this.productService.deleteProduct(productId);
       return res.status(200).send(product);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -95,7 +95,7 @@ class ApiProductController {
       const response: ProductModel[] = await this.productService.set(products);
       return res.status(200).send(response);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
