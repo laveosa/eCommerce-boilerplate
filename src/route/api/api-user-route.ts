@@ -4,7 +4,6 @@ import { type Request, type Response, Router } from "express";
 import ApiUserController from "#src/controller/api/ApiUserController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
 import { UserScheme } from "#src/const/scheme/UserScheme.js";
-import { UserPasswordUpdateScheme } from "#src/const/scheme/UserPasswordUpdateScheme.js";
 
 const apiUserRoute = Router();
 
@@ -40,10 +39,16 @@ apiUserRoute.delete("/:id", (req: Request, res: Response) =>
 
 // --------------------------------------------- EXTRA
 
-apiUserRoute.put(
-  "/update-password",
-  validateBody(UserPasswordUpdateScheme),
-  (req: Request, res: Response) => ApiUserController.updatePassword(req, res),
+apiUserRoute.put("/update-name/:id", (req: Request, res: Response) =>
+  ApiUserController.updateName(req, res),
+);
+
+apiUserRoute.put("/update-address/:id", (req: Request, res: Response) =>
+  ApiUserController.updateAddress(req, res),
+);
+
+apiUserRoute.put("/update-password/:id", (req: Request, res: Response) =>
+  ApiUserController.updatePassword(req, res),
 );
 
 export default apiUserRoute;

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (_orderId && cancelOrderBtnElem) {
     cancelOrderBtnElem.addEventListener("click", async () => {
-      await OrderApiService.deleteOrder(Number(_orderId));
+      await OrderApiService.deleteOrder(_orderId);
       location.replace("/product-list");
     });
   }

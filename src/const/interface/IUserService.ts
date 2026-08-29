@@ -9,5 +9,7 @@ export interface IUserService {
   updateUser(data: UserModel): Promise<UserModel>;
   deleteUser(id: string): Promise<UserModel>;
   // --------------------------------------------- EXTRA
-  updatePassword(data: UserModel): Promise<boolean>;
+  updateName(userId: string, value: string): Promise<boolean>;
+  updateAddress(userId: string, value: string): Promise<boolean>;
+  updatePassword(userId: string, value: string): Promise<boolean>;
 }

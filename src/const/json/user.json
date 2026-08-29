@@ -2,5 +2,6 @@
   "id": "123",
   "name": "Star Lord",
   "email": "best_pirate@galaxy.com",
-  "password": "password123"
+  "password": "password123",
+  "address": "United States, St. Charles, MO 63301"
 }

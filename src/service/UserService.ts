@@ -28,20 +28,23 @@ export default class UserService implements IUserService {
   }
 
   async getUser(id: string): Promise<UserModel> {
-    if (!id || id.length === 0)
+    if (!id || id.length === 0) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
+    }
+
+    let user;
 
     try {
-      const user = await User.findById(id);
-
-      if (!user) {
-        throw getErrorModel(404, "[SERVER_ERROR]: user not found!");
-      }
-
-      return user.toObject<UserModel>();
+      user = await User.findById(id);
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get");
     }
+
+    if (!user) {
+      throw getErrorModel(404, "[SERVER_ERROR]: user not found!");
+    }
+
+    return user.toObject<UserModel>();
   }
 
   async addUser(data: UserModel): Promise<UserModel> {
@@ -58,27 +61,31 @@ export default class UserService implements IUserService {
   }
 
   async updateUser(data: UserModel): Promise<UserModel> {
-    if (!data || typeof data !== "object" || !data.id || data.id.length === 0) {
+    const userId = data?.id;
+
+    if (!data || typeof data !== "object" || !userId) {
       throw getErrorModel(
         400,
-        `[SERVER_ERROR]: invalid data or id: "${data?.id}"`,
+        `[SERVER_ERROR]: invalid data or id: "${userId}"`,
       );
     }
 
+    let updated;
+
     try {
-      const updated = await User.findByIdAndUpdate(data.id, data, {
+      updated = await User.findByIdAndUpdate(userId, data, {
         returnDocument: "after",
         runValidators: true,
       });
-
-      if (!updated) {
-        throw getErrorModel(404, "[SERVER_ERROR]: user not found!");
-      }
-
-      return updated.toObject<UserModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
     }
+
+    if (!updated) {
+      throw getErrorModel(404, "[SERVER_ERROR]: user not found!");
+    }
+
+    return updated.toObject<UserModel>();
   }
 
   async deleteUser(id: string): Promise<UserModel> {
@@ -86,46 +93,110 @@ export default class UserService implements IUserService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
     }
 
+    let deleted;
+
     try {
-      const deleted = await User.findByIdAndDelete(id);
-
-      if (!deleted) {
-        throw getErrorModel(404, "[SERVER_ERROR]: user not found!");
-      }
-
-      return deleted.toObject<UserModel>();
+      deleted = await User.findByIdAndDelete(id);
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
     }
+
+    if (!deleted) {
+      throw getErrorModel(404, "[SERVER_ERROR]: user not found!");
+    }
+
+    return deleted.toObject<UserModel>();
   }
 
   // --------------------------------------------- EXTRA
 
-  async updatePassword(data: UserModel): Promise<boolean> {
-    if (!data || typeof data !== "object" || !data.id || data.id.length === 0) {
+  async updateName(userId: string, value: string): Promise<boolean> {
+    if (!userId || !value) {
       throw getErrorModel(
         400,
-        `[SERVER_ERROR]: invalid data or id: "${data?.id}"`,
+        `[SERVER_ERROR]: invalid data or id: "${userId}", data: ${value}`,
       );
     }
 
+    let updatedUser;
+
     try {
-      const updatedUser = await User.findByIdAndUpdate(
-        data.id,
-        { $set: { password: data.password } },
+      updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $set: { name: value } },
         { returnDocument: "after", runValidators: true },
       );
-
-      if (!updatedUser) {
-        throw getErrorModel(
-          404,
-          `[SERVER_ERROR]: user not found for id: "${data.id}"`,
-        );
-      }
-
-      return true;
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
     }
+
+    if (!updatedUser) {
+      throw getErrorModel(
+        404,
+        `[SERVER_ERROR]: user not found for id: "${userId}"`,
+      );
+    }
+
+    return true;
+  }
+
+  async updateAddress(userId: string, value: string): Promise<boolean> {
+    if (!userId || !value) {
+      throw getErrorModel(
+        400,
+        `[SERVER_ERROR]: invalid data or id: "${userId}", data: ${value}`,
+      );
+    }
+
+    let updatedUser;
+
+    try {
+      updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $set: { address: value } },
+        { returnDocument: "after", runValidators: true },
+      );
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
+    }
+
+    if (!updatedUser) {
+      throw getErrorModel(
+        404,
+        `[SERVER_ERROR]: user not found for id: "${userId}"`,
+      );
+    }
+
+    return true;
+  }
+
+  async updatePassword(userId: string, value: string): Promise<boolean> {
+    if (!userId || !value) {
+      throw getErrorModel(
+        400,
+        `[SERVER_ERROR]: invalid data or id: "${userId}", data: ${value}`,
+      );
+    }
+
+    let updatedUser;
+
+    try {
+      updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $set: { password: value } },
+        { returnDocument: "after", runValidators: true },
+      );
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
+    }
+
+    if (!updatedUser) {
+      throw getErrorModel(
+        404,
+        `[SERVER_ERROR]: user not found for id: "${userId}"`,
+      );
+    }
+
+    return true;
   }
 }

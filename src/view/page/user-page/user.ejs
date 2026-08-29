@@ -3,7 +3,7 @@
 </head>
 <body class="page-wrapper ">
     <%- include("../../include/component/navigation/navigation.ejs") %>
-    <main id="UserPage" class="container">
+    <main id="UserPage" class="container" data-user='<%- JSON.stringify(user || {}) %>'>
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
         <div class="user-page-container">
             <div class="user-profile-wrapper">
@@ -41,19 +41,6 @@
                                value="<%= user.email %>"
                                disabled />
                     </div>
-                    <!--<div class="form-section-title">
-                        <span>Address</span>
-                    </div>-->
-                    <div class="form-group user-address-block">
-                        <label for="OrderAddress">Address</label>
-                        <textarea name="orderAddress"
-                                  id="OrderAddress"
-                                  rows="5"
-                                  placeholder="Enter user address..."><%= user.address %></textarea>
-                    </div>
-                    <div class="form-section-title">
-                        <span>Change password</span>
-                    </div>
                     <div class="form-group">
                         <label for="NewPassword">New password</label>
                         <div class="input-with-icon">
@@ -73,6 +60,13 @@
                                    class="form-control"
                                    placeholder="Repeat new password" />
                         </div>
+                    </div>
+                    <div class="form-group user-address-block">
+                        <label for="Address">Address</label>
+                        <textarea name="address"
+                                  id="Address"
+                                  rows="5"
+                                  placeholder="Enter user address..."><%= user.address %></textarea>
                     </div>
                     <div class="form-action-block">
                         <button type="button" class="btn btn-primary full-with save-btn">Save changes</button>

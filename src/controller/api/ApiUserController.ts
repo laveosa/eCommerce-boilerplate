@@ -82,9 +82,46 @@ class ApiUserController {
 
   // --------------------------------------------- EXTRA
 
-  static async updatePassword(req: Request, res: Response) {
+  static async updateName(req: Request, res: Response) {
+    const userId = req.params.id as string;
+    const value = req.query.value as string;
+
     try {
-      const updated: boolean = await this.userService.updatePassword(req.body);
+      const updated: boolean = await this.userService.updateName(userId, value);
+      return res.status(200).send(updated);
+    } catch (error) {
+      return isApiError(error)
+        ? res.status(error.status).send(error.message)
+        : res.status(500).send("Internal Server Error");
+    }
+  }
+
+  static async updateAddress(req: Request, res: Response) {
+    const userId = req.params.id as string;
+    const value = req.query.value as string;
+
+    try {
+      const updated: boolean = await this.userService.updateAddress(
+        userId,
+        value,
+      );
+      return res.status(200).send(updated);
+    } catch (error) {
+      return isApiError(error)
+        ? res.status(error.status).send(error.message)
+        : res.status(500).send("Internal Server Error");
+    }
+  }
+
+  static async updatePassword(req: Request, res: Response) {
+    const userId = req.params.id as string;
+    const value = req.body.password as string;
+
+    try {
+      const updated: boolean = await this.userService.updatePassword(
+        userId,
+        value,
+      );
       return res.status(200).send(updated);
     } catch (error) {
       return isApiError(error)

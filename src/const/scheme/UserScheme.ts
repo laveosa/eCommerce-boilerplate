@@ -20,7 +20,7 @@ export const UserScheme = z.object({
     )
     .optional(),
   address: z
-    .string()
+    .string({ error: "Invalid user 'address' value!" })
     .min(4, "User 'address' length muse be more then 2 symbols!")
     .max(100, "User 'address' length muse be less then 100 symbols!")
     .optional(),
