@@ -139,6 +139,27 @@
     }
   }
 
+  .user-address-block {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    textarea {
+      width: 100%;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: $padding-sm;
+      resize: none;
+      outline: none;
+      color: $color-txt-muted;
+      font-size: $fs-sm;
+
+      &:focus:not(.disabled-input) {
+        border-color: $color-primary !important;
+      }
+    }
+  }
+
   .form-action-block {
     margin-top: $spacing-xs;
 

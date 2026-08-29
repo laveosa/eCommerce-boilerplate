@@ -149,8 +149,8 @@
   color: #718096;
   font-size: 0.875rem;
 }
-#CartPage .order-summary-card-address textarea:focus {
-  border-color: #d97706;
+#CartPage .order-summary-card-address textarea:focus:not(.disabled-input) {
+  border-color: #d97706 !important;
 }
 
 #CartPage .order-summary-card-action {

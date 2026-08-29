@@ -4,5 +4,8 @@
   gap: 30px;
   transition: all ease-in-out 160ms;
 }
+.register-form input:focus:not(.disabled-input) {
+  border-color: #d97706 !important;
+}
 
 /*# sourceMappingURL=register-form.css.map */

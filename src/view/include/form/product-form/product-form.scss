@@ -8,8 +8,18 @@
       padding-bottom: 0;
     }
 
+    input {
+      &:focus:not(.disabled-input) {
+        border-color: $color-primary !important;
+      }
+    }
+
     textarea {
       resize: none;
+
+      &:focus:not(.disabled-input) {
+        border-color: $color-primary !important;
+      }
     }
   }
 }

@@ -19,6 +19,11 @@ export const UserScheme = z.object({
       "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     )
     .optional(),
+  address: z
+    .string()
+    .min(4, "User 'address' length muse be more then 2 symbols!")
+    .max(100, "User 'address' length muse be less then 100 symbols!")
+    .optional(),
 });
 
 export type UserModel = z.infer<typeof UserScheme>;

@@ -4,8 +4,14 @@
 .product-form .form-group:last-child {
   padding-bottom: 0;
 }
+.product-form .form-group input:focus:not(.disabled-input) {
+  border-color: #d97706 !important;
+}
 .product-form .form-group textarea {
   resize: none;
+}
+.product-form .form-group textarea:focus:not(.disabled-input) {
+  border-color: #d97706 !important;
 }
 
 .product-form .form-group .image-preview-container {

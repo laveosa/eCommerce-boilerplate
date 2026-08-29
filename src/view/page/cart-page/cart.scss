@@ -197,8 +197,8 @@
       color: $color-txt-muted;
       font-size: $fs-sm;
 
-      &:focus {
-        border-color: $color-primary;
+      &:focus:not(.disabled-input) {
+        border-color: $color-primary !important;
       }
     }
   }

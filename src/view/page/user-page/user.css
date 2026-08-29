@@ -114,6 +114,24 @@
   font-weight: 700;
   color: #1c1917;
 }
+.user-profile-form .user-address-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.user-profile-form .user-address-block textarea {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  resize: none;
+  outline: none;
+  color: #718096;
+  font-size: 0.875rem;
+}
+.user-profile-form .user-address-block textarea:focus:not(.disabled-input) {
+  border-color: #d97706 !important;
+}
 .user-profile-form .form-action-block {
   margin-top: 4px;
 }

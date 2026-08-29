@@ -20,6 +20,10 @@ export const UserDbSchema = new Schema(
       required: true,
       trim: true,
     },
+    address: {
+      type: String,
+      trim: true,
+    },
   },
   defaultSchemaOptions,
 );

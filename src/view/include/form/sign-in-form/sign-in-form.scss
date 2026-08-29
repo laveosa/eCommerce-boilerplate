@@ -5,4 +5,10 @@
   flex-direction: column;
   gap: $padding-lg;
   transition: all ease-in-out 160ms;
+
+  input {
+    &:focus:not(.disabled-input) {
+      border-color: $color-primary !important;
+    }
+  }
 }
