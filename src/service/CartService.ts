@@ -39,17 +39,19 @@ export default class CartService implements ICartService {
     if (!id || id.length === 0)
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
 
+    let cart;
+
     try {
-      const cart = await Cart.findById(id);
-
-      if (!cart) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
-      }
-
-      return cart.toObject<CartModel>();
+      cart = await Cart.findById(id);
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get");
     }
+
+    if (!cart) {
+      throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+    }
+
+    return cart.toObject<CartModel>();
   }
 
   async addCart(data: CartModel): Promise<CartModel> {
@@ -73,20 +75,22 @@ export default class CartService implements ICartService {
       );
     }
 
+    let updated;
+
     try {
-      const updated = await Cart.findByIdAndUpdate(data.id, data, {
+      updated = await Cart.findByIdAndUpdate(data.id, data, {
         returnDocument: "after",
         runValidators: true,
       });
-
-      if (!updated) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
-      }
-
-      return updated.toObject<CartModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
     }
+
+    if (!updated) {
+      throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+    }
+
+    return updated.toObject<CartModel>();
   }
 
   async deleteCart(id: string): Promise<CartModel> {
@@ -99,7 +103,7 @@ export default class CartService implements ICartService {
     try {
       cart = await Cart.findById(id);
     } catch (err) {
-      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to fetch cart");
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get cart");
     }
 
     if (!cart) {
@@ -132,7 +136,7 @@ export default class CartService implements ICartService {
         cartId: id,
       });
     } catch (err) {
-      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete order");
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get order");
     }
 
     try {
@@ -150,21 +154,23 @@ export default class CartService implements ICartService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${userId}"`);
     }
 
+    let cart;
+
     try {
-      const cart = await Cart.findOne({
+      cart = await Cart.findOne({
         userId,
       });
-
-      if (!cart) {
-        // throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
-        console.log("[SERVER_ERROR]: cart not found!");
-        return null;
-      }
-
-      return cart.toObject<CartModel>();
     } catch (err) {
-      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get");
     }
+
+    if (!cart) {
+      // throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+      console.log("[SERVER_ERROR]: cart not found!");
+      return null;
+    }
+
+    return cart.toObject<CartModel>();
   }
 
   async addProductToCart(
@@ -176,8 +182,13 @@ export default class CartService implements ICartService {
       throw getErrorModel(400, "[SERVER_ERROR]: invalid productId or userId");
     }
 
-    const product: ProductModel =
-      await this.productService.getProduct(productId);
+    let product;
+
+    try {
+      product = await this.productService.getProduct(productId);
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get product");
+    }
 
     if (!product) {
       throw getErrorModel(
@@ -237,8 +248,13 @@ export default class CartService implements ICartService {
       throw getErrorModel(400, "[SERVER_ERROR]: invalid productId or cartId");
     }
 
-    const product: ProductModel =
-      await this.productService.getProduct(productId);
+    let product;
+
+    try {
+      product = await this.productService.getProduct(productId);
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get product");
+    }
 
     if (!product) {
       throw getErrorModel(
@@ -247,13 +263,19 @@ export default class CartService implements ICartService {
       );
     }
 
+    let cart;
+
     try {
-      const cart = await Cart.findById(cartId);
+      cart = await Cart.findById(cartId);
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get cart");
+    }
 
-      if (!cart) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found");
-      }
+    if (!product) {
+      throw getErrorModel(404, "[SERVER_ERROR]: cart not found");
+    }
 
+    try {
       cart.products = cart.products.filter(
         (item: any) =>
           item._id?.toString() !== productId && item.id !== productId,
@@ -264,6 +286,7 @@ export default class CartService implements ICartService {
       );
 
       const savedCart = await cart.save();
+
       await this.productService.updateProduct({
         ...product,
         inCart: false,

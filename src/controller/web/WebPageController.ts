@@ -5,7 +5,6 @@ import ProductService from "#src/service/ProductService.js";
 import CartService from "#src/service/CartService.js";
 import OrderService from "#src/service/OrderService.js";
 import layoutService from "#src/util/service/layout-service.js";
-import { getStubUser } from "#src/util/service/stub-data-provider-service.js";
 import { pathResolve } from "#src/util/helper/path-helper.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import { WebUrlEnum, WebUrlEnum as wu } from "#src/const/enum/WebUrlEnum.js";
@@ -46,13 +45,16 @@ export default class WebPageController {
       const cart: CartModel = await this.cartService.getCartByUserId(
         req.user.id,
       );
+      const order: OrderModel = await this.orderService.getOrderByUserId(
+        req.user.id,
+      );
 
       res.render(
         pathResolve([rootPath, "/cart-page/cart.ejs"]),
         await this.generatePageData("Cart", wu.CART, {
           user: req.user,
           cart,
-          address: "United States, St. Charles, MO 63301", // TODO this is stub address
+          order,
         }),
       );
     } catch (error: any) {

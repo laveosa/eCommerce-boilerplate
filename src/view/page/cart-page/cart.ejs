@@ -4,7 +4,11 @@
 </head>
 <body class="page-wrapper">
     <%- include("../../include/component/navigation/navigation.ejs") %>
-    <main id="CartPage" class="container" data-user-id="<%= user.id %>" data-cart-id="<%= cart?.id %>">
+    <main id="CartPage"
+          class="container"
+          data-user='<%- JSON.stringify(user || {}) %>'
+          data-order='<%- JSON.stringify(order || {}) %>'
+          data-cart='<%- JSON.stringify(cart || {}) %>'>
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
         <div class="cart-page-container">
             <% if(cart && cart.products && cart.products.length > 0) { %>
@@ -52,10 +56,14 @@
                             <textarea name="orderAddress"
                                       id="OrderAddress"
                                       rows="5"
-                                      placeholder="Enter delivery address..."><%= user.address %></textarea>
+                                      placeholder="Enter delivery address..."><%= order?.address ? order.address : user.address %></textarea>
                         </div>
                         <div class="order-summary-card-action">
-                            <button class="btn btn-primary full-with place-order-btn">Place order</button>
+                            <% if(order && order.id) { %>
+                                <a href="/order" class="btn btn-dark full-with">View order</a>
+                            <% } else { %>
+                                <button class="btn btn-primary full-with place-order-btn">Place order</button>
+                            <% } %>
                             <button class="btn btn-light full-with cancel-order-btn">Cancel</button>
                         </div>
                     </div>

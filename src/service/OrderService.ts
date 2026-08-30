@@ -2,7 +2,6 @@ import { Order } from "#src/const/model/OrderModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IOrderService } from "#src/const/interface/IOrderService.js";
 import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
-import mongoose from "mongoose";
 
 export default class OrderService implements IOrderService {
   async set(data: OrderModel[]): Promise<OrderModel[]> {
@@ -33,17 +32,19 @@ export default class OrderService implements IOrderService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
     }
 
+    let order;
+
     try {
-      const order = await Order.findById(id);
-
-      if (!order) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
-      }
-
-      return order.toObject<OrderModel>();
+      order = await Order.findById(id);
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get");
     }
+
+    if (!order) {
+      throw getErrorModel(404, "[SERVER_ERROR]: order not found!");
+    }
+
+    return order.toObject<OrderModel>();
   }
 
   async addOrder(data: OrderModel): Promise<OrderModel> {
@@ -67,20 +68,22 @@ export default class OrderService implements IOrderService {
       );
     }
 
+    let updated;
+
     try {
-      const updated = await Order.findByIdAndUpdate(data.id, data, {
+      updated = await Order.findByIdAndUpdate(data.id, data, {
         returnDocument: "after",
         runValidators: true,
       });
-
-      if (!updated) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
-      }
-
-      return updated.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update");
     }
+
+    if (!updated) {
+      throw getErrorModel(404, "[SERVER_ERROR]: order not found!");
+    }
+
+    return updated.toObject<OrderModel>();
   }
 
   async deleteOrder(id: string): Promise<OrderModel> {
@@ -88,19 +91,19 @@ export default class OrderService implements IOrderService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
     }
 
-    console.log("ORDER: ", id);
+    let deleted;
 
     try {
-      const deleted = await Order.findByIdAndDelete(id);
-
-      if (!deleted) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
-      }
-
-      return deleted.toObject<OrderModel>();
+      deleted = await Order.findByIdAndDelete(id);
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
     }
+
+    if (!deleted) {
+      throw getErrorModel(404, "[SERVER_ERROR]: order not found!");
+    }
+
+    return deleted.toObject<OrderModel>();
   }
 
   // --------------------------------------------- EXTRA
@@ -110,21 +113,23 @@ export default class OrderService implements IOrderService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${userId}"`);
     }
 
+    let order;
+
     try {
-      const order = await Order.findOne({
+      order = await Order.findOne({
         userId,
       });
-
-      if (!order) {
-        // throw getErrorModel(404, "[SERVER_ERROR]: order not found!");
-        console.log("[SERVER_ERROR]: order not found!");
-        return null;
-      }
-
-      return order.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
     }
+
+    if (!order) {
+      // throw getErrorModel(404, "[SERVER_ERROR]: order not found!");
+      console.log("[SERVER_ERROR]: order not found!");
+      return null;
+    }
+
+    return order.toObject<OrderModel>();
   }
 
   async addCartToOrder(
@@ -167,8 +172,10 @@ export default class OrderService implements IOrderService {
       throw getErrorModel(400, "[SERVER_ERROR]: invalid orderId or cartId");
     }
 
+    let updateOrder;
+
     try {
-      const updateOrder = await Order.findByIdAndUpdate(
+      updateOrder = await Order.findByIdAndUpdate(
         orderId,
         {
           $set: {
@@ -186,14 +193,14 @@ export default class OrderService implements IOrderService {
           runValidators: true,
         },
       );
-
-      if (!updateOrder) {
-        throw getErrorModel(404, "[SERVER_ERROR]: order not found");
-      }
-
-      return updateOrder.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
     }
+
+    if (!updateOrder) {
+      throw getErrorModel(404, "[SERVER_ERROR]: order not found");
+    }
+
+    return updateOrder.toObject<OrderModel>();
   }
 }

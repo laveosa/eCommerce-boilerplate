@@ -32,17 +32,19 @@ export default class ProductService implements IProductService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
     }
 
+    let product;
+
     try {
-      const product = await Product.findById(id);
-
-      if (!product) {
-        throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
-      }
-
-      return product.toObject<ProductModel>();
+      product = await Product.findById(id);
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get");
     }
+
+    if (!product) {
+      throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
+    }
+
+    return product.toObject<ProductModel>();
   }
 
   async addProduct(data: ProductModel): Promise<ProductModel> {
@@ -71,20 +73,22 @@ export default class ProductService implements IProductService {
       );
     }
 
+    let updated;
+
     try {
-      const updated = await Product.findByIdAndUpdate(data.id, data, {
+      updated = await Product.findByIdAndUpdate(data.id, data, {
         returnDocument: "after",
         runValidators: true,
       });
-
-      if (!updated) {
-        throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
-      }
-
-      return updated.toObject<ProductModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to update!");
     }
+
+    if (!updated) {
+      throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
+    }
+
+    return updated.toObject<ProductModel>();
   }
 
   async deleteProduct(id: string): Promise<ProductModel> {
@@ -92,18 +96,20 @@ export default class ProductService implements IProductService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"!`);
     }
 
+    let deleted;
+
     try {
-      const deleted = await Product.findByIdAndDelete(id, {
+      deleted = await Product.findByIdAndDelete(id, {
         returnDocument: "after",
       });
-
-      if (!deleted) {
-        throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
-      }
-
-      return deleted.toObject<ProductModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
     }
+
+    if (!deleted) {
+      throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
+    }
+
+    return deleted.toObject<ProductModel>();
   }
 }
