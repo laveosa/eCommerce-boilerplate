@@ -21,7 +21,7 @@ export class CartApiService {
 
   static async getCart(id: string): Promise<CartModel> {
     try {
-      const response = await axios.get(`${BASE_URL}/${id}`);
+      const response = await axios.get(`${BASE_URL}/${encodeURIComponent(id)}`);
       return response.data as CartModel;
     } catch (error: any) {
       console.error(
@@ -73,7 +73,9 @@ export class CartApiService {
 
   static async deleteCart(id: string): Promise<CartModel> {
     try {
-      const response = await axios.delete(`${BASE_URL}/${id}`);
+      const response = await axios.delete(
+        `${BASE_URL}/${encodeURIComponent(id)}`,
+      );
       return response.data as CartModel;
     } catch (error: any) {
       console.error(
@@ -88,7 +90,9 @@ export class CartApiService {
 
   static async getCartByUserId(userId: string): Promise<CartModel> {
     try {
-      const response = await axios.get(`${BASE_URL}/by-user-id/${userId}`);
+      const response = await axios.get(
+        `${BASE_URL}/by-user-id/${encodeURIComponent(userId)}`,
+      );
       return response.data as CartModel;
     } catch (error: any) {
       console.error(
@@ -106,7 +110,7 @@ export class CartApiService {
   ): Promise<CartModel> {
     try {
       const response = await axios.post(
-        `${BASE_URL}/add-product/${productId}/${cartId}/${userId}`,
+        `${BASE_URL}/add-product/${encodeURIComponent(productId)}/${encodeURIComponent(cartId)}/${encodeURIComponent(userId)}`,
       );
       return response.data as CartModel;
     } catch (error: any) {
@@ -124,7 +128,7 @@ export class CartApiService {
   ): Promise<CartModel> {
     try {
       const response = await axios.delete(
-        `${BASE_URL}/remove-product/${productId}/${cartId}`,
+        `${BASE_URL}/remove-product/${encodeURIComponent(productId)}/${encodeURIComponent(cartId)}`,
       );
       return response.data as CartModel;
     } catch (error: any) {

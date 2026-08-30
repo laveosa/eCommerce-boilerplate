@@ -33,7 +33,7 @@ class ApiOrderController {
   }
 
   static async getOrder(req: Request, res: Response) {
-    const orderId = req.params.orderId.toString();
+    const orderId = req.params.id.toString();
 
     try {
       const order: OrderModel = await this.orderService.getOrder(orderId);
@@ -68,7 +68,7 @@ class ApiOrderController {
   }
 
   static async deleteOrder(req: Request, res: Response) {
-    const orderId = req.params.orderId.toString();
+    const orderId = req.params.id.toString();
 
     try {
       const order: OrderModel = await this.orderService.deleteOrder(orderId);

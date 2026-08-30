@@ -2,6 +2,7 @@ import { Order } from "#src/const/model/OrderModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IOrderService } from "#src/const/interface/IOrderService.js";
 import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
+import mongoose from "mongoose";
 
 export default class OrderService implements IOrderService {
   async set(data: OrderModel[]): Promise<OrderModel[]> {
@@ -52,9 +53,6 @@ export default class OrderService implements IOrderService {
 
     try {
       const order = await Order.create(data);
-
-      console.log("ORDER: ", order);
-
       return order.toObject<OrderModel>();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to add");
@@ -89,6 +87,8 @@ export default class OrderService implements IOrderService {
     if (!id || id.length === 0) {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
     }
+
+    console.log("ORDER: ", id);
 
     try {
       const deleted = await Order.findByIdAndDelete(id);

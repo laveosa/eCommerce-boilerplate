@@ -41,12 +41,15 @@ apiOrderRoute.delete("/:id", (req: Request, res: Response) =>
 
 // --------------------------------------------- EXTRA
 
-apiOrderRoute.post("/add-cart", (req: Request, res: Response) =>
-  ApiOrderController.addCartToOrder(req, res),
+apiOrderRoute.post(
+  "/add-cart/:cartId/:orderId/:userId",
+  (req: Request, res: Response) => ApiOrderController.addCartToOrder(req, res),
 );
 
-apiOrderRoute.delete("/remove-cart", (req: Request, res: Response) =>
-  ApiOrderController.removeCartFromOrder(req, res),
+apiOrderRoute.delete(
+  "/remove-cart/:cartId/:orderId",
+  (req: Request, res: Response) =>
+    ApiOrderController.removeCartFromOrder(req, res),
 );
 
 export default apiOrderRoute;

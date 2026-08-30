@@ -21,7 +21,7 @@ export class ProductApiService {
 
   static async getProduct(id: string): Promise<ProductModel> {
     try {
-      const response = await axios.get(`${BASE_URL}/${id}`);
+      const response = await axios.get(`${BASE_URL}/${encodeURIComponent(id)}`);
       return response.data as ProductModel;
     } catch (error: any) {
       console.error(
@@ -73,7 +73,9 @@ export class ProductApiService {
 
   static async deleteProduct(id: string): Promise<ProductModel> {
     try {
-      const response = await axios.delete(`${BASE_URL}/${id}`);
+      const response = await axios.delete(
+        `${BASE_URL}/${encodeURIComponent(id)}`,
+      );
       return response.data as ProductModel;
     } catch (error: any) {
       console.error(
