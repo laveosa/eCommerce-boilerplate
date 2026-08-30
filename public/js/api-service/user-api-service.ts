@@ -9,9 +9,9 @@ export class UserApiService {
         params: { value },
       };
 
-      const response = await axios.put(
+      const response = await axios.put<boolean>(
         `${BASE_URL}/update-name/${encodeURIComponent(id)}`,
-        {},
+        null,
         config,
       );
       return response.data;

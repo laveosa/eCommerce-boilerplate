@@ -6,6 +6,8 @@ import ProductService from "#src/service/ProductService.js";
 import type { ICartService } from "#src/const/interface/ICartService.js";
 import type { CartModel } from "#src/const/scheme/CartScheme.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
+import { Product } from "#src/const/model/ProductModel.js";
+import { Order } from "#src/const/model/OrderModel.js";
 
 export default class CartService implements ICartService {
   private productService = new ProductService();
@@ -92,18 +94,52 @@ export default class CartService implements ICartService {
       throw getErrorModel(400, `[SERVER_ERROR]: invalid id: "${id}"`);
     }
 
+    let cart;
+
     try {
-      const deleted = await Cart.findByIdAndDelete(id, {
-        returnDocument: "after",
-      });
-
-      if (!deleted) {
-        throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
-      }
-
-      return deleted.toObject<CartModel>();
+      cart = await Cart.findById(id);
     } catch (err) {
-      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete");
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to fetch cart");
+    }
+
+    if (!cart) {
+      throw getErrorModel(404, "[SERVER_ERROR]: cart not found!");
+    }
+
+    if (cart.products && cart.products.length > 0) {
+      try {
+        const productIds = cart.products
+          .map((p) => p.id || (p as any)._id)
+          .filter((id): id is string => Boolean(id));
+
+        if (productIds.length > 0) {
+          await Product.updateMany(
+            { _id: { $in: productIds } },
+            { $set: { inCart: false } },
+          );
+        }
+      } catch (err) {
+        throw getErrorModel(
+          500,
+          err,
+          "[SERVER_ERROR]: failed to remove cart products",
+        );
+      }
+    }
+
+    try {
+      await Order.findOneAndDelete({
+        cartId: id,
+      });
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete order");
+    }
+
+    try {
+      const deleted = await Cart.findByIdAndDelete(id);
+      return deleted!.toObject<CartModel>();
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to delete cart");
     }
   }
 
