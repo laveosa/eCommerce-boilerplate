@@ -2,9 +2,18 @@ import { ProductCard } from "#src/view/include/component/product-card/product-ca
 import { ProductApiService } from "#public/js/api-service/product-api-service.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const deleteAllBtn =
+    document.querySelector<HTMLButtonElement>(".delete-all-button");
   const container = document.querySelectorAll<HTMLElement>(
     ".product-card-container",
   );
+
+  if (deleteAllBtn) {
+    deleteAllBtn.addEventListener("click", async () => {
+      await ProductApiService.deleteAllProduct();
+      location.reload();
+    });
+  }
 
   if (!container) return;
 

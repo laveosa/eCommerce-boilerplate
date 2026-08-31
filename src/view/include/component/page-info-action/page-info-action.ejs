@@ -3,6 +3,7 @@
     const _title = pageInfo.title || "no title";
     const _showSearch = pageInfo.showSearch;
     const _showCreateBtn = pageInfo.showCreateBtn;
+    const _showDeleteAllBtn = pageInfo.showDeleteAllBtn;
 %>
 
 <div class="page-info-action-container">
@@ -28,9 +29,14 @@
                            aria-describedby="basic-addon1">
                 </div>
             <% } %>
-            <% if(_showCreateBtn) { %>
-                <a href="/add-product" class="btn btn-dark">+ New Product</a>
-            <% } %>
+            <div class="buttons-action-block">
+                <% if(_showCreateBtn) { %>
+                    <a href="/add-product" class="btn btn-dark">+ New Product</a>
+                <% } %>
+                <% if(_showDeleteAllBtn) { %>
+                    <div class="btn btn-danger delete-all-button">Delete All</div>
+                <% } %>
+            </div>
         </div>
     <% } %>
 </div>

@@ -112,4 +112,29 @@ export default class ProductService implements IProductService {
 
     return deleted.toObject<ProductModel>();
   }
+
+  async deleteAllProducts(): Promise<ProductModel[]> {
+    let productsToDelete;
+
+    try {
+      productsToDelete = await Product.find({});
+    } catch (err) {
+      throw getErrorModel(500, err, "[SERVER_ERROR]: failed to fetch products");
+    }
+
+    if (!productsToDelete || productsToDelete.length === 0) {
+      throw getErrorModel(404, "[SERVER_ERROR]: no products to delete!");
+    }
+
+    try {
+      await Product.deleteMany({});
+      return productsToDelete.map((p) => p.toObject<ProductModel>());
+    } catch (err) {
+      throw getErrorModel(
+        500,
+        err,
+        "[SERVER_ERROR]: failed to delete products",
+      );
+    }
+  }
 }

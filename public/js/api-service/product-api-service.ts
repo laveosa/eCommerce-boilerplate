@@ -86,6 +86,19 @@ export class ProductApiService {
     }
   }
 
+  static async deleteAllProduct(): Promise<ProductModel[]> {
+    try {
+      const response = await axios.delete(`${BASE_URL}/all`);
+      return response.data as ProductModel[];
+    } catch (error: any) {
+      console.error(
+        "[API ERROR]: Failed to register",
+        error.response?.data || error.message,
+      );
+      throw error;
+    }
+  }
+
   // --------------------------------------------- EXTRA
 
   static async generateProducts(): Promise<ProductModel> {

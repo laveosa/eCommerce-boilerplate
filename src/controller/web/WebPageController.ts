@@ -291,6 +291,7 @@ export default class WebPageController {
           title: "manage products",
           showSearch: true,
           showCreateBtn: true,
+          showDeleteAllBtn: true,
         };
       case WebUrlEnum.CART:
         return {

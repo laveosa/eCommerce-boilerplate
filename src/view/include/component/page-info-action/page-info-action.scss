@@ -66,9 +66,16 @@
       }
     }
 
-    .btn {
-      min-width: 140px;
-      max-height: 34px;
+    .buttons-action-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 286px;
+
+      .btn {
+        min-width: 140px;
+        max-height: 34px;
+      }
     }
   }
 }

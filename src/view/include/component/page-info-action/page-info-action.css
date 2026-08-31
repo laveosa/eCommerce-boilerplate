@@ -48,7 +48,13 @@
   opacity: 0.6;
   width: 100%;
 }
-.page-info-action-container .page-action-block .btn {
+.page-info-action-container .page-action-block .buttons-action-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 286px;
+}
+.page-info-action-container .page-action-block .buttons-action-block .btn {
   min-width: 140px;
   max-height: 34px;
 }

@@ -3,4 +3,5 @@ export interface IPageInfoAction {
   title: string;
   showSearch?: boolean;
   showCreateBtn?: boolean;
+  showDeleteAllBtn?: boolean;
 }

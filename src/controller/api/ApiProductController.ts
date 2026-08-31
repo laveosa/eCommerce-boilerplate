@@ -87,6 +87,18 @@ class ApiProductController {
     }
   }
 
+  static async deleteAllProducts(req: Request, res: Response) {
+    try {
+      const products: ProductModel[] =
+        await this.productService.deleteAllProducts();
+      return res.status(200).send(products);
+    } catch (error) {
+      return isApiError(error)
+        ? res.status(error.status).send(error.message)
+        : res.status(500).send("Internal Server Error");
+    }
+  }
+
   // --------------------------------------------- EXTRA
 
   static async generateProducts(req: Request, res: Response) {
