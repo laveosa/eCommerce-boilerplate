@@ -1,4 +1,4 @@
-export interface IProductQuery {
+export interface IPaginationQuery {
   current: number;
   total: number;
   prevPage: number | null;

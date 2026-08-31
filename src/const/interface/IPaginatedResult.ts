@@ -1,10 +1,9 @@
-import type { IProductQuery } from "#src/const/interface/IProductQuery.js";
+import type { IPaginationQuery } from "#src/const/interface/IPaginationQuery.js";
 
 export interface IPaginatedResult<T> {
-  data: T[];
-  pagination: IProductQuery;
+  data?: T[];
+  pagination: IPaginationQuery;
   filters?: {
     search?: string;
-    [key: string]: any;
   };
 }

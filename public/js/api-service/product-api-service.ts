@@ -6,9 +6,15 @@ const BASE_URL = "/api/product";
 
 export class ProductApiService {
   // --------------------------------------------- CRUD
-  static async getAllProducts(): Promise<ProductModel[]> {
+  static async getAllProducts(
+    search?: string,
+    page?: number,
+    perPage?: number,
+  ): Promise<ProductModel[]> {
     try {
-      const response = await axios.get(`${BASE_URL}`);
+      const response = await axios.get(
+        `${BASE_URL}?search=${search}&page=${page}&perPage=${perPage}`,
+      );
       return response.data as ProductModel[];
     } catch (error: any) {
       console.error(

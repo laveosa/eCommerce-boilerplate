@@ -2,9 +2,10 @@ import type { Request, Response } from "express";
 
 import ProductService from "#src/service/ProductService.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
+import { getStubProducts } from "#src/util/service/stub-data-provider-service.js";
 import type { IApiProductController } from "#src/const/interface/IApiProductController.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
-import { getStubProducts } from "#src/util/service/stub-data-provider-service.js";
+import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
 
 class ApiProductController {
   private static productService = new ProductService();
@@ -23,9 +24,18 @@ class ApiProductController {
   }
 
   static async getAllProducts(req: Request, res: Response) {
+    const search = typeof req.query.search === "string" ? req.query.search : "";
+    const page =
+      typeof req.query.page === "string" ? parseInt(req.query.page, 10) : 1;
+    const perPage =
+      typeof req.query.perPage === "string"
+        ? parseInt(req.query.perPage, 10)
+        : 6;
+
     try {
-      const products: ProductModel[] = await this.productService.get();
-      return res.status(200).send(products);
+      const result: IPaginatedResult<ProductModel> =
+        await this.productService.get(search, page, perPage);
+      return res.status(200).send(result);
     } catch (error) {
       return isApiError(error)
         ? res.status(error.status).send(error.message)

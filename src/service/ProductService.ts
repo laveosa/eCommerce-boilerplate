@@ -2,6 +2,7 @@ import { Product } from "#src/const/model/ProductModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IProductService } from "#src/const/interface/IProductService.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
+import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
 
 export default class ProductService implements IProductService {
   async set(data: ProductModel[]): Promise<ProductModel[]> {
@@ -12,16 +13,51 @@ export default class ProductService implements IProductService {
     try {
       await Product.deleteMany({});
       await Product.insertMany(data);
-      return this.get();
+      return Product.find();
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to set all");
     }
   }
 
-  async get(): Promise<ProductModel[]> {
+  async get(
+    search: string = "",
+    page: number = 1,
+    perPage: number = 6,
+  ): Promise<IPaginatedResult<ProductModel>> {
+    const filter = search
+      ? {
+          $or: [
+            { name: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+          ],
+        }
+      : {};
+
+    const currentPage = Math.max(1, page);
+    const limit = Math.max(1, perPage);
+    const skip = (currentPage - 1) * limit;
+
     try {
-      const products = await Product.find();
-      return products.map((p) => p.toObject<ProductModel>());
+      const [totalItems, products] = await Promise.all([
+        Product.countDocuments(filter),
+        Product.find(filter).skip(skip).limit(limit),
+      ]);
+
+      const totalPages = Math.ceil(totalItems / limit) || 1;
+
+      return {
+        data: products.map((p) => p.toObject<ProductModel>()),
+        pagination: {
+          current: currentPage,
+          total: totalPages,
+          prevPage: currentPage > 1 ? currentPage - 1 : null,
+          nextPage: currentPage < totalPages ? currentPage + 1 : null,
+          perPage: limit,
+        },
+        filters: {
+          search,
+        },
+      };
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to get all");
     }

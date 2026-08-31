@@ -7,9 +7,9 @@
     <main id="ProductAdminPage" class="container">
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>
         <div class="product-list-container">
-            <% if(products && products.length > 0) { %>
+            <% if(data && data.length > 0) { %>
                 <div class="grid">
-                    <% for(let product of products) { %>
+                    <% for(let product of data) { %>
                         <%- include("../../include/component/product-card/product-card.ejs", {
                         ...product,
                             isAdmin: true

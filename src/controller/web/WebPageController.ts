@@ -87,29 +87,14 @@ export default class WebPageController {
 
   static async productListPage(req: Request, res: Response) {
     try {
-      const products: ProductModel[] = await this.productService.get();
-
-      // TODO replace with valid db data
-      const result: IPaginatedResult<ProductModel> = {
-        data: products,
-        pagination: {
-          current: 1,
-          total: 10,
-          prevPage: null,
-          nextPage: 2,
-        },
-        filters: {
-          search: "some search text",
-        },
-      };
+      const result: IPaginatedResult<ProductModel> =
+        await this.productService.get();
 
       res.render(
         pathResolve([rootPath, "/product-list-page/product-list.ejs"]),
         await this.generatePageData("Product List", wu.PRODUCT_LIST, {
           user: req.user,
-          products,
-          pagination: result.pagination,
-          search: result.filters.search,
+          ...result,
         }),
       );
     } catch (error: any) {
@@ -121,31 +106,14 @@ export default class WebPageController {
 
   static async productAdminPage(req: Request, res: Response) {
     try {
-      const products: ProductModel[] = await this.productService.get();
-
-      // TODO replace with valid db data
-      const result: IPaginatedResult<ProductModel> = {
-        data: products,
-        pagination: {
-          current: 1,
-          total: 10,
-          prevPage: null,
-          nextPage: 2,
-        },
-        filters: {
-          search: "some search text",
-        },
-      };
-
-      // const products: ProductModel[] = await this.productService.get();
+      const result: IPaginatedResult<ProductModel> =
+        await this.productService.get();
 
       res.render(
         pathResolve([rootPath, "/product-admin-page/product-admin.ejs"]),
         await this.generatePageData("Product Admin", wu.PRODUCT_ADMIN, {
           user: req.user,
-          products,
-          pagination: result.pagination,
-          search: result.filters.search,
+          ...result,
         }),
       );
     } catch (error: any) {
