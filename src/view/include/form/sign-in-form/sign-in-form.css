@@ -1,7 +1,7 @@
 .sign-in-form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   transition: all ease-in-out 160ms;
 }
 

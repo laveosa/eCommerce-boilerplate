@@ -1,0 +1,62 @@
+@use "src/view/variables" as *;
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  margin-top: $spacing-xl;
+  padding: $padding-sm 0;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.pagination-btn,
+.pagination-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 $padding-sm;
+  font-family: $ff-sans;
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: $color-txt-main;
+  background-color: $color-bg-light;
+  border: $brd;
+  border-radius: $radius-md;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover:not(.disabled):not(.active) {
+    background-color: $color-bg-light-hover;
+    border-color: darken($color-border, 10%);
+    color: $color-dark-hover;
+  }
+}
+
+.pagination-num {
+  &.active {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-txt-white;
+    font-weight: $fw-bold;
+    cursor: default;
+  }
+}
+
+.pagination-btn {
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: $color-bg-main;
+    color: $color-txt-light;
+    border-color: $color-border;
+  }
+}
