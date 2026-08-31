@@ -54,5 +54,47 @@
     "imageUrl": "https://pictureserver.net/pic_storage/pic/0f/df/undef_src_sa_picid_802848_x_1800_type_color_image.webp?ver=27",
     "price": 9.09,
     "description": "Bowl Shaped Garden Fire Pit\nThis outdoor fire pit combines heating and grilling functions, offering practical use throughout the season. It can be used to prepare simple meals over the fire or as a heat source during cooler evenings. The grill grate allows for direct cooking without the need for a separate barbecue. Its open design promotes even heat distribution and easy fire control. The sturdy steel bowl with a black finish withstands high temperatures and outdoor conditions. Easy assembly and a compact size make it simple to set up and store after use."
+  },
+  {
+    "id": 9,
+    "title": "Fire Pit with Grill",
+    "imageUrl": "https://www.vidaxl.ro/dw/image/v2/BFNS_PRD/on/demandware.static/-/Sites-vidaxl-catalog-master-sku/default/dw676a94b2/hi-res/536/6792/315089/image_1_315089.jpg?sw=600",
+    "price": 23.99,
+    "description": "A quick and easy way to keep warm and also host an outdoor celebration! Bring this 2-in-1 fire pit home now!\n\n\nThe fire pit, made of steel, is excellent at absorbing and radiating heat. This fireplace has a large and deep bowl, allowing for a big fire for you and your family to enjoy for hours. With the included cooking grate, you can even make a barbecue. This charcoal grill can be set up in two different ways to meet your requirements.\n\n\nImportant Notes: Can only be used outdoors. To avoid burns and injuries, do not touch the product when the wood is burning indoors or shortly after it has been extinguished."
+  },
+  {
+    "id": 10,
+    "title": "ProGarden Fire Pit with Handle, Rust, Metal",
+    "imageUrl": "https://www.vidaxl.ro/dw/image/v2/BFNS_PRD/on/demandware.static/-/Sites-vidaxl-catalog-master-sku/default/dwaa26b59e/hi-res/536/6792/443153/image_1_443153.jpg?sw=600",
+    "price": 28.99,
+    "description": "This ProGarden fire pit, with handle, is perfect for enjoying relaxing moments in the garden.\n\n\nMade of solid metal and coated with a heat-resistant coating up to 800ºC, the fire bowl is a must-have accessory for anyone who loves long evenings in nature.\n\n\nIt is easy to carry thanks to the convenient handle."
+  },
+  {
+    "id": 11,
+    "title": "Camping Wood Stove Silver",
+    "imageUrl": "https://www.vidaxl.ro/dw/image/v2/BFNS_PRD/on/demandware.static/-/Sites-vidaxl-catalog-master-sku/default/dw16f4105d/hi-res/536/6792/319438/image_1_319438.jpg?sw=600",
+    "price": 35.39,
+    "description": "This camping wood stove serves as a cooking utensil when you have outdoor activities, while creating extra warmth and a cozy atmosphere when it gets colder."
+  },
+  {
+    "id": 12,
+    "title": "Outdoor Fireplace Log Shed Black Steel Tower Design",
+    "imageUrl": "https://www.vidaxl.ro/dw/image/v2/BFNS_PRD/on/demandware.static/-/Sites-vidaxl-catalog-master-sku/default/dwcca8e7c3/hi-res/536/6792/4005750/image_1_4005750.jpg?sw=600",
+    "price": 86.0,
+    "description": "Enjoy a pleasant, warm and cozy atmosphere during cooler evenings with this outdoor tower fireplace!"
+  },
+  {
+    "id": 13,
+    "title": "Camping Wood Stove Black",
+    "imageUrl": "https://www.vidaxl.ro/dw/image/v2/BFNS_PRD/on/demandware.static/-/Sites-vidaxl-catalog-master-sku/default/dw1ed8bbc8/hi-res/536/6792/319439/image_1_319439.jpg?sw=600",
+    "price": 45.69,
+    "description": "This camping wood stove serves as a cooking utensil when you have outdoor activities, while creating extra warmth and a cozy atmosphere when it gets colder."
+  },
+  {
+    "id": 14,
+    "title": "6 pcs grill accessories set in case Berlinger Haus",
+    "imageUrl": "https://berlinger-haus.com/wp-content/uploads/2025/03/Untitled-design-4.png",
+    "price": 25.95,
+    "description": "Get ready for the ultimate grilling experience with the Berlinger Haus BH8652 Grill Accessories Set! Designed for precision, durability, and convenience, this 6-piece set is a must-have for every BBQ enthusiast. Whether you’re grilling at home, camping, or hosting a backyard cookout, these high-quality tools will help you achieve perfect results every time."
   }
 ]
