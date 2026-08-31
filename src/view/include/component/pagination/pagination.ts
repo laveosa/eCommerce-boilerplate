@@ -1,17 +1,27 @@
 addEventListener("DOMContentLoaded", () => {
-  const paginationLinks = document.querySelectorAll(".pagination-container a");
+  const jumpForms =
+    document.querySelectorAll<HTMLFormElement>(".pagination-jump");
 
-  paginationLinks.forEach((element) => {
-    const link = element as HTMLAnchorElement;
-
-    link.addEventListener("click", (event) => {
+  jumpForms.forEach((form) => {
+    form.addEventListener("submit", (event: Event) => {
       event.preventDefault();
 
-      const targetUrl = new URL(link.href, window.location.origin);
-      const currentUrlParams = new URLSearchParams(window.location.search);
+      const input = form.querySelector<HTMLInputElement>(
+        ".pagination-jump-input",
+      );
+      const totalPages = parseInt(form.dataset.totalPages || "1", 10);
 
-      currentUrlParams.set("page", targetUrl.searchParams.get("page") || "1");
-      window.location.search = currentUrlParams.toString();
+      if (!input) return;
+
+      const targetPage = parseInt(input.value, 10);
+
+      if (isNaN(targetPage) || targetPage < 1 || targetPage > totalPages) {
+        input.value = "";
+        return;
+      }
+
+      const basePath = form.dataset.pagePath || window.location.pathname;
+      window.location.href = `${basePath}?page=${targetPage}`;
     });
   });
 });
