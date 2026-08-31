@@ -1,5 +1,6 @@
 <%- include("../../layout/head.ejs") %>
     <link rel="stylesheet" href="/view/page/product-list-page/product-list.css" />
+    <link rel="stylesheet" href="/view/include/component/pagination/pagination.css">
 </head>
 <body class="page-wrapper">
     <%- include("../../include/component/navigation/navigation.ejs") %>
@@ -14,6 +15,7 @@
                         })%>
                     <% } %>
                 </div>
+                <%- include("../../include/component/pagination/pagination.ejs") %>
             <% } else { %>
                 <%- include("../../include/component/no-data-placeholder/no-data-placeholder.ejs", {
                     icon: "/media/icons/product.svg",
@@ -26,5 +28,6 @@
     </main>
     <script type="module" src="/view/include/component/no-data-placeholder/no-data-placeholder.js"></script>
     <script type="module" src="/view/page/product-list-page/product-list.js"></script>
+    <script type="module" src="/view/include/component/pagination/pagination.js"></script>
 <%- include("../../layout/bottom.ejs") %>
 

@@ -13,6 +13,7 @@ import type { CartModel } from "#src/const/scheme/CartScheme.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
 import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
 
 const rootPath = "./src/view/page";
 
@@ -88,11 +89,27 @@ export default class WebPageController {
     try {
       const products: ProductModel[] = await this.productService.get();
 
+      // TODO replace with valid db data
+      const result: IPaginatedResult<ProductModel> = {
+        data: products,
+        pagination: {
+          current: 1,
+          total: 10,
+          prevPage: null,
+          nextPage: 2,
+        },
+        filters: {
+          search: "some search text",
+        },
+      };
+
       res.render(
         pathResolve([rootPath, "/product-list-page/product-list.ejs"]),
         await this.generatePageData("Product List", wu.PRODUCT_LIST, {
           user: req.user,
           products,
+          pagination: result.pagination,
+          search: result.filters.search,
         }),
       );
     } catch (error: any) {
@@ -106,11 +123,29 @@ export default class WebPageController {
     try {
       const products: ProductModel[] = await this.productService.get();
 
+      // TODO replace with valid db data
+      const result: IPaginatedResult<ProductModel> = {
+        data: products,
+        pagination: {
+          current: 1,
+          total: 10,
+          prevPage: null,
+          nextPage: 2,
+        },
+        filters: {
+          search: "some search text",
+        },
+      };
+
+      // const products: ProductModel[] = await this.productService.get();
+
       res.render(
         pathResolve([rootPath, "/product-admin-page/product-admin.ejs"]),
         await this.generatePageData("Product Admin", wu.PRODUCT_ADMIN, {
           user: req.user,
           products,
+          pagination: result.pagination,
+          search: result.filters.search,
         }),
       );
     } catch (error: any) {

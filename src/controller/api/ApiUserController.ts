@@ -15,7 +15,7 @@ class ApiUserController {
       const users: UserModel[] = await this.userService.set(req.body);
       return res.status(200).send(users);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }
@@ -26,7 +26,7 @@ class ApiUserController {
       const users: UserModel[] = await this.userService.get();
       return res.status(200).send(users);
     } catch (error) {
-      isApiError(error)
+      return isApiError(error)
         ? res.status(error.status).send(error.message)
         : res.status(500).send("Internal Server Error");
     }

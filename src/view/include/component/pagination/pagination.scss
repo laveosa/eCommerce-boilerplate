@@ -1,0 +1,128 @@
+@use "src/view/variables" as *;
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-xl;
+  padding: $padding-sm 0;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  color: $color-txt-muted;
+  font-family: $ff-sans;
+  font-size: $fs-sm;
+  user-select: none;
+}
+
+.pagination-btn,
+.pagination-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 $padding-sm;
+  font-family: $ff-sans;
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: $color-txt-main;
+  background-color: $color-bg-light;
+  border: $brd;
+  border-radius: $radius-md;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover:not(.disabled):not(.active) {
+    background-color: $color-bg-light-hover;
+    border-color: darken($color-border, 10%);
+    color: $color-dark-hover;
+  }
+}
+
+.pagination-num {
+  &.active {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-txt-white;
+    font-weight: $fw-bold;
+    cursor: default;
+  }
+}
+
+.pagination-btn {
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: $color-bg-main;
+    color: $color-txt-light;
+    border-color: $color-border;
+  }
+}
+
+// -------------------------------------- Jump to Page Block
+.pagination-jump {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-left: $spacing-sm;
+
+  .pagination-jump-input {
+    width: 60px;
+    height: 36px;
+    padding: 0 $spacing-xs;
+    font-family: $ff-sans;
+    font-size: $fs-sm;
+    text-align: center;
+    color: $color-txt-main;
+    background-color: $color-bg-light;
+    border: $brd;
+    border-radius: $radius-md;
+    outline: none;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+
+    // Hide browser number arrows for clean UI
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    -moz-appearance: textfield;
+  }
+
+  .pagination-jump-btn {
+    height: 36px;
+    padding: 0 $padding-sm;
+    font-family: $ff-sans;
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    color: $color-txt-white;
+    background-color: $color-dark;
+    border: 1px solid $color-dark;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $color-dark-hover;
+      border-color: $color-dark-hover;
+    }
+  }
+}

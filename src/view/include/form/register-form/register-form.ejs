@@ -7,7 +7,7 @@
                name="name"
                autofocus
                aria-describedby="nameHelp"
-               placeholder="Jane Doe...">
+               placeholder="enter your name ...">
     </div>
     <div class="form-group">
         <label for="registerEmail">Email</label>
@@ -16,7 +16,7 @@
                id="registerEmail"
                name="email"
                aria-describedby="emailHelp"
-               placeholder="example@email.com...">
+               placeholder="enter your email ...">
     </div>
     <div class="form-group">
         <label for="registerPassword">Password</label>
@@ -24,7 +24,15 @@
                class="form-control"
                id="registerPassword"
                name="password"
-               placeholder="admin1234...">
+               placeholder="enter your password ...">
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password"
+               class="form-control"
+               id="confirmPassword"
+               name="confirmPassword"
+               placeholder="confirm your password ...">
     </div>
     <button type="button" class="btn btn-primary full-with register-btn">Create Account</button>
 </form>

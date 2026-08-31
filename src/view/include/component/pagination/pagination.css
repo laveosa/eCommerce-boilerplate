@@ -1,0 +1,118 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+  padding: 10px 0;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  color: #718096;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  user-select: none;
+}
+
+.pagination-btn,
+.pagination-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1c1917;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.pagination-btn:hover:not(.disabled):not(.active),
+.pagination-num:hover:not(.disabled):not(.active) {
+  background-color: #eaeaea;
+  border-color: rgb(77.8431372549%, 77.8431372549%, 77.8431372549%);
+  color: #2c2520;
+}
+
+.pagination-num.active {
+  background-color: #d97706;
+  border-color: #d97706;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: default;
+}
+
+.pagination-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #faf8f5;
+  color: #a0aec0;
+  border-color: #e0e0e0;
+}
+
+.pagination-jump {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+.pagination-jump .pagination-jump-input {
+  width: 60px;
+  height: 36px;
+  padding: 0 4px;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  text-align: center;
+  color: #1c1917;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  outline: none;
+}
+.pagination-jump .pagination-jump-input:focus {
+  border-color: #d97706;
+}
+.pagination-jump .pagination-jump-input::-webkit-outer-spin-button, .pagination-jump .pagination-jump-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.pagination-jump .pagination-jump-input {
+  -moz-appearance: textfield;
+}
+.pagination-jump .pagination-jump-btn {
+  height: 36px;
+  padding: 0 10px;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #1c1917;
+  border: 1px solid #1c1917;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.pagination-jump .pagination-jump-btn:hover {
+  background-color: #2c2520;
+  border-color: #2c2520;
+}
+
+/*# sourceMappingURL=pagination.css.map */

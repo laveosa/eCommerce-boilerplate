@@ -1,0 +1,75 @@
+<%
+    const current = Number(pagination.current) || 1;
+    const total = Number(pagination.total) || 1;
+    const prevPage = pagination.prevPage ? Number(pagination.prevPage) : null;
+    const nextPage = pagination.nextPage ? Number(pagination.nextPage) : null;
+
+    const maxVisible = 5;
+    let startPage = 1;
+    let endPage = total;
+    let showEllipsis = false;
+
+    if (total > maxVisible) {
+        startPage = Math.max(1, current - 2);
+        endPage = startPage + maxVisible - 1;
+
+        if (endPage >= total) {
+            endPage = total - 1;
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+
+        if (endPage < total - 1) {
+            showEllipsis = true;
+        }
+    }
+%>
+
+<% if (total > 1) { %>
+    <nav class="pagination-container" aria-label="Page navigation">
+        <% if (prevPage) { %>
+            <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= prevPage %>"
+               class="pagination-btn pagination-prev"
+               aria-label="Previous Page">
+                &laquo; Prev
+            </a>
+        <% } else { %>
+            <button class="pagination-btn pagination-prev disabled" disabled>&laquo; Prev</button>
+        <% } %>
+        <div class="pagination-pages">
+            <% for (let i = startPage; i <= endPage; i++) { %>
+                <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= i %>"
+                   class="pagination-num <%= i === current ? 'active' : '' %>">
+                    <%= i %>
+                </a>
+            <% } %>
+            <% if (showEllipsis) { %>
+                <span class="pagination-ellipsis">&hellip;</span>
+                <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= total %>"
+                   class="pagination-num <%= total === current ? 'active' : '' %>">
+                    <%= total %>
+                </a>
+            <% } %>
+        </div>
+        <% if (nextPage) { %>
+            <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= nextPage %>"
+               class="pagination-btn pagination-next"
+               aria-label="Next Page">
+                Next &raquo;
+            </a>
+        <% } else { %>
+            <button class="pagination-btn pagination-next disabled" disabled>Next &raquo;</button>
+        <% } %>
+        <form class="pagination-jump" data-total-pages="<%= total %>" data-page-path="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>">
+            <label  for="GoToPageInput" hidden></label>
+            <input  id="GoToPageInput"
+                    type="number"
+                    name="jumpPage"
+                    class="pagination-jump-input"
+                    min="1"
+                    max="<%= total %>"
+                    placeholder="Page"
+                    required/>
+            <button type="submit" class="pagination-jump-btn">Go</button>
+        </form>
+    </nav>
+<% } %>
