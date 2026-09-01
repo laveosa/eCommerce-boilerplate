@@ -1,8 +1,17 @@
 <%
+    const search = (typeof filters !== 'undefined' && filters.search) ? filters.search : "";
+    const isSearchResult = Boolean(search);
+
     const _icon = locals.icon || "/media/icons/no-image.svg";
-    const _title = locals.title || "No data";
-    const _description = locals.description || "There is no data to display";
-    const _btnText = locals.btnText || "button";
+    const _title = isSearchResult
+            ? "No product was found"
+            : (locals.title || "No Product yet");
+
+    const _description = isSearchResult
+            ? `No results found matching "${search}". Try searching for something else.`
+            : (locals.description || "The collection is empty. Generate some sample products to get started.");
+
+    const _btnText = locals.btnText || "Generate products";
     const _link = locals.link;
 %>
 
@@ -15,12 +24,15 @@
             <p><%= _title %></p>
             <span><%= _description %></span>
         </div>
-        <div class="no-data-placeholder-action">
-            <% if(_link && _link.length > 0) { %>
-                <a href="<%= _link %>" class="btn btn-dark"><%= _btnText %></a>
-            <% } else { %>
-                <button type="button" class="btn btn-dark generate-products-btn"><%= _btnText %></button>
-            <% } %>
-        </div>
+
+        <% if (!isSearchResult) { %>
+            <div class="no-data-placeholder-action">
+                <% if (_link && _link.length > 0) { %>
+                    <a href="<%= _link %>" class="btn btn-dark"><%= _btnText %></a>
+                <% } else { %>
+                    <button type="button" class="btn btn-dark generate-products-btn"><%= _btnText %></button>
+                <% } %>
+            </div>
+        <% } %>
     </div>
 </div>

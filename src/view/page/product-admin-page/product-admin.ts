@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (deleteAllBtn) {
     deleteAllBtn.addEventListener("click", async () => {
       await ProductApiService.deleteAllProduct();
-      location.reload();
+      location.replace("/product-admin");
     });
   }
 
