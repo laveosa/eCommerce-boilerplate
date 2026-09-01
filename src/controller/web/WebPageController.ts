@@ -23,6 +23,10 @@ export default class WebPageController {
   private static orderService = new OrderService();
 
   static async authPage(req: Request, res: Response) {
+    if (req.session?.userId && req.user) {
+      return res.redirect("/");
+    }
+
     const condition = req.query.condition;
 
     try {

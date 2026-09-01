@@ -14,7 +14,8 @@ export const AuthScheme = z.object({
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-    ),
+    )
+    .optional(),
 });
 
 export type AuthModel = z.infer<typeof AuthScheme>;

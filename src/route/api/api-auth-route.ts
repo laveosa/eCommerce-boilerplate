@@ -2,19 +2,19 @@ import { type Request, type Response, Router } from "express";
 
 import ApiAuthController from "#src/controller/api/ApiAuthController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
-import { UserScheme } from "#src/const/scheme/UserScheme.js";
+import { AuthScheme } from "#src/const/scheme/AuthScheme.js";
 
 const apiAuthRoute = Router();
 
 apiAuthRoute.post(
   "/register",
-  validateBody(UserScheme),
+  validateBody(AuthScheme),
   (req: Request, res: Response) => ApiAuthController.register(req, res),
 );
 
 apiAuthRoute.post(
   "/sign-in",
-  validateBody(UserScheme),
+  validateBody(AuthScheme),
   (req: Request, res: Response) => ApiAuthController.signIn(req, res),
 );
 

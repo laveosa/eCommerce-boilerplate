@@ -1,4 +1,5 @@
 import express from "express";
+import cookieSession from "cookie-session";
 
 import apiMasterRoute from "#src/route/api/api-master-route.js";
 import webMasterRoute from "#src/route/web/web-master-route.js";
@@ -14,6 +15,14 @@ app.set("views", pathResolve("./src/view"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["your-secret-key-1", "your-secret-key-2"],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours persistence
+  }),
+);
 
 app.use(express.static(pathResolve("./public"), { maxAge: "1d" }));
 app.use(express.static(pathResolve("./dist/public"), { maxAge: "1d" }));

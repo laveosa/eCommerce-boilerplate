@@ -11,6 +11,11 @@ class ApiAuthController {
   static async register(req: Request, res: Response) {
     try {
       const user: UserModel = await this.authService.register(req.body);
+
+      if (req.session) {
+        req.session.userId = user.id;
+      }
+
       return res.status(200).send(user);
     } catch (error) {
       return isApiError(error)
@@ -22,6 +27,11 @@ class ApiAuthController {
   static async signIn(req: Request, res: Response) {
     try {
       const user: UserModel = await this.authService.signIn(req.body);
+
+      if (req.session) {
+        req.session.userId = user.id;
+      }
+
       return res.status(200).send(user);
     } catch (error) {
       return isApiError(error)
@@ -32,8 +42,10 @@ class ApiAuthController {
 
   static async signOut(req: Request, res: Response) {
     try {
-      const user: UserModel = await this.authService.signOut(req.body);
-      return res.status(200).send(user);
+      req.session = null;
+      req.user = null;
+      res.setHeader("Clear-Site-Data", '"cookies", "storage"');
+      return res.status(200).send(true);
     } catch (error) {
       return isApiError(error)
         ? res.status(error.status).send(error.message)

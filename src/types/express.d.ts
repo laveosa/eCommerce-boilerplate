@@ -7,3 +7,9 @@ declare global {
     }
   }
 }
+
+declare module "cookie-session" {
+  interface CookieSessionObject {
+    userId?: string | null;
+  }
+}
