@@ -41,7 +41,6 @@
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  text-decoration: none;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
@@ -66,6 +65,33 @@
   background-color: #faf8f5;
   color: #a0aec0;
   border-color: #e0e0e0;
+}
+
+.pagination-per-page {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 8px;
+}
+.pagination-per-page .pagination-label {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  color: #718096;
+}
+.pagination-per-page .pagination-select {
+  height: 36px;
+  padding: 0 4px;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  color: #1c1917;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+}
+.pagination-per-page .pagination-select:focus {
+  border-color: #d97706;
 }
 
 .pagination-jump {

@@ -43,7 +43,6 @@
   background-color: $color-bg-light;
   border: $brd;
   border-radius: $radius-md;
-  text-decoration: none;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 
@@ -74,6 +73,37 @@
   }
 }
 
+// -------------------------------------- Per Page Select Block
+.pagination-per-page {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-right: $spacing-sm;
+
+  .pagination-label {
+    font-family: $ff-sans;
+    font-size: $fs-sm;
+    color: $color-txt-muted;
+  }
+
+  .pagination-select {
+    height: 36px;
+    padding: 0 $spacing-xs;
+    font-family: $ff-sans;
+    font-size: $fs-sm;
+    color: $color-txt-main;
+    background-color: $color-bg-light;
+    border: $brd;
+    border-radius: $radius-md;
+    outline: none;
+    cursor: pointer;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+}
+
 // -------------------------------------- Jump to Page Block
 .pagination-jump {
   display: flex;
@@ -98,7 +128,6 @@
       border-color: $color-primary;
     }
 
-    // Hide browser number arrows for clean UI
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;

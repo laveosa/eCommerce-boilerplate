@@ -1,18 +1,28 @@
 import axios from "axios";
 
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
+import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
 
 const BASE_URL = "/api/product";
 
 export class ProductApiService {
   // --------------------------------------------- CRUD
-  static async getAllProducts(): Promise<ProductModel[]> {
+  static async getAllProducts(
+    search?: string,
+    page?: number,
+    perPage?: number,
+  ): Promise<IPaginatedResult<ProductModel>> {
     try {
-      const response = await axios.get(`${BASE_URL}`);
-      return response.data as ProductModel[];
+      const params = new URLSearchParams();
+      if (search) params.append("search", search);
+      if (page) params.append("page", page.toString());
+      if (perPage) params.append("perPage", perPage.toString());
+
+      const response = await axios.get(`${BASE_URL}?${params.toString()}`);
+      return response.data as IPaginatedResult<ProductModel>;
     } catch (error: any) {
       console.error(
-        "[API ERROR]: Failed to register",
+        "[API ERROR]: Failed to fetch products",
         error.response?.data || error.message,
       );
       throw error;
