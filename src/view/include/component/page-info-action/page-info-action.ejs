@@ -24,6 +24,7 @@
                            class="form-control"
                            type="text"
                            name="search"
+                           value="<%= (typeof filters !== 'undefined' && filters.search) ? filters.search : '' %>"
                            placeholder="search product..."
                            aria-label="search"
                            aria-describedby="basic-addon1">

@@ -13,7 +13,6 @@ import type { CartModel } from "#src/const/scheme/CartScheme.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
 import type { UserModel } from "#src/const/scheme/UserScheme.js";
-import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
 
 const rootPath = "./src/view/page";
 
@@ -87,8 +86,13 @@ export default class WebPageController {
 
   static async productListPage(req: Request, res: Response) {
     try {
-      const result: IPaginatedResult<ProductModel> =
-        await this.productService.get();
+      const { search, page, perPage } = req.query;
+
+      const result = await this.productService.get(
+        typeof search === "string" ? search : undefined,
+        typeof page === "string" ? parseInt(page, 10) : undefined,
+        typeof perPage === "string" ? parseInt(perPage, 10) : undefined,
+      );
 
       res.render(
         pathResolve([rootPath, "/product-list-page/product-list.ejs"]),
@@ -106,8 +110,13 @@ export default class WebPageController {
 
   static async productAdminPage(req: Request, res: Response) {
     try {
-      const result: IPaginatedResult<ProductModel> =
-        await this.productService.get();
+      const { search, page, perPage } = req.query;
+
+      const result = await this.productService.get(
+        typeof search === "string" ? search : undefined,
+        typeof page === "string" ? parseInt(page, 10) : undefined,
+        typeof perPage === "string" ? parseInt(perPage, 10) : undefined,
+      );
 
       res.render(
         pathResolve([rootPath, "/product-admin-page/product-admin.ejs"]),

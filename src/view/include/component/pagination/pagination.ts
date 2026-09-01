@@ -5,13 +5,7 @@ async function handlePaginationChange(targetPage: number, perPage: number) {
   const search = currentUrlParams.get("search") || "";
 
   try {
-    const result = await ProductApiService.getAllProducts(
-      search,
-      targetPage,
-      perPage,
-    );
-
-    console.log("Fetched Products Data:", result);
+    await ProductApiService.getAllProducts(search, targetPage, perPage);
 
     currentUrlParams.set("page", targetPage.toString());
     currentUrlParams.set("perPage", perPage.toString());
@@ -20,9 +14,7 @@ async function handlePaginationChange(targetPage: number, perPage: number) {
       currentUrlParams.set("search", search);
     }
 
-    const newUrl = `${window.location.pathname}?${currentUrlParams.toString()}`;
-    window.history.pushState({}, "", newUrl);
-    window.location.reload();
+    window.location.href = `${window.location.pathname}?${currentUrlParams.toString()}`;
   } catch (error) {
     console.error("Pagination navigation failed:", error);
   }
