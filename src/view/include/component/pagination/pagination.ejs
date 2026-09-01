@@ -1,6 +1,7 @@
 <%
     const current = Number(pagination.current) || 1;
     const total = Number(pagination.total) || 1;
+    const perPage = Number(pagination.perPage) || 6;
     const prevPage = pagination.prevPage ? Number(pagination.prevPage) : null;
     const nextPage = pagination.nextPage ? Number(pagination.nextPage) : null;
 
@@ -22,45 +23,71 @@
             showEllipsis = true;
         }
     }
+
+    const perPageOptions = [5, 10, 20, 50, 100];
 %>
 
-<% if (total > 1) { %>
-    <nav class="pagination-container" aria-label="Page navigation">
+<% if (total > 1 || perPageOptions.includes(perPage)) { %>
+    <nav class="pagination-container"
+         aria-label="Page navigation"
+         data-current-page="<%= current %>"
+         data-total-pages="<%= total %>"
+         data-per-page="<%= perPage %>">
+        <div class="pagination-per-page">
+            <label for="PerPageSelect" class="pagination-label">Show:</label>
+            <select id="PerPageSelect" class="pagination-select">
+                <% perPageOptions.forEach(option => { %>
+                    <option value="<%= option %>" <%= option === perPage ? 'selected' : '' %>>
+                        <%= option %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
         <% if (prevPage) { %>
-            <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= prevPage %>"
-               class="pagination-btn pagination-prev"
-               aria-label="Previous Page">
+            <button type="button"
+                    class="pagination-btn pagination-prev"
+                    data-page="<%= prevPage %>"
+                    aria-label="Previous Page">
                 &laquo; Prev
-            </a>
+            </button>
         <% } else { %>
-            <button class="pagination-btn pagination-prev disabled" disabled>&laquo; Prev</button>
+            <button type="button"
+                    class="pagination-btn pagination-prev disabled"
+                    disabled>&laquo; Prev</button>
         <% } %>
         <div class="pagination-pages">
             <% for (let i = startPage; i <= endPage; i++) { %>
-                <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= i %>"
-                   class="pagination-num <%= i === current ? 'active' : '' %>">
+                <button type="button"
+                        class="pagination-num <%= i === current ? 'active' : '' %>"
+                        data-page="<%= i %>">
                     <%= i %>
-                </a>
+                </button>
             <% } %>
             <% if (showEllipsis) { %>
                 <span class="pagination-ellipsis">&hellip;</span>
-                <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= total %>"
-                   class="pagination-num <%= total === current ? 'active' : '' %>">
+                <button type="button"
+                        class="pagination-num <%= total === current ? 'active' : '' %>"
+                        data-page="<%= total %>">
                     <%= total %>
-                </a>
+                </button>
             <% } %>
         </div>
         <% if (nextPage) { %>
-            <a href="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>?page=<%= nextPage %>"
-               class="pagination-btn pagination-next"
-               aria-label="Next Page">
+            <button type="button"
+                    class="pagination-btn pagination-next"
+                    data-page="<%= nextPage %>"
+                    aria-label="Next Page">
                 Next &raquo;
-            </a>
+            </button>
         <% } else { %>
-            <button class="pagination-btn pagination-next disabled" disabled>Next &raquo;</button>
+            <button type="button"
+                    class="pagination-btn pagination-next disabled"
+                    disabled>
+                Next &raquo;
+            </button>
         <% } %>
-        <form class="pagination-jump" data-total-pages="<%= total %>" data-page-path="<%= typeof pagePath !== 'undefined' ? pagePath : '' %>">
-            <label  for="GoToPageInput" hidden></label>
+        <form class="pagination-jump">
+            <label for="GoToPageInput" hidden>Go to page</label>
             <input  id="GoToPageInput"
                     type="number"
                     name="jumpPage"
