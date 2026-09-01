@@ -232,9 +232,11 @@ export default class WebPageController {
   ) {
     const user: UserModel = extraData.user;
     let cart: CartModel = null;
+    let isAdmin: boolean;
 
     if (user) {
       cart = await this.cartService.getCartByUserId(user.id);
+      isAdmin = user.email.includes("admin");
     }
 
     return {
@@ -242,7 +244,7 @@ export default class WebPageController {
       cart,
       pageTitle: title,
       pagePath: path,
-      navList: path ? layoutService.getNavigationList(path) : null,
+      navList: layoutService.getNavigationList(path, isAdmin),
       pageInfo: this.getPageInfoData(path),
       ...extraData,
     };

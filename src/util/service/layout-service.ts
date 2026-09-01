@@ -18,10 +18,10 @@ const navList: INavItem[] = [
     title: "Cart",
     path: WebUrlEnum.CART,
   },*/
-  {
+  /*{
     title: "Order",
     path: WebUrlEnum.ORDER,
-  },
+  },*/
   /*{
     title: "Add",
     path: WebUrlEnum.ADD_PRODUCT,
@@ -41,10 +41,20 @@ const navList: INavItem[] = [
 ];
 
 export default class LayoutService {
-  static getNavigationList(selected?: WebUrlEnum) {
+  static getNavigationList(selected: WebUrlEnum, isAdmin: boolean) {
     return navList.map((item) => ({
       ...item,
       isActive: selected ? item.path === selected : false,
+      allow: isAdmin ? true : isAllow(item.path),
     }));
+  }
+}
+
+function isAllow(path: WebUrlEnum) {
+  switch (path) {
+    case WebUrlEnum.PRODUCT_ADMIN:
+      return false;
+    default:
+      return true;
   }
 }

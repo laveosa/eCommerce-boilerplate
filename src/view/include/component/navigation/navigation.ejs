@@ -10,10 +10,12 @@
                 <nav class="navigation">
                     <ul class="navigation-items-container">
                         <% for(let item of navList) { %>
-                            <li class="navigation-item">
-                                <a href="<%= item.path %>"
-                                   class="<%= item.isActive ? "active" : ""%>"><%= item.title%></a>
-                            </li>
+                            <% if (item.allow) { %>
+                                <li class="navigation-item">
+                                    <a href="<%= item.path %>"
+                                       class="<%= item.isActive ? "active" : ""%>"><%= item.title%></a>
+                                </li>
+                            <% } %>
                         <% } %>
                     </ul>
                 </nav>
