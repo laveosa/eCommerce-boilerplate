@@ -13,6 +13,7 @@ import type { CartModel } from "#src/const/scheme/CartScheme.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
 import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import { RoleEnum } from "#src/const/enum/RoleEnum.js";
 
 const rootPath = "./src/view/page";
 
@@ -232,11 +233,10 @@ export default class WebPageController {
   ) {
     const user: UserModel = extraData.user;
     let cart: CartModel = null;
-    let isAdmin: boolean;
 
     if (user) {
       cart = await this.cartService.getCartByUserId(user.id);
-      isAdmin = user.email.includes("admin");
+      user.role = user.email.includes("admin") ? RoleEnum.ADMIN : RoleEnum.USER;
     }
 
     return {
@@ -244,7 +244,10 @@ export default class WebPageController {
       cart,
       pageTitle: title,
       pagePath: path,
-      navList: layoutService.getNavigationList(path, isAdmin),
+      navList: layoutService.getNavigationList(
+        path,
+        user.role === RoleEnum.ADMIN,
+      ),
       pageInfo: this.getPageInfoData(path),
       ...extraData,
     };

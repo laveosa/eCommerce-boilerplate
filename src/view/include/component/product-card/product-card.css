@@ -74,5 +74,8 @@
   justify-content: end;
   gap: 10px;
 }
+.product-card-container .product-card footer .card-actions .remove-btn {
+  min-width: 158px;
+}
 
 /*# sourceMappingURL=product-card.css.map */

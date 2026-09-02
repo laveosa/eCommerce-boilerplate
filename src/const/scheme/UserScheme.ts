@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+import { RoleEnum } from "#src/const/enum/RoleEnum.js";
+import { UserStatusEnum } from "#src/const/enum/UserStatusEnum.js";
+
 export const UserScheme = z.object({
   id: z.string({ error: "Invalid user 'id' value!" }),
   name: z
@@ -24,6 +27,8 @@ export const UserScheme = z.object({
     .min(4, "User 'address' length muse be more then 2 symbols!")
     .max(100, "User 'address' length muse be less then 100 symbols!")
     .optional(),
+  role: z.enum(RoleEnum).default(RoleEnum.USER),
+  status: z.enum(UserStatusEnum).default(UserStatusEnum.ACTIVE),
 });
 
 export type UserModel = z.infer<typeof UserScheme>;

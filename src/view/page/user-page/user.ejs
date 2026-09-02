@@ -14,7 +14,7 @@
                     <div class="user-info-block">
                         <span class="user-name"><%= user.name %></span>
                         <span class="user-email"><%= user.email %></span>
-                        <span class="user-role-badge"><%= user.role || 'Admin' %></span>
+                        <span class="user-role-badge"><%= user.role %></span>
                     </div>
                 </div>
                 <form class="user-profile-form form-container" action="api/user/update" method="POST">
