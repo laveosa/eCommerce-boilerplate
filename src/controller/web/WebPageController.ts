@@ -8,12 +8,12 @@ import layoutService from "#src/util/service/layout-service.js";
 import { pathResolve } from "#src/util/helper/path-helper.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import { WebUrlEnum, WebUrlEnum as wu } from "#src/const/enum/WebUrlEnum.js";
+import { RoleEnum } from "#src/const/enum/RoleEnum.js";
 import type { IPageInfoAction } from "#src/const/interface/IPageInfoAction.js";
 import type { CartModel } from "#src/const/scheme/CartScheme.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
 import type { UserModel } from "#src/const/scheme/UserScheme.js";
-import { RoleEnum } from "#src/const/enum/RoleEnum.js";
 
 const rootPath = "./src/view/page";
 
@@ -233,10 +233,12 @@ export default class WebPageController {
   ) {
     const user: UserModel = extraData.user;
     let cart: CartModel = null;
+    let isAdmin: boolean;
 
     if (user) {
       cart = await this.cartService.getCartByUserId(user.id);
       user.role = user.email.includes("admin") ? RoleEnum.ADMIN : RoleEnum.USER;
+      isAdmin = user.role === RoleEnum.ADMIN;
     }
 
     return {
@@ -244,10 +246,7 @@ export default class WebPageController {
       cart,
       pageTitle: title,
       pagePath: path,
-      navList: layoutService.getNavigationList(
-        path,
-        user.role === RoleEnum.ADMIN,
-      ),
+      navList: layoutService.getNavigationList(path, isAdmin),
       pageInfo: this.getPageInfoData(path),
       ...extraData,
     };
