@@ -6,6 +6,7 @@ const MongoDBStore = connectMongoDBSession(session);
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: "sessions",
+  databaseName: process.env.DB_NAME,
 });
 
 store.on("error", (error) => {

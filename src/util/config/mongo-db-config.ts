@@ -7,7 +7,7 @@ import type { ConnectOptions } from "mongoose";
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const clientOptions: ConnectOptions = {
-  dbName: "eCommerceBoilerplate",
+  dbName: process.env.DB_NAME,
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
