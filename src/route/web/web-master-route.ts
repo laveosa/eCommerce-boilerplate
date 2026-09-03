@@ -46,7 +46,7 @@ webMasterRoute.use(wu.USER, isAuth, (req: Request, res: Response) =>
   WebPageController.userPage(req, res),
 );
 
-webMasterRoute.use(wu.NOT_FOUND, (req: Request, res: Response) =>
+webMasterRoute.use(wu.NOT_FOUND, isAuth, (req: Request, res: Response) =>
   WebPageController.pageNotFound(req, res),
 );
 

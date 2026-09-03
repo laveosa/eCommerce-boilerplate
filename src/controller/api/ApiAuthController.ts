@@ -42,6 +42,16 @@ class ApiAuthController {
 
   static async signOut(req: Request, res: Response) {
     try {
+      if (req.session && typeof req.session.destroy === "function") {
+        req.session.destroy((err) => {
+          if (err) return res.status(500).send("Sign-out failed");
+          res.clearCookie("connect.sid", { path: "/" });
+          res.setHeader("Clear-Site-Data", '"cookies", "storage"');
+          return res.status(200).send(true);
+        });
+        return;
+      }
+
       req.session = null;
       req.user = null;
       res.setHeader("Clear-Site-Data", '"cookies", "storage"');
