@@ -17,12 +17,8 @@ app.set("views", pathResolve("./src/view"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// =========================================================
-// ACTIVE SESSION MIDDLEWARE (Toggle between options here)
-// =========================================================
 app.use(cookieSessionMiddleware);
 // app.use(mongoSessionMiddleware);
-// =========================================================
 
 app.use(express.static(pathResolve("./public"), { maxAge: "1d" }));
 app.use(express.static(pathResolve("./dist/public"), { maxAge: "1d" }));
