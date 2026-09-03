@@ -32,6 +32,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.locals.flashMessage = req.session.flashMessage || null;
+  delete req.session.flashMessage;
+  next();
+});
+
 app.use(express.static(pathResolve("./public"), { maxAge: "1d" }));
 app.use(express.static(pathResolve("./dist/public"), { maxAge: "1d" }));
 

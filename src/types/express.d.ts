@@ -4,6 +4,7 @@ import type { UserModel } from "#src/const/scheme/UserScheme.js";
 declare module "express-session" {
   interface SessionData {
     userId?: string | null;
+    flashMessage?: any;
   }
 }
 
