@@ -115,12 +115,16 @@ class ApiUserController {
 
   static async updatePassword(req: Request, res: Response) {
     const userId = req.params.id as string;
-    const value = req.body.password as string;
+    const { password } = req.body;
+
+    if (!password || typeof password !== "string") {
+      return res.status(400).send("Password is required and must be a string");
+    }
 
     try {
       const updated: boolean = await this.userService.updatePassword(
         userId,
-        value,
+        password,
       );
       return res.status(200).send(updated);
     } catch (error) {

@@ -1,3 +1,4 @@
+import PasswordHashService from "#src/util/service/password-hash-service.js";
 import { User } from "#src/const/model/UserModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IAuthService } from "#src/const/interface/IAuthService.js";
@@ -22,13 +23,18 @@ export default class AuthService implements IAuthService {
     }
 
     try {
+      const hashedPassword = await PasswordHashService.hashPasswordBCrypt(
+        data.password,
+      );
       const created = await User.create({
         name: data.name || "User",
         email: data.email,
-        password: data.password,
+        password: hashedPassword,
       });
 
-      return created.toObject<UserModel>();
+      const user = created.toObject<UserModel>();
+      delete user.password;
+      return user;
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to create user");
     }
@@ -50,12 +56,17 @@ export default class AuthService implements IAuthService {
       );
     }
 
-    const user = rawUser.toObject<UserModel>();
+    const isValidPassword = await PasswordHashService.verifyPasswordBCrypt(
+      data.password,
+      rawUser.password,
+    );
 
-    if (user.password !== data.password) {
+    if (!isValidPassword) {
       throw getErrorModel(401, "[SERVER_ERROR]: invalid credentials");
     }
 
+    const user = rawUser.toObject<UserModel>();
+    delete user.password;
     return user;
   }
 }

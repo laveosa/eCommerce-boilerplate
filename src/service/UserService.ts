@@ -2,6 +2,7 @@ import { User } from "#src/const/model/UserModel.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IUserService } from "#src/const/interface/IUserService.js";
 import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import PasswordHashService from "#src/util/service/password-hash-service.js";
 
 export default class UserService implements IUserService {
   async set(data: UserModel[]): Promise<UserModel[]> {
@@ -181,9 +182,12 @@ export default class UserService implements IUserService {
     let updatedUser;
 
     try {
+      const hashedPassword =
+        await PasswordHashService.hashPasswordBCrypt(value);
+
       updatedUser = await User.findByIdAndUpdate(
         userId,
-        { $set: { password: value } },
+        { $set: { password: hashedPassword } },
         { returnDocument: "after", runValidators: true },
       );
     } catch (err) {
