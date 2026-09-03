@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="/view/page/product-admin-page/product-admin.css" />
     <link rel="stylesheet" href="/view/include/component/pagination/pagination.css">
 </head>
-<body class="page-wrapper">
+<body class="page-wrapper" data-csrf="<%= csrfToken %>">
     <%- include("../../include/component/navigation/navigation.ejs") %>
     <main id="ProductAdminPage" class="container">
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>

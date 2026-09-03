@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 
 import apiMasterRoute from "#src/route/api/api-master-route.js";
 import webMasterRoute from "#src/route/web/web-master-route.js";
@@ -7,6 +8,10 @@ import { connectDB } from "#src/util/config/mongo-db-config.js";
 import { attachUserMiddleware } from "#src/util/middleware/attach-user-middleware.js";
 import { cookieSessionMiddleware } from "#src/util/middleware/cookie-session-middleware.js";
 import { mongoSessionMiddleware } from "#src/util/middleware/mongo-session-middleware.js";
+import {
+  csrfProtection,
+  getCsrfToken,
+} from "#src/util/middleware/csrf-middleware.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -16,9 +21,16 @@ app.set("views", pathResolve("./src/view"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(process.env.SESSION_SECRET || "your-secret-key-1"));
 
 app.use(cookieSessionMiddleware);
 // app.use(mongoSessionMiddleware);
+
+app.use(csrfProtection);
+app.use((req, res, next) => {
+  res.locals.csrfToken = getCsrfToken(req, res);
+  next();
+});
 
 app.use(express.static(pathResolve("./public"), { maxAge: "1d" }));
 app.use(express.static(pathResolve("./dist/public"), { maxAge: "1d" }));

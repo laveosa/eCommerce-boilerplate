@@ -1,7 +1,7 @@
 <%- include("../../layout/head.ejs") %>
     <link rel="stylesheet" href="/view/page/product-details-page/product-details.css" />
 </head>
-<body>
+<body class="page-wrapper" data-csrf="<%= csrfToken %>">
     <%- include("../../include/component/navigation/navigation.ejs") %>
     <main id="ProductDetailsPage" class="container" data-user-id="<%= user.id%>" data-cart-id="<%= cart.id %>" data-product-id="<%= product.id %>">
         <div class="go-back-action-block">

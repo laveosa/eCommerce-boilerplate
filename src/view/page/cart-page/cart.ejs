@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="/view/page/cart-page/cart.css" />
     <link rel="stylesheet" href="/view/include/component/product-grid/product-grid.css" />
 </head>
-<body class="page-wrapper">
+<body class="page-wrapper" data-csrf="<%= csrfToken %>">
     <%- include("../../include/component/navigation/navigation.ejs") %>
     <main id="CartPage"
           class="container"

@@ -1,7 +1,7 @@
 <%- include("../../layout/head.ejs") %>
     <link rel="stylesheet" href="/view/page/order-page/order.css" />
 </head>
-<body class="page-wrapper">
+<body class="page-wrapper" data-csrf="<%= csrfToken %>">
     <%- include("../../include/component/navigation/navigation.ejs") %>
     <main id="OrderPage" class="container" data-order-id="<%= order?.id %>">
         <%- include("../../include/component/page-info-action/page-info-action.ejs") %>

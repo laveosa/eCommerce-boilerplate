@@ -26,3 +26,24 @@
         }
       }
     </script>
+    <script type="module">
+      import axios from "axios";
+
+      axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+      axios.interceptors.request.use(
+        (config) => {
+          const method = (config.method || "get").toLowerCase();
+
+          if (["post", "put", "patch", "delete"].includes(method)) {
+            const csrfToken = document.querySelector("body")?.getAttribute("data-csrf");
+
+            if (csrfToken) {
+              config.headers["x-csrf-token"] = csrfToken;
+            }
+          }
+
+          return config;
+        },
+        (error) => Promise.reject(error)
+      );
+    </script>
