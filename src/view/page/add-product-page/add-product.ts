@@ -21,13 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
       } as unknown as ProductModel;
 
       await ProductApiService.addProduct(product);
-      location.replace("/product-list");
+      location.replace("/product-admin");
     });
   }
 
   if (cancelBtn) {
     cancelBtn.addEventListener("click", () => {
-      location.replace("/product-list");
+      location.replace("/product-admin");
     });
   }
 });
