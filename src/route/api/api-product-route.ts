@@ -4,6 +4,7 @@ import { type Request, type Response, Router } from "express";
 import ApiProductController from "#src/controller/api/ApiProductController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
 import { ProductScheme } from "#src/const/scheme/ProductScheme.js";
+import { uploadProductImage } from "#src/util/middleware/file-upload.js";
 
 const apiProductRoute = Router();
 
@@ -19,6 +20,7 @@ apiProductRoute.get("/:id", (req: Request, res: Response) =>
 
 apiProductRoute.post(
   "/",
+  uploadProductImage.single("imageUrl"),
   validateBody(ProductScheme),
   (req: Request, res: Response) => ApiProductController.addProduct(req, res),
 );

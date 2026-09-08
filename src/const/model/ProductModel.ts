@@ -5,7 +5,7 @@ import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 
 export const ProductDbSchema = new Schema(
   {
-    _id: { type: Schema.Types.ObjectId, auto: false },
+    _id: { type: Schema.Types.ObjectId, auto: true },
     title: {
       type: String,
       required: true,

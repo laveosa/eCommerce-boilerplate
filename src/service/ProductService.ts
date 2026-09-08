@@ -3,6 +3,7 @@ import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IProductService } from "#src/const/interface/IProductService.js";
 import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
+import { deleteFile } from "#src/util/helper/quick-helper.js";
 
 export default class ProductService implements IProductService {
   async set(data: ProductModel[]): Promise<ProductModel[]> {
@@ -91,11 +92,6 @@ export default class ProductService implements IProductService {
     try {
       const created = await Product.create(data);
       return created.toObject<ProductModel>();
-
-      // step by step approach to create new entity
-      /*const newProduct = new Product(data);
-      const savedProduct = await newProduct.save();
-      return savedProduct.toObject<ProductModel>();*/
     } catch (err) {
       throw getErrorModel(500, err, "[SERVER_ERROR]: failed to add");
     }
@@ -146,7 +142,13 @@ export default class ProductService implements IProductService {
       throw getErrorModel(404, "[SERVER_ERROR]: product not found!");
     }
 
-    return deleted.toObject<ProductModel>();
+    const productData = deleted.toObject<ProductModel>();
+
+    if (productData.imageUrl) {
+      await deleteFile(productData.imageUrl);
+    }
+
+    return productData;
   }
 
   async deleteAllProducts(): Promise<ProductModel[]> {

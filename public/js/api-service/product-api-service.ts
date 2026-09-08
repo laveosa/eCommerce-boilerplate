@@ -42,7 +42,7 @@ export class ProductApiService {
     }
   }
 
-  static async addProduct(data: ProductModel): Promise<ProductModel> {
+  static async addProduct(data: FormData): Promise<ProductModel> {
     try {
       const response = await axios.post(`${BASE_URL}`, data);
       return response.data as ProductModel;

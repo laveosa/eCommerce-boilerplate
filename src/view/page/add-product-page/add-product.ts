@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (createBtn) {
     createBtn.addEventListener("click", async () => {
       const formData = new FormData(formElem);
-      const rawData = Object.fromEntries(formData.entries());
+      // const rawData = Object.fromEntries(formData.entries());
 
-      const product: ProductModel = {
+      /*const product: ProductModel = {
         ...rawData,
         price: Number(rawData.price),
-      } as unknown as ProductModel;
+      } as unknown as ProductModel;*/
 
-      await ProductApiService.addProduct(product);
+      await ProductApiService.addProduct(formData);
       location.replace("/product-admin");
     });
   }

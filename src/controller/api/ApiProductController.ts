@@ -59,10 +59,21 @@ class ApiProductController {
 
   static async addProduct(req: Request, res: Response) {
     try {
-      const product: ProductModel = await this.productService.addProduct(
-        req.body,
-      );
-      return res.status(200).send(product);
+      const file = req.file;
+
+      if (!file && !req.body.imageUrl) {
+        return res
+          .status(400)
+          .send("[VALIDATION_ERROR]: Image file or URL is required!");
+      }
+
+      const imageUrl = file ? `/uploads/${file.filename}` : req.body.imageUrl;
+      const productPayload: ProductModel = {
+        ...req.body,
+        imageUrl,
+      };
+      const product = await this.productService.addProduct(productPayload);
+      return res.status(200).json(product);
     } catch (error) {
       return isApiError(error)
         ? res.status(error.status).send(error.message)
