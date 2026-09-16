@@ -1,5 +1,8 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@as-integrations/express5";
 
 import apiMasterRoute from "#src/route/api/api-master-route.js";
 import webMasterRoute from "#src/route/web/web-master-route.js";
@@ -12,9 +15,15 @@ import {
   csrfProtection,
   getCsrfToken,
 } from "#src/util/middleware/csrf-middleware.js";
+import { typeDefs } from "#src/const/scheme/graphql-shemas/main-type-defs.js";
+import { resolvers } from "#src/resolvers/main-resolver.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
 
 app.set("view engine", "ejs");
 app.set("views", pathResolve("./src/view"));
@@ -57,6 +66,13 @@ app.use("/", webMasterRoute);
 
 const startServer = async (): Promise<void> => {
   await connectDB();
+
+  app.use(
+    "/graphql",
+    cors<cors.CorsRequest>(),
+    express.json(),
+    expressMiddleware(apolloServer),
+  );
 
   app.listen(PORT, () =>
     console.log(`[SERVER]: server running on port: ${PORT}`),
