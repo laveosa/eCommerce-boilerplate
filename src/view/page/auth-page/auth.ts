@@ -1,6 +1,6 @@
 import { AuthApiService } from "#public/js/api-service/auth-api-service.js";
 import { WebUrlEnum } from "#src/const/enum/WebUrlEnum.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { UserModel } from "#src/const/scheme/zod-schemas/UserScheme.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // -------------------------------- FORMS

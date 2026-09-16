@@ -1,9 +1,33 @@
 export const cartTypeDefs = `#graphql
-  type Model{}
+  type Cart{
+      id: ID!
+      user: User!
+      registerDate: String
+      products: [Product!]
+      totalItems: Int
+      totalPrice: Int
+  }
   
-  type InputModel{}
+  input CartInput{
+      id: ID
+      userId: ID
+      registerDate: String
+      totalItems: Int
+      totalPrice: Int
+  }
   
-  extend type Query{}
+  extend type Query{
+      carts: [Cart!]!
+      cart: Cart!
+      cartByUserId: Cart!
+  }
   
-  extend type Mutation{}
+  extend type Mutation{
+      addCarts(data: [CartInput!]!): [Cart!]!
+      addCart(data: CartInput!): Cart!
+      updateCart(data: CartInput!): Cart!
+      deleteCart(id: ID!): Cart!
+      addProductToCart(productId: ID!, cartId: ID!, userId: ID!): Cart!
+      removeProductFromCart(productId: ID!, cartId: ID!): Cart!
+  }
 `;

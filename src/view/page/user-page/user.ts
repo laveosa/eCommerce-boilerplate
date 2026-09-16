@@ -1,6 +1,6 @@
 import { UserApiService } from "#public/js/api-service/user-api-service.js";
 
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { UserModel } from "#src/const/scheme/zod-schemas/UserScheme.js";
 import type { IUserForm } from "#src/const/interface/IUserForm.js";
 
 document.addEventListener("DOMContentLoaded", () => {

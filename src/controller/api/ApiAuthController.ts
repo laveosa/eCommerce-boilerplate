@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import AuthService from "#src/service/AuthService.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import type { IApiAuthController } from "#src/const/interface/IApiAuthController.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
 
 class ApiAuthController {
   private static authService = new AuthService();

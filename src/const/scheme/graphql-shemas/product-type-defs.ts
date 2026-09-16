@@ -1,9 +1,34 @@
 export const productTypeDefs = `#graphql
-  type Model{}
+  type Product {
+      id: ID!
+      title: String!
+      imageUrl: String!
+      description: String!
+      price: Int!
+      quantity: Int
+      inCart: Boolean
+  }
   
-  type InputModel{}
+  input ProductInput {
+      id: ID
+      title: String!
+      imageUrl: String
+      description: String!
+      price: Int!
+      quantity: Int
+      inCart: Boolean
+  }
   
-  extend type Query{}
+  extend type Query {
+      products: [Product!]!
+      product: Product!
+  }
   
-  extend type Mutation{}
+  extend type Mutation {
+      addProducts(data: [ProductInput!]!): [Product!]!
+      addProduct(data: ProductInput!): Product!
+      updateProduct(data: ProductInput!): Product!
+      deleteProduct(id: ID!): Product!
+      deleteProducts(data: [ProductInput!]!): [Product!]!
+  }
 `;

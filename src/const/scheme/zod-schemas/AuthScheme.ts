@@ -17,5 +17,3 @@ export const AuthScheme = z.object({
     )
     .optional(),
 });
-
-export type AuthModel = z.infer<typeof AuthScheme>;

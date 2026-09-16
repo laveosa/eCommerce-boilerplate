@@ -1,4 +1,4 @@
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
 
 export interface IUserService {
   // --------------------------------------------- CRUD

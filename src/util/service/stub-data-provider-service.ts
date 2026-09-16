@@ -1,8 +1,8 @@
 import FsService from "#src/util/service/fs-service.js";
-import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
-import type { CartModel } from "#src/const/scheme/CartScheme.js";
-import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
+import type { ProductModel } from "#src/const/model/ProductModel.js";
+import type { CartModel } from "#src/const/model/CartModel.js";
+import type { OrderModel } from "#src/const/model/OrderModel.js";
 
 const USER_PATH = "./src/const/json/user.json";
 const PRODUCTS_PATH = "./src/const/json/products.json";

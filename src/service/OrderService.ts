@@ -1,7 +1,7 @@
-import { Order } from "#src/const/model/OrderModel.js";
+import { Order } from "#src/const/scheme/mongoose-db-schemas/OrderDbSchema.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IOrderService } from "#src/const/interface/IOrderService.js";
-import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
+import type { OrderModel } from "#src/const/model/OrderModel.js";
 
 export default class OrderService implements IOrderService {
   async set(data: OrderModel[]): Promise<OrderModel[]> {

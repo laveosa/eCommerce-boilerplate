@@ -4,8 +4,8 @@ import ProductService from "#src/service/ProductService.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import { getStubProducts } from "#src/util/service/stub-data-provider-service.js";
 import type { IApiProductController } from "#src/const/interface/IApiProductController.js";
-import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
+import type { ProductModel } from "#src/const/model/ProductModel.js";
 
 class ApiProductController {
   private static productService = new ProductService();

@@ -3,7 +3,7 @@ import { type Request, type Response, Router } from "express";
 
 import ApiProductController from "#src/controller/api/ApiProductController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
-import { ProductScheme } from "#src/const/scheme/ProductScheme.js";
+import { ProductScheme } from "#src/const/scheme/zod-schemas/ProductScheme.js";
 import { uploadProductImage } from "#src/util/middleware/file-upload.js";
 
 const apiProductRoute = Router();

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { CartModel } from "#src/const/scheme/CartScheme.js";
+import type { CartModel } from "#src/const/scheme/zod-schemas/CartScheme.js";
 
 const BASE_URL = "/api/cart";
 

@@ -1,5 +1,4 @@
 import { ProductApiService } from "#public/js/api-service/product-api-service.js";
-import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const formElem = document.querySelector<HTMLFormElement>(".product-form");

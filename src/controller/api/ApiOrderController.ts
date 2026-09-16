@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import OrderService from "#src/service/OrderService.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import type { IApiOrderController } from "#src/const/interface/IApiOrderController.js";
-import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
+import type { OrderModel } from "#src/const/model/OrderModel.js";
 
 class ApiOrderController {
   private static orderService = new OrderService();

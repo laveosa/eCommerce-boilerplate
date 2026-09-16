@@ -3,7 +3,7 @@ import { type Request, type Response, Router } from "express";
 
 import ApiOrderController from "#src/controller/api/ApiOrderController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
-import { OrderScheme } from "#src/const/scheme/OrderScheme.js";
+import { OrderScheme } from "#src/const/scheme/zod-schemas/OrderScheme.js";
 
 const apiOrderRoute = Router();
 

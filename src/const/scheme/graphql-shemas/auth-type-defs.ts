@@ -1,9 +1,20 @@
 export const authTypeDefs = `#graphql
-    type Model{}
+    type Auth {
+        id: ID!
+        name: String!
+        email: String!
+        password: String!
+    }
 
-    type InputModel{}
+    input AuthInput {
+        id: ID!
+        name: String!
+        email: String!
+        password: String!
+    }
 
-    extend type Query{}
-
-    extend type Mutation{}
+    extend type Mutation {
+        signIn(data: AuthInput!): User!
+        register(data: AuthInput!): User!
+    }
 `;

@@ -1,8 +1,8 @@
 import { ProductCard } from "#src/view/include/component/product-card/product-card.js";
 import { CartApiService } from "#public/js/api-service/cart-api-service.js";
 import { OrderApiService } from "#public/js/api-service/order-api-service.js";
-import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { OrderModel } from "#src/const/scheme/zod-schemas/OrderScheme.js";
+import type { UserModel } from "#src/const/scheme/zod-schemas/UserScheme.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // ========================================================== CARD INFO BLOCK

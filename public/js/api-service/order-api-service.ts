@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
+import type { OrderModel } from "#src/const/scheme/zod-schemas/OrderScheme.js";
 
 const BASE_URL = "/api/order";
 

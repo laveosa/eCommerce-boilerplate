@@ -1,9 +1,9 @@
-import { Product } from "#src/const/model/ProductModel.js";
+import { Product } from "#src/const/scheme/mongoose-db-schemas/ProductDbSchema.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
-import type { IProductService } from "#src/const/interface/IProductService.js";
-import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
-import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
 import { deleteFile } from "#src/util/helper/quick-helper.js";
+import type { IProductService } from "#src/const/interface/IProductService.js";
+import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
+import type { ProductModel } from "#src/const/model/ProductModel.js";
 
 export default class ProductService implements IProductService {
   async set(data: ProductModel[]): Promise<ProductModel[]> {

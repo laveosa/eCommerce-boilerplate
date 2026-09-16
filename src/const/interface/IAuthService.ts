@@ -1,5 +1,5 @@
-import type { AuthModel } from "#src/const/scheme/AuthScheme.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { AuthModel } from "#src/const/model/AuthModel.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
 
 export interface IAuthService {
   register(data: AuthModel): Promise<UserModel>;

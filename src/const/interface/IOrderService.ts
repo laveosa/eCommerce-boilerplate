@@ -1,4 +1,4 @@
-import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
+import type { OrderModel } from "#src/const/model/OrderModel.js";
 
 export interface IOrderService {
   // --------------------------------------------- CRUD

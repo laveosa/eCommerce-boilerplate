@@ -26,5 +26,3 @@ export const ProductScheme = z.object({
     .optional(),
   inCart: z.boolean().optional(),
 });
-
-export type ProductModel = z.infer<typeof ProductScheme>;

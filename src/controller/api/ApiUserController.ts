@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import UserService from "#src/service/UserService.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import type { IApiUserController } from "#src/const/interface/IApiUserController.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
 
 class ApiUserController {
   private static userService = new UserService();

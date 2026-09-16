@@ -3,7 +3,7 @@ import { type Request, type Response, Router } from "express";
 
 import ApiUserController from "#src/controller/api/ApiUserController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
-import { UserScheme } from "#src/const/scheme/UserScheme.js";
+import { UserScheme } from "#src/const/scheme/zod-schemas/UserScheme.js";
 
 const apiUserRoute = Router();
 

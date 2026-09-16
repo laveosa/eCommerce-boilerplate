@@ -3,7 +3,7 @@ import { type Request, type Response, Router } from "express";
 
 import ApiCartController from "#src/controller/api/ApiCartController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
-import { CartScheme } from "#src/const/scheme/CartScheme.js";
+import { CartScheme } from "#src/const/scheme/zod-schemas/CartScheme.js";
 
 const apiCartRoute = Router();
 

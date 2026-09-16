@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { UserModel } from "#src/const/scheme/zod-schemas/UserScheme.js";
 
 const BASE_URL = "/api/auth";
 

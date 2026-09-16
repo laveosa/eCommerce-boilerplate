@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import CartService from "#src/service/CartService.js";
 import { isApiError } from "#src/util/helper/messages-helper.js";
 import type { IApiCartController } from "#src/const/interface/IApiCartController.js";
-import type { CartModel } from "#src/const/scheme/CartScheme.js";
+import type { CartModel } from "#src/const/model/CartModel.js";
 
 class ApiCartController {
   private static cartService = new CartService();

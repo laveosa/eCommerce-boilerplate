@@ -1,4 +1,4 @@
-import type { CartModel } from "#src/const/scheme/CartScheme.js";
+import type { CartModel } from "#src/const/model/CartModel.js";
 
 export interface ICartService {
   // --------------------------------------------- CRUD

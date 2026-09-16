@@ -30,5 +30,3 @@ export const UserScheme = z.object({
   role: z.enum(RoleEnum).default(RoleEnum.USER),
   status: z.enum(UserStatusEnum).default(UserStatusEnum.ACTIVE),
 });
-
-export type UserModel = z.infer<typeof UserScheme>;

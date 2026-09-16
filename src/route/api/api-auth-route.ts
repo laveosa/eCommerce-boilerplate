@@ -2,7 +2,7 @@ import { type Request, type Response, Router } from "express";
 
 import ApiAuthController from "#src/controller/api/ApiAuthController.js";
 import { validateBody } from "#src/util/middleware/validateBody.js";
-import { AuthScheme } from "#src/const/scheme/AuthScheme.js";
+import { AuthScheme } from "#src/const/scheme/zod-schemas/AuthScheme.js";
 
 const apiAuthRoute = Router();
 

@@ -66,6 +66,7 @@ app.use("/", webMasterRoute);
 
 const startServer = async (): Promise<void> => {
   await connectDB();
+  await apolloServer.start();
 
   app.use(
     "/graphql",
@@ -74,9 +75,12 @@ const startServer = async (): Promise<void> => {
     expressMiddleware(apolloServer),
   );
 
-  app.listen(PORT, () =>
-    console.log(`[SERVER]: server running on port: ${PORT}`),
-  );
+  app.listen(PORT, () => {
+    console.log(`[SERVER]: Server running on http://localhost:${PORT}`);
+    console.log(
+      `[GRAPHQL]: Endpoint ready at http://localhost:${PORT}/graphql`,
+    );
+  });
 };
 
 await startServer();

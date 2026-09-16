@@ -1,34 +1,5 @@
-import mongoose, { type Model, Schema } from "mongoose";
+import { z } from "zod";
 
-import { defaultSchemaOptions } from "#src/util/config/mongoose-options.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { UserScheme } from "#src/const/scheme/zod-schemas/UserScheme.js";
 
-export const UserDbSchema = new Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    address: {
-      type: String,
-      trim: true,
-    },
-  },
-  defaultSchemaOptions,
-);
-
-export const User: Model<UserModel> = mongoose.model<UserModel>(
-  "User",
-  UserDbSchema,
-);
+export type UserModel = z.infer<typeof UserScheme>;

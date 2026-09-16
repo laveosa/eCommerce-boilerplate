@@ -1,5 +1,5 @@
-import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
 import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
+import type { ProductModel } from "#src/const/model/ProductModel.js";
 
 export interface IProductService {
   // --------------------------------------------- CRUD

@@ -1,9 +1,9 @@
 import PasswordHashService from "#src/util/service/password-hash-service.js";
-import { User } from "#src/const/model/UserModel.js";
+import { User } from "#src/const/scheme/mongoose-db-schemas/UserDbSchema.js";
 import { getErrorModel } from "#src/util/helper/messages-helper.js";
 import type { IAuthService } from "#src/const/interface/IAuthService.js";
-import type { AuthModel } from "#src/const/scheme/AuthScheme.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { AuthModel } from "#src/const/model/AuthModel.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
 
 export default class AuthService implements IAuthService {
   async register(data: AuthModel): Promise<UserModel> {

@@ -10,10 +10,10 @@ import { isApiError } from "#src/util/helper/messages-helper.js";
 import { WebUrlEnum, WebUrlEnum as wu } from "#src/const/enum/WebUrlEnum.js";
 import { RoleEnum } from "#src/const/enum/RoleEnum.js";
 import type { IPageInfoAction } from "#src/const/interface/IPageInfoAction.js";
-import type { CartModel } from "#src/const/scheme/CartScheme.js";
-import type { ProductModel } from "#src/const/scheme/ProductScheme.js";
-import type { OrderModel } from "#src/const/scheme/OrderScheme.js";
-import type { UserModel } from "#src/const/scheme/UserScheme.js";
+import type { CartModel } from "#src/const/model/CartModel.js";
+import type { OrderModel } from "#src/const/model/OrderModel.js";
+import type { ProductModel } from "#src/const/model/ProductModel.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
 
 const rootPath = "./src/view/page";
 

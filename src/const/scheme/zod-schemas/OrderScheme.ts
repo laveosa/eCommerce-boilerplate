@@ -11,5 +11,3 @@ export const OrderScheme = z.object({
     .max(400, "Order 'address' length muse be less then 400 symbols!")
     .optional(),
 });
-
-export type OrderModel = z.infer<typeof OrderScheme>;
