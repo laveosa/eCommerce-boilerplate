@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import type { ProductModel } from "#src/const/scheme/zod-schemas/ProductScheme.js";
 import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
+import type { ProductModel } from "#src/const/model/ProductModel.js";
 
 const BASE_URL = "/api/product";
 
