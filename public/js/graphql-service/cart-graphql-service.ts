@@ -1,8 +1,23 @@
 import axios from "axios";
 
+import { productQuery } from "#public/js/graphql-service/product-graphql-service.js";
+import { userQuery } from "#public/js/graphql-service/user-graphql-service.js";
 import type { CartModel } from "#src/const/model/CartModel.js";
 
 const GRAPHQL_URL = "/graphql";
+export const cartQuery = `
+  id
+  userId
+  user {
+    ${userQuery}
+  }
+  products {
+    ${productQuery}
+  }
+  registerDate
+  totalItems
+  totalPrice
+`;
 
 async function graphqlRequest<T>(
   query: string,
@@ -28,12 +43,7 @@ export class CartGraphqlService {
     const query = `
       query GetAllCarts {
         carts {
-          id
-          userId
-          items {
-            productId
-            quantity
-          }
+          ${cartQuery}
         }
       }
     `;
@@ -51,12 +61,7 @@ export class CartGraphqlService {
     const query = `
       query GetCart($id: ID!) {
         cart(id: $id) {
-          id
-          userId
-          items {
-            productId
-            quantity
-          }
+          ${cartQuery}
         }
       }
     `;
@@ -74,12 +79,7 @@ export class CartGraphqlService {
     const query = `
       mutation AddCart($data: CartInput!) {
         addCart(data: $data) {
-          id
-          userId
-          items {
-            productId
-            quantity
-          }
+          ${cartQuery}
         }
       }
     `;
@@ -99,12 +99,7 @@ export class CartGraphqlService {
     const query = `
       mutation SetAllCarts($data: [CartInput!]!) {
         setAllCarts(data: $data) {
-          id
-          userId
-          items {
-            productId
-            quantity
-          }
+          ${cartQuery}
         }
       }
     `;
@@ -124,12 +119,7 @@ export class CartGraphqlService {
     const query = `
       mutation UpdateCart($data: CartInput!) {
         updateCart(data: $data) {
-          id
-          userId
-          items {
-            productId
-            quantity
-          }
+          ${cartQuery}
         }
       }
     `;
@@ -149,8 +139,7 @@ export class CartGraphqlService {
     const query = `
       mutation DeleteCart($id: ID!) {
         deleteCart(id: $id) {
-          id
-          userId
+          ${cartQuery}
         }
       }
     `;
@@ -172,12 +161,7 @@ export class CartGraphqlService {
     const query = `
       query GetCartByUserId($userId: ID!) {
         cartByUserId(userId: $userId) {
-          id
-          userId
-          items {
-            productId
-            quantity
-          }
+          ${cartQuery}
         }
       }
     `;
@@ -204,7 +188,7 @@ export class CartGraphqlService {
     const query = `
       mutation AddProductToCart($productId: ID!, $cartId: ID, $userId: ID!) {
         addProductToCart(productId: $productId, cartId: $cartId, userId: $userId) {
-          id
+          ${cartQuery}
         }
       }
     `;
@@ -235,7 +219,7 @@ export class CartGraphqlService {
     const query = `
       mutation RemoveProductFromCart($productId: ID!, $cartId: ID!) {
         removeProductFromCart(productId: $productId, cartId: $cartId) {
-          id
+          ${cartQuery}
         }
       }
     `;

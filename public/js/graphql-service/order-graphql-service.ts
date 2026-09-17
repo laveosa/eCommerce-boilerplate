@@ -1,8 +1,23 @@
 import axios from "axios";
 
+import { userQuery } from "#public/js/graphql-service/user-graphql-service.js";
+import { cartQuery } from "#public/js/graphql-service/cart-graphql-service.js";
 import type { OrderModel } from "#src/const/model/OrderModel.js";
 
 const GRAPHQL_URL = "/graphql";
+export const orderQuery = `
+  id
+  userId
+  user: {
+    ${userQuery}
+  }
+  cartId
+  cart: {
+    ${cartQuery}
+  }
+  registerDate
+  address
+`;
 
 async function graphqlRequest<T>(
   query: string,
@@ -28,15 +43,7 @@ export class OrderGraphqlService {
     const query = `
       mutation AddOrder($data: OrderInput!) {
         addOrder(data: $data) {
-          id
-          userId
-          totalPrice
-          createdAt
-          items {
-            productId
-            quantity
-            price
-          }
+          ${orderQuery}
         }
       }
     `;
@@ -57,8 +64,7 @@ export class OrderGraphqlService {
     const query = `
       mutation DeleteOrder($id: ID!) {
         deleteOrder(id: $id) {
-          id
-          userId
+          ${orderQuery}
         }
       }
     `;

@@ -4,6 +4,15 @@ import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js"
 import type { ProductModel } from "#src/const/model/ProductModel.js";
 
 const GRAPHQL_URL = "/graphql";
+export const productQuery = `
+  id
+  title
+  imageUrl
+  description
+  price
+  quantity
+  inCart
+`;
 
 async function graphqlRequest<T>(
   query: string,
@@ -35,13 +44,7 @@ export class ProductGraphqlService {
       query GetProducts($search: String, $page: Int, $perPage: Int) {
         products(search: $search, page: $page, perPage: $perPage) {
           data {
-            id
-            title
-            imageUrl
-            description
-            price
-            quantity
-            inCart
+            ${productQuery}
           }
           pagination {
             current
@@ -77,13 +80,7 @@ export class ProductGraphqlService {
     const query = `
       query GetProduct($id: ID!) {
         product(id: $id) {
-          id
-          title
-          imageUrl
-          description
-          price
-          quantity
-          inCart
+          ${productQuery}
         }
       }
     `;
@@ -105,13 +102,7 @@ export class ProductGraphqlService {
     const query = `
       mutation AddProduct($data: ProductInput!) {
         addProduct(data: $data) {
-          id
-          title
-          imageUrl
-          description
-          price
-          quantity
-          inCart
+          ${productQuery}
         }
       }
     `;
@@ -133,13 +124,7 @@ export class ProductGraphqlService {
     const query = `
       mutation SetAllProducts($data: [ProductInput!]!) {
         setAllProducts(data: $data) {
-          id
-          title
-          imageUrl
-          description
-          price
-          quantity
-          inCart
+          ${productQuery}
         }
       }
     `;
@@ -162,13 +147,7 @@ export class ProductGraphqlService {
     const query = `
       mutation UpdateProduct($data: ProductInput!) {
         updateProduct(data: $data) {
-          id
-          title
-          imageUrl
-          description
-          price
-          quantity
-          inCart
+          ${productQuery}
         }
       }
     `;
@@ -191,13 +170,7 @@ export class ProductGraphqlService {
     const query = `
       mutation DeleteProduct($id: ID!) {
         deleteProduct(id: $id) {
-          id
-          title
-          imageUrl
-          description
-          price
-          quantity
-          inCart
+          ${productQuery}
         }
       }
     `;
@@ -218,13 +191,7 @@ export class ProductGraphqlService {
     const query = `
       mutation DeleteAllProducts {
         deleteAllProducts {
-          id
-          title
-          imageUrl
-          description
-          price
-          quantity
-          inCart
+          ${productQuery}
         }
       }
     `;
@@ -249,13 +216,7 @@ export class ProductGraphqlService {
     const query = `
       mutation GenerateProducts {
         generateProducts {
-          id
-          title
-          imageUrl
-          description
-          price
-          quantity
-          inCart
+          ${productQuery}
         }
       }
     `;

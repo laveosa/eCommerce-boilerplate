@@ -1,6 +1,14 @@
 import axios from "axios";
 
 const GRAPHQL_URL = "/graphql";
+export const userQuery = `
+  id
+  name
+  email
+  address
+  role
+  status
+`;
 
 async function graphqlRequest<T>(
   query: string,
