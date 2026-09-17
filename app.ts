@@ -1,6 +1,8 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import helmet from "helmet";
+import compression from "compression";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@as-integrations/express5";
 
@@ -58,6 +60,27 @@ app.use("/src", express.static(pathResolve("./src"), { maxAge: "1d" }));
 app.use("/src", express.static(pathResolve("./dist/src"), { maxAge: "1d" }));
 
 app.use(attachUserMiddleware);
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+        scriptSrcAttr: ["'unsafe-inline'"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://cdn.jsdelivr.net",
+          "https://fonts.googleapis.com",
+        ],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'", "https://cdn.jsdelivr.net"],
+      },
+    },
+  }),
+);
+app.use(compression());
 
 const startServer = async (): Promise<void> => {
   await connectDB();
