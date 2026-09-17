@@ -1,6 +1,6 @@
 function executeSearch(searchTerm: string) {
   const currentUrlParams = new URLSearchParams(window.location.search);
-  const perPage = currentUrlParams.get("perPage") || "5";
+  const perPage = currentUrlParams.get("perPage") || "6";
   const trimmedSearch = searchTerm.trim();
 
   if (trimmedSearch) {
@@ -46,7 +46,7 @@ addEventListener("DOMContentLoaded", () => {
     if (value.trim() !== currentSearch) {
       executeSearch(value);
     }
-  }, 300);
+  }, 900);
 
   searchInput.addEventListener("input", (event: Event) => {
     const target = event.target as HTMLInputElement;

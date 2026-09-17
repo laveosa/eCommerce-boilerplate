@@ -1,7 +1,8 @@
 export const cartTypeDefs = `#graphql
   type Cart{
       id: ID!
-      user: User!
+      userId: ID!
+      user: User
       registerDate: String
       products: [Product!]
       totalItems: Int
@@ -27,7 +28,7 @@ export const cartTypeDefs = `#graphql
       addCart(data: CartInput!): Cart!
       updateCart(data: CartInput!): Cart!
       deleteCart(id: ID!): Cart!
-      addProductToCart(productId: ID!, cartId: ID!, userId: ID!): Cart!
+      addProductToCart(productId: ID!, cartId: ID, userId: ID!): Cart!
       removeProductFromCart(productId: ID!, cartId: ID!): Cart!
   }
 `;

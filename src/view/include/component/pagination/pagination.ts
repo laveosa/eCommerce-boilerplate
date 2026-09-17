@@ -1,11 +1,11 @@
-import { ProductApiService } from "#public/js/api-service/product-api-service.js";
+import { ProductGraphqlService } from "#public/js/graphql-service/product-graphql-service.js";
 
 async function handlePaginationChange(targetPage: number, perPage: number) {
   const currentUrlParams = new URLSearchParams(window.location.search);
   const search = currentUrlParams.get("search") || "";
 
   try {
-    await ProductApiService.getAllProducts(search, targetPage, perPage);
+    await ProductGraphqlService.getAllProducts(search, targetPage, perPage);
 
     currentUrlParams.set("page", targetPage.toString());
     currentUrlParams.set("perPage", perPage.toString());

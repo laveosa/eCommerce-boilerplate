@@ -1,5 +1,5 @@
 import { ProductCard } from "#src/view/include/component/product-card/product-card.js";
-import { CartApiService } from "#public/js/api-service/cart-api-service.js";
+import { CartGraphqlService } from "#public/js/graphql-service/cart-graphql-service.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const collection = document.querySelectorAll<HTMLElement>(
@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
         location.replace(`/product-details/${id}`);
       },
       onAddToCart: async (productId, cartId, userId) => {
-        await CartApiService.addProductToCart(productId, cartId, userId);
+        await CartGraphqlService.addProductToCart(productId, cartId, userId);
         location.reload();
       },
       onRemoveFromCart: async (productId, cartId) => {
-        await CartApiService.removeProductFromCart(productId, cartId);
+        await CartGraphqlService.removeProductFromCart(productId, cartId);
         location.reload();
       },
     });
