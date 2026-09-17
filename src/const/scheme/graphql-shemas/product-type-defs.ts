@@ -1,10 +1,28 @@
 export const productTypeDefs = `#graphql
-  type Product {
+    type PaginationQuery {
+        current: Int
+        total: Int
+        prevPage: Int
+        nextPage: Int
+        perPage: Int
+    }
+
+    type PaginatedFilters {
+        search: String
+    }
+
+    type PaginatedResult {
+        data: [Product!]
+        pagination: PaginationQuery!
+        filters: PaginatedFilters
+    }
+
+    type Product {
       id: ID!
       title: String!
       imageUrl: String!
       description: String!
-      price: Int!
+      price: Float!
       quantity: Int
       inCart: Boolean
   }
@@ -20,8 +38,8 @@ export const productTypeDefs = `#graphql
   }
   
   extend type Query {
-      products: [Product!]!
-      product: Product!
+      products(search: String, page: Int, perPage: Int): PaginatedResult!
+      product(id: ID!): Product!
   }
   
   extend type Mutation {

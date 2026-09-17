@@ -23,7 +23,7 @@ async function graphqlRequest<T>(
   return response.data.data;
 }
 
-export class ProductApiService {
+export class ProductGraphqlService {
   // --------------------------------------------- CRUD
 
   static async getAllProducts(
@@ -34,7 +34,7 @@ export class ProductApiService {
     const query = `
       query GetProducts($search: String, $page: Int, $perPage: Int) {
         products(search: $search, page: $page, perPage: $perPage) {
-          items {
+          data {
             id
             title
             imageUrl
@@ -43,9 +43,16 @@ export class ProductApiService {
             quantity
             inCart
           }
-          totalItems
-          currentPage
-          totalPages
+          pagination {
+            current
+            total
+            prevPage
+            nextPage
+            perPage
+          }
+          filters {
+            search
+          }
         }
       }
     `;
@@ -58,6 +65,7 @@ export class ProductApiService {
         page,
         perPage,
       });
+
       return data.products;
     } catch (error: any) {
       console.error("[API ERROR]: Failed to fetch products", error.message);

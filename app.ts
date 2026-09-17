@@ -10,7 +10,6 @@ import { pathResolve } from "#src/util/helper/path-helper.js";
 import { connectDB } from "#src/util/config/mongo-db-config.js";
 import { attachUserMiddleware } from "#src/util/middleware/attach-user-middleware.js";
 import { cookieSessionMiddleware } from "#src/util/middleware/cookie-session-middleware.js";
-import { mongoSessionMiddleware } from "#src/util/middleware/mongo-session-middleware.js";
 import {
   csrfProtection,
   getCsrfToken,
@@ -33,7 +32,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET || "your-secret-key-1"));
 
 app.use(cookieSessionMiddleware);
-// app.use(mongoSessionMiddleware);
 
 app.use(csrfProtection);
 app.use((req, res, next) => {
@@ -61,9 +59,6 @@ app.use("/src", express.static(pathResolve("./dist/src"), { maxAge: "1d" }));
 
 app.use(attachUserMiddleware);
 
-app.use("/api", apiMasterRoute);
-app.use("/", webMasterRoute);
-
 const startServer = async (): Promise<void> => {
   await connectDB();
   await apolloServer.start();
@@ -74,6 +69,8 @@ const startServer = async (): Promise<void> => {
     express.json(),
     expressMiddleware(apolloServer),
   );
+  app.use("/api", apiMasterRoute);
+  app.use("/", webMasterRoute);
 
   app.listen(PORT, () => {
     console.log(`[SERVER]: Server running on http://localhost:${PORT}`);
