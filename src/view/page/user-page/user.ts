@@ -1,7 +1,6 @@
-import { UserApiService } from "#public/js/api-service/user-api-service.js";
-
 import type { IUserForm } from "#src/const/interface/IUserForm.js";
 import type { UserModel } from "#src/const/model/UserModel.js";
+import { UserGraphqlService } from "#public/js/graphql-service/user-graphql-service.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const userPageEl = document.getElementById("UserPage") as HTMLElement | null;
@@ -53,7 +52,7 @@ async function updateUserName(
   if (sourceUser.name === formUser.name || !formUser.name?.trim()) {
     return false;
   }
-  await UserApiService.updateName(sourceUser.id, formUser.name);
+  await UserGraphqlService.updateName(sourceUser.id, formUser.name);
   return true;
 }
 
@@ -64,7 +63,7 @@ async function updateUserAddress(
   if (sourceUser.address === formUser.address || !formUser.address?.trim()) {
     return false;
   }
-  await UserApiService.updateAddress(sourceUser.id, formUser.address);
+  await UserGraphqlService.updateAddress(sourceUser.id, formUser.address);
   return true;
 }
 
@@ -78,6 +77,6 @@ async function updateUserPassword(
   ) {
     return false;
   }
-  await UserApiService.updatePassword(sourceUser.id, formUser.newPassword);
+  await UserGraphqlService.updatePassword(sourceUser.id, formUser.newPassword);
   return true;
 }

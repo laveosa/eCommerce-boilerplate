@@ -31,8 +31,8 @@ async function graphqlRequest<T>(
 export class UserGraphqlService {
   static async updateName(id: string, value: string): Promise<boolean> {
     const query = `
-      mutation UpdateName($id: ID!, $value: String!) {
-        updateName(id: $id, value: $value)
+      mutation UpdateUserName($id: ID!, $value: String!) {
+        updateUserName(id: $id, value: $value)
       }
     `;
 
@@ -50,8 +50,8 @@ export class UserGraphqlService {
 
   static async updateAddress(id: string, value: string): Promise<boolean> {
     const query = `
-      mutation UpdateAddress($id: ID!, $value: String!) {
-        updateAddress(id: $id, value: $value)
+      mutation UpdateUserAddress($id: ID!, $value: String!) {
+        updateUserAddress(id: $id, value: $value)
       }
     `;
 
@@ -69,8 +69,8 @@ export class UserGraphqlService {
 
   static async updatePassword(id: string, value: string): Promise<boolean> {
     const query = `
-      mutation UpdatePassword($id: ID!, $value: String!) {
-        updatePassword(id: $id, value: $value)
+      mutation UpdateUserPassword($id: ID!, $value: String!) {
+        updateUserPassword(id: $id, value: $value)
       }
     `;
 
