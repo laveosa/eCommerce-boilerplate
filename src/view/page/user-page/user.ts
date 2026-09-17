@@ -1,7 +1,7 @@
 import { UserApiService } from "#public/js/api-service/user-api-service.js";
 
-import type { UserModel } from "#src/const/scheme/zod-schemas/UserScheme.js";
 import type { IUserForm } from "#src/const/interface/IUserForm.js";
+import type { UserModel } from "#src/const/model/UserModel.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const userPageEl = document.getElementById("UserPage") as HTMLElement | null;
