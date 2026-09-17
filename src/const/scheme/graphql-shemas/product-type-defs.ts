@@ -47,6 +47,6 @@ export const productTypeDefs = `#graphql
       addProduct(data: ProductInput!): Product!
       updateProduct(data: ProductInput!): Product!
       deleteProduct(id: ID!): Product!
-      deleteProducts(data: [ProductInput!]!): [Product!]!
+      deleteProducts: [Product!]!
   }
 `;

@@ -19,7 +19,7 @@ export const cartResolver = {
       }: { search?: string; page?: number; perPage?: number },
     ): Promise<IPaginatedResult<ProductModel>> => {
       try {
-        return productService.get(search, page, perPage);
+        return await productService.get(search, page, perPage);
       } catch (err) {
         throw isApiError(err)
           ? err.message

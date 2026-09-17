@@ -188,7 +188,7 @@ export class CartGraphqlService {
     const query = `
       mutation AddProductToCart($productId: ID!, $cartId: ID, $userId: ID!) {
         addProductToCart(productId: $productId, cartId: $cartId, userId: $userId) {
-          ${cartQuery}
+          id
         }
       }
     `;
@@ -219,7 +219,7 @@ export class CartGraphqlService {
     const query = `
       mutation RemoveProductFromCart($productId: ID!, $cartId: ID!) {
         removeProductFromCart(productId: $productId, cartId: $cartId) {
-          ${cartQuery}
+          id
         }
       }
     `;

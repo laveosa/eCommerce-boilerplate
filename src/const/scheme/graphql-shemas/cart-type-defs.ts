@@ -6,7 +6,7 @@ export const cartTypeDefs = `#graphql
       registerDate: String
       products: [Product!]
       totalItems: Int
-      totalPrice: Int
+      totalPrice: Float
   }
   
   input CartInput{

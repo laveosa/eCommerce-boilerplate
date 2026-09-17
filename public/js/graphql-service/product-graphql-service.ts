@@ -187,10 +187,10 @@ export class ProductGraphqlService {
     }
   }
 
-  static async deleteAllProduct(): Promise<ProductModel[]> {
+  static async deleteProducts(): Promise<ProductModel[]> {
     const query = `
-      mutation DeleteAllProducts {
-        deleteAllProducts {
+      mutation deleteProducts {
+        deleteProducts {
           ${productQuery}
         }
       }

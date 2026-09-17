@@ -4,6 +4,8 @@ import { deleteFile } from "#src/util/helper/quick-helper.js";
 import type { IProductService } from "#src/const/interface/IProductService.js";
 import type { IPaginatedResult } from "#src/const/interface/IPaginatedResult.js";
 import type { ProductModel } from "#src/const/model/ProductModel.js";
+import { Cart } from "#src/const/scheme/mongoose-db-schemas/CartDbSchema.js";
+import { Order } from "#src/const/scheme/mongoose-db-schemas/OrderDbSchema.js";
 
 export default class ProductService implements IProductService {
   async set(data: ProductModel[]): Promise<ProductModel[]> {
@@ -165,6 +167,8 @@ export default class ProductService implements IProductService {
     }
 
     try {
+      await Order.deleteMany({});
+      await Cart.deleteMany({});
       await Product.deleteMany({});
       return productsToDelete.map((p) => p.toObject<ProductModel>());
     } catch (err) {

@@ -1,5 +1,5 @@
 import { ProductCard } from "#src/view/include/component/product-card/product-card.js";
-import { ProductApiService } from "#public/js/api-service/product-api-service.js";
+import { ProductGraphqlService } from "#public/js/graphql-service/product-graphql-service.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const deleteAllBtn =
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (deleteAllBtn) {
     deleteAllBtn.addEventListener("click", async () => {
-      await ProductApiService.deleteAllProduct();
+      await ProductGraphqlService.deleteProducts();
       location.replace("/product-admin");
     });
   }
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         location.replace(`/edit-product/${productId}`);
       },
       onDelete: async (productId: string) => {
-        await ProductApiService.deleteProduct(productId);
+        await ProductGraphqlService.deleteProduct(productId);
         location.reload();
       },
     });
